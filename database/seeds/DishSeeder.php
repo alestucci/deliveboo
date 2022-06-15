@@ -41,7 +41,7 @@ class DishSeeder extends Seeder
             for ($i=0; $i <= rand(5, 10); $i++) {
     
                 $allergies = [
-                    'glutine',
+                    'Glutine',
                     'Crostacei e derivati',
                     'Uova e derivati',
                     'Pesce e derivati',
@@ -69,7 +69,7 @@ class DishSeeder extends Seeder
                     'description'   => $faker->paragraph(),
                     'ingredients'   => implode(', ', $faker->randomElements($randomIngredient, rand(2, 4))), 
                     'allergies'     => implode(', ', $faker->randomElements($allergies, rand(0, 5))),
-                    'price'         => rand(3, 9)*100,
+                    'price'         => rand(30, 99)*10,
                     'user_id'       => $user->id,
                 ]);
             }

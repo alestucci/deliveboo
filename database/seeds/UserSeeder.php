@@ -27,8 +27,8 @@ class UserSeeder extends Seeder
                 'password'      => Hash::make('ciao'),
 
                 'street'        => $faker->streetAddress(),
-                'cap'           => $faker->postcode(),
-                'city'          => $faker->city(),
+                'cap'           => rand(20019, 20162),
+                'city'          => 'Milano',
                 'phone_number'  => $faker->phoneNumber(),
                 'p_iva'         => $faker->vat(),
 
