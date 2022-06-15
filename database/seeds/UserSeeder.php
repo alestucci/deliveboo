@@ -2,21 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
-use FakerRestaurant\Provider\it_IT\Restaurant;
+use Faker\Factory as Factory;
 use Illuminate\Support\Facades\Hash;
 use App\User;
-
-
-
-// // Generator
-// $faker->foodName();      // A random Food Name
-// $faker->beverageName();  // A random Beverage Name
-// $faker->dairyName();  // A random Dairy Name
-// $faker->vegetableName();  // A random Vegetable Name
-// $faker->fruitName();  // A random Fruit Name
-// $faker->meatName();  // A random Meat Name
-// $faker->sauceName();  // A random Sauce Name
-
 class UserSeeder extends Seeder
 {
     /**
@@ -26,18 +14,28 @@ class UserSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $faker = \Faker\Factory::create('it_IT');
-        $faker->addProvider(new Restaurant($faker));
+
+        // Localization for for Faker DON'T TOUCH
+        $faker = Factory::create('it_IT');
+
         for ($i=0; $i < 100 ; $i++) { 
             User::create([
                 'name'          => 'Ristorante da ' . $faker->unique()->firstName(),
                 'email'         => $faker->email(),
+
+                /* Password Equal Generated for all users */
                 'password'      => Hash::make('ciao'),
+
                 'street'        => $faker->streetAddress(),
                 'cap'           => $faker->postcode(),
                 'city'          => $faker->city(),
                 'phone_number'  => $faker->phoneNumber(),
                 'p_iva'         => $faker->vat(),
+
+                //How To Regex
+                //'p_iva'       => $faker->unique()->regexify('IT[0-9]{11}'),
+                //'p_iva'       => 'IT' . $faker->unique()->randomNumber(11, true);
+
                 'day_off'       => $faker->numberBetween(0, 6),
                 'closed'        => $faker->boolean(),
             ]);
