@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Dish;
 use App\Order;
-
 //DB connection to insert data into the columns
 use Illuminate\Support\Facades\DB;
 
@@ -22,47 +21,25 @@ class DishOrderSeeder extends Seeder
         //$dishes = Dish::all();
 
         foreach ($orders as $order) {
-            $orderDishes = Dish::inRandomOrder()->limit(rand(3, 7))->get();
-
-            // How to add data Bridge into extra columns
-            // $order->dishes()->attach($orderDishes->pluck('id')->all(), [
-            //     'quantity'  => rand(1, 10),
-            //     'notes'     => $faker->paragraph(),
-                
-            // ]);
-            // foreach ($orderDishes as $orderDish) {
-            $order->dishes()->attach($orderDishes->pluck('id'), [
+            $orderDish = Dish::inRandomOrder()->limit(rand(3, 7))->get();
+            $order->dishes()->attach($orderDish->pluck('id')->all(), [
                 'quantity' => 0,
-                'notes' => 'vuoto',
+                'notes'    => ''
             ]);
+        };
 
-            // }
-            
-            
-            // $dishesInOrder = $order->dishes()->get();  
-            
-            // foreach ($dishesInOrder as $dishInOrder) {
-            //     $dishInOrder->quantity = rand(1, 10);
-            //     $dishInOrder->notes = $faker->paragraph();
-            // }
-        }
-        // $orderDishCount = $order->dishes()->count();
-        $orderDishCount = DB::table('dishes')->where('id', '>', 0)->count();
-        
+            $count = DB::table('dish_order')->where('order_id', '>', 0)->count(); 
 
-        for ($i=1; $i <= $orderDishCount ; $i++) {
+            for($y=1; $y <= $count; $y++) {
 
-            $dbs = DB::table('dish_order')->where('dish_id', $i)->count();
-
-            for ($y=1; $y <= $dbs; $y++) {
-                DB::table('dish_order')->where('order_id', $y)->update([
-                    'quantity'  => rand(1, 10),
-                    //'notes'     => $faker->paragraph(),
+                DB::table('dish_order')->where('index', $y)->update([
+                    'quantity' => rand(1, 10),
+                    'notes'    => $faker->paragraph()
                 ]);
-            }
-        }
-
-
+                
+            };
+        
+        // update final_price
         for ($i=1; $i <= 1000 ; $i++) {
             
             $orderDishes = Order::find($i)->dishes()->get();
