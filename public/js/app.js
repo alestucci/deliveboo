@@ -10151,6 +10151,17 @@ defineJQueryPlugin(Toast);
 
 /***/ }),
 
+/***/ "./node_modules/jquery/dist/jquery.js":
+/*!********************************************!*\
+  !*** ./node_modules/jquery/dist/jquery.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/jquery/dist/jquery.js'");
+
+/***/ }),
+
 /***/ "./node_modules/lodash/lodash.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
@@ -40143,8 +40154,9 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 try {
-  // window.Popper = require('popper.js').default;
-  // window.$ = window.jQuery = require('jquery');
+  window.Popper = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module 'popper.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()))["default"];
+  window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 } catch (e) {}
 /**
@@ -40248,7 +40260,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: Can't find stylesheet to import.\n  ╷\n8 │ @import '~bootstrap/scss/bootstrap';\n  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  ╵\n  /Users/alessandrotucci/Desktop/github/php/deliveboo/resources/sass/app.scss 8:9  root stylesheet\n    at /Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/webpack/lib/NormalModule.js:316:20\n    at /Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/loader-runner/lib/LoaderRunner.js:367:11\n    at /Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/loader-runner/lib/LoaderRunner.js:233:18\n    at context.callback (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at /Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass-loader/dist/index.js:73:7\n    at Function.call$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:99628:16)\n    at render_closure1.call$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:85048:12)\n    at _RootZone.runBinary$3$3 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:29643:18)\n    at _FutureListener.handleError$1 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28163:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28470:49)\n    at Object._Future__propagateToListeners (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3899:77)\n    at _Future._completeError$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28316:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:27964:12)\n    at Object._asyncRethrow (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3701:17)\n    at /Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:19854:20\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3726:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:27983:12)\n    at _awaitOnObject_closure0.call$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:27977:25)\n    at _RootZone.runBinary$3$3 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:29643:18)\n    at _FutureListener.handleError$1 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28163:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28470:49)\n    at Object._Future__propagateToListeners (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3899:77)\n    at _Future._completeError$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28316:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:27964:12)\n    at Object._asyncRethrow (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3701:17)\n    at /Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:15322:20\n    at _wrapJsFunctionForAsync_closure.$protected (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3726:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:27983:12)\n    at _awaitOnObject_closure0.call$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:27977:25)\n    at _RootZone.runBinary$3$3 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:29643:18)\n    at _FutureListener.handleError$1 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28163:21)\n    at _Future__propagateToListeners_handleError.call$0 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28470:49)\n    at Object._Future__propagateToListeners (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3899:77)\n    at _Future._completeError$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:28316:9)\n    at _AsyncAwaitCompleter.completeError$2 (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:27964:12)\n    at Object._asyncRethrow (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/sass/sass.dart.js:3701:17)");
 
 /***/ }),
 

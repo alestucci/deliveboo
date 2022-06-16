@@ -19,7 +19,6 @@ class OrderSeeder extends Seeder
 
 
         for ($i=1; $i <= 1000 ; $i++) {
-            
             $orderDishes = Order::find($i)->dishes()->get();
             $final_price = 0;
             foreach ($orderDishes as $dish) { 

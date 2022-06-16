@@ -14,8 +14,13 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('Siamo loggati grazie ad Alessandro Ballabio') }}
                 </div>
+
+                <a href="#!" class="btn btn-primary">
+                    Dashboard
+                </a>
+                
             </div>
         </div>
     </div>
