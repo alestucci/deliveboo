@@ -19,8 +19,9 @@ class UserSeeder extends Seeder
         $faker = Factory::create('it_IT');
 
         for ($i=0; $i < 100 ; $i++) { 
+            $name = 'Ristorante da ' . $faker->unique()->firstName();
             User::create([
-                'name'          => 'Ristorante da ' . $faker->unique()->firstName(),
+                'name'          => $name,
                 'email'         => $faker->email(),
 
                 /* Password Equal Generated for all users */
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 'city'          => 'Milano',
                 'phone_number'  => $faker->phoneNumber(),
                 'p_iva'         => $faker->vat(),
+                'slug'          => User::generateSlug($name),
 
                 //How To Regex
                 //'p_iva'       => $faker->unique()->regexify('IT[0-9]{11}'),

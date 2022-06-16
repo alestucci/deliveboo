@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -24,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'slug', 'logo', 'street', 'cap', 'city', 'phone_number', 'p_iva', 'day_off', 'closed'
     ];
 
     /**
@@ -44,4 +45,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    static public function generateSlug($originalStr) {
+        $baseSlug = Str::of($originalStr)->slug('-')->__toString();
+        $slug = $baseSlug;
+        $_i = 1;
+        while(self::where('slug', $slug)->first()) {
+            $slug = "$baseSlug-$_i";
+            $_i++;
+        }
+        return $slug;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
