@@ -38,7 +38,7 @@ class DishSeeder extends Seeder
         foreach ($users as $user) {
             
             //Loop Dishes
-            for ($i=0; $i <= rand(5, 10); $i++) {
+            for ($i=0; $i <= rand(7, 10); $i++) {
     
                 $allergies = [
                     'Glutine',

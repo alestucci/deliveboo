@@ -21,7 +21,7 @@ class DishOrderSeeder extends Seeder
         //$dishes = Dish::all();
 
         foreach ($orders as $order) {
-            $orderDish = Dish::inRandomOrder()->limit(rand(3, 7))->get();
+            $orderDish = Dish::where('user_id', rand(1, 100))->inRandomOrder()->limit(rand(3, 7))->get();
             $order->dishes()->attach($orderDish->pluck('id')->all(), [
                 'quantity' => 0,
                 'notes'    => ''

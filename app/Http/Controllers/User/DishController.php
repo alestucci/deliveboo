@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Dish;
 use Illuminate\Http\Request;
+Use App\Http\Controllers\Controller;
 
 class DishController extends Controller
 {

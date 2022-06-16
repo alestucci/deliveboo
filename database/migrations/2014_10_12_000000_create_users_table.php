@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('slug', 100)->nullable();
             $table->tinyInteger('day_off');
             $table->boolean('closed')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
