@@ -14,10 +14,25 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('homepage');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware('auth')
+    ->namespace('Admin')
+    ->name('admin.')
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/', 'HomeController@index')->name('home');
+        Route::post('/slugger', 'HomeController@slugger')->name('slugger');
+        Route::resource('/users', 'UserController');
+});
+
+
+// Route::get("{any?}", function() {
+//     return view("guests.home");
+// })->where("any", ".*");
