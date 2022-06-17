@@ -26,11 +26,80 @@ body ul li ul li {
 }
 
 header {
-  color: darkmagenta;
+  height: 100px;
+  background-color: #ab3428;
+  color: #fff;
+}
+
+header h1 {
+  font-size: 40px;
+  font-family: "Permanent Marker", cursive;
+}
+
+header .container {
+  height: 100%;
 }
 
 footer {
-  color: chocolate;
+  height: 100px;
+  background-color: #f49e4c;
+  color: #ab3428;
+}
+
+footer .container {
+  height: 100%;
+}
+
+footer p span {
+  font-size: 22px;
+  font-family: "Permanent Marker", cursive;
+}
+
+main {
+  height: calc(100vh - 200px);
+  background-color: #c1c1c1;
+}
+
+main h1 {
+  font-family: "Lato", sans-serif;
+  font-size: 40px;
+  font-weight: 900;
+  color: #ab3428;
+}
+
+main .square {
+  border: 1px solid darkgrey;
+  min-height: 200px;
+  border-radius: 25px;
+  color: #fff;
+  padding: 20px;
+}
+
+main .square h2 {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+}
+
+main .bg-tealblue {
+  background-color: #2d728f;
+}
+
+main .bg-bluemunsell {
+  background-color: #3b8ea5;
+}
+
+main .bg-sandybrown {
+  background-color: #f49e4c;
+}
+
+main .bg-sweetbrown {
+  background-color: #ab3428;
+}
+
+main .corner {
+  position: absolute;
+  bottom: 5px;
+  right: 20px;
 }
 
 /*!

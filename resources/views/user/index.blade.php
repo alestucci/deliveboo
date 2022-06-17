@@ -3,70 +3,115 @@
 @section('title', 'DeliveBoo INDEX')
 
 @section('content')
-    <div class="container">
+<div class="container">
     {{-- @dd($orders) --}}
 
-    <a href="{{ route('user.dishes.index', $user->id) }}">Modifica piatti</a>
-        <h1>
-            {{ $user->name }}
-        </h1>
-        <ul>
-            @foreach ($dishes as $dish)
+    {{-- <a href="{{ route('user.dishes.index', $user->id) }}">Modifica piatti</a> --}}
+    <h1 class="text-center py-5">
+        {{ $user->name }}
+    </h1>
+    {{-- <ul>
+        @foreach ($dishes as $dish)
+        <li>
+            {{$dish->name}}
+            <ul>
+                @foreach ($dish->orders as $order)
                 <li>
-                    {{$dish->name}}
-                    <ul>
-                        @foreach ($dish->orders as $order)
-                            <li>
-                                {{$order->order_number}} - {{$order->customer_surname}}
-                            </li>
-                        @endforeach
-                    </ul>
+                    {{$order->order_number}} - {{$order->customer_surname}}
                 </li>
-            @endforeach   
-        </ul>
+                @endforeach
+            </ul>
+        </li>
+        @endforeach
+    </ul>
 
-        <ul>
-            @foreach ($orders as $order)
+    <ul>
+        @foreach ($orders as $order)
+        <li>
+            {{$order->order_number}} - {{$order->customer_surname}} {{$order->customer_name}} - {{
+            number_format($order->final_price / 100, 2, ',', '')}} €
+            <ul>
+                @foreach ($order->dishes as $dish)
                 <li>
-                    {{$order->order_number}} - {{$order->customer_surname}} {{$order->customer_name}} - {{ number_format($order->final_price / 100, 2, ',', '')}} €
-                    <ul>
-                        @foreach ($order->dishes as $dish)
-                            <li>
-                                {{$dish->pivot->quantity}} - {{$dish->name}} - {{ number_format($dish->price / 100, 2, ',', '') }} €
-                            </li>
-                        @endforeach
-                    </ul>
+                    {{$dish->pivot->quantity}} - {{$dish->name}} - {{ number_format($dish->price / 100, 2, ',', '') }} €
                 </li>
-            @endforeach
-        </ul>
-    </div>
-
-
-
-
-
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('Siamo loggati grazie ad Alessandro Ballabio') }}
+                @endforeach
+            </ul>
+        </li>
+        @endforeach
+    </ul> --}}
+    <div class="row py-3 gx-5">
+        <div class="col col-md-6">
+            <div class="square p-4 bg-tealblue position-relative">
+                <h2 class="pb-2 text-center text-uppercase">I tuoi ultimi ordini</h2>
+                <table class="w-100">
+                    <thead>
+                        <th>Numero Ordine</th>
+                        <th>Cliente</th>
+                        <th>Importo</th>
+                    </thead>
+                    <tbody>
+                        @foreach (array_slice($orders, -3) as $order)
+                        <tr>
+                            <td>{{$order->order_number}}</td>
+                            <td>{{$order->customer_surname}} {{$order->customer_name}}</td>
+                            <td>{{
+                                number_format($order->final_price / 100, 2, ',', '')}} €</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="bg-white corner rounded-pill">
+                    <a href="#!" class="p-3">Vedi tutti gli ordini &#x2192;</a>
                 </div>
-
-                <a href="#!" class="btn btn-primary">
-                    Dashboard
-                </a>
-                
+            </div>
+        </div>
+        {{-- @dd(array_slice($dishes->toArray(), -3)) --}}
+        <div class="col col-md-6">
+            <div class="square p-4 bg-bluemunsell position-relative">
+                <h2 class="pb-2 text-center text-uppercase">I tuoi ultimi piatti</h2>
+                <table class="w-100">
+                    <thead>
+                        <th>Piatto</th>
+                        <th>Ingredienti</th>
+                        <th>Prezzo</th>
+                    </thead>
+                    <tbody>
+                        @foreach (array_slice($dishes->toArray(), -3) as $dish)
+                        <tr>
+                            <td>{{$dish['name']}}</td>
+                            <td>{{$dish['ingredients']}}</td>
+                            <td>{{
+                                number_format($dish['price'] / 100, 2, ',', '')}} €</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="bg-white corner rounded-pill">
+                    <a href="#!" class="p-3">Vedi tutti i piatti &#x2192;</a>
+                </div>
             </div>
         </div>
     </div>
-</div> --}}
+    <div class="row py-3 gx-5">
+        <div class="col col-md-6">
+            <div class="square p-4 bg-sandybrown position-relative">
+                <h2 class="text-center text-uppercase">Statistiche ordini</h2>
+                <div class="bg-white corner rounded-pill">
+                    <a href="#!" class="p-3">Vai alle statistiche &#x2192;</a>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6">
+            <div class="square p-4 bg-sweetbrown position-relative">
+                <h2 class="text-center text-uppercase">Statistiche piatti</h2>
+                <div class="bg-white corner rounded-pill">
+                    <a href="#!" class="p-3">Vai alle statistiche &#x2192;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
