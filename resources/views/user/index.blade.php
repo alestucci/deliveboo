@@ -9,12 +9,12 @@
     </h1>
     <ul>
         @foreach ($dishes as $dish)
-            <li></li>
+            <li>
                 {{$dish->name}}
                 <ul>
                     @foreach ($dish->orders as $order)
                         <li>
-                            {{$order->order_number}} - {{$order->customer_surname}} 
+                            {{$order->order_number}} - {{$order->customer_surname}} <a href="route">modify</a>
                         </li>
                     @endforeach
                 </ul>
