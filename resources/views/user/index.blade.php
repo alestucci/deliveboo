@@ -14,12 +14,12 @@
                 <ul>
                     @foreach ($dish->orders as $order)
                         <li>
-                            {{$order->order_number}} - {{$order->customer_surname}} 
+                            {{$order->order_number}} - {{$order->customer_surname}}
                         </li>
                     @endforeach
                 </ul>
             </li>
-        @endforeach   
+        @endforeach
     </ul>
 
     <ul>
@@ -36,7 +36,7 @@
             </li>
         @endforeach
     </ul>
-  
+
 
 
 
@@ -62,7 +62,7 @@
                 <a href="#!" class="btn btn-primary">
                     Dashboard
                 </a>
-                
+
             </div>
         </div>
     </div>
