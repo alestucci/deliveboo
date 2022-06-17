@@ -5,6 +5,8 @@
 @section('content')
     <div class="container">
     {{-- @dd($orders) --}}
+
+    <a href="{{ route('user.dishes.index', $user->id) }}">Modifica piatti</a>
         <h1>
             {{ $user->name }}
         </h1>
@@ -15,7 +17,7 @@
                     <ul>
                         @foreach ($dish->orders as $order)
                             <li>
-                                {{$order->order_number}} - {{$order->customer_surname}} <a href="route">modify</a>
+                                {{$order->order_number}} - {{$order->customer_surname}}
                             </li>
                         @endforeach
                     </ul>

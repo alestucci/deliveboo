@@ -22,15 +22,17 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
+//Route::post('/slugger', 'UserController@slugger')->name('slugger');
+
 Route::middleware('auth')
     ->namespace('User')
     ->name('user.')
     ->prefix('user')
     ->group(function () {
         //Route::get('/', 'HomeController@index')->name('home');
-        Route::post('/slugger', 'HomeController@slugger')->name('slugger');
+        // Route::post('/slugger', 'UserController@slugger')->name('slugger');
         Route::resource('/', 'UserController');
-        Route::resource('/dishes', 'dishes');
+        Route::resource('/dishes', 'DishController');
 });
 
 

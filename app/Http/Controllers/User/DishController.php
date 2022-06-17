@@ -7,21 +7,20 @@ Use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Dish;
 use App\User;
+use App\Category;
 
 class DishController extends Controller
 {
-    protected $validationRules = [
-        'name'              => 'required|unique:houses|min:5|max:100',
-        'description'       => 'nullable|url|max:250',
-        'ingredients'       => 'max:250',
-        'allergies'         => 'required|max:50',
-        'price'             => 'max:150',
-        'area'              => 'numeric|min:50|max:5000',
-        'number_rooms'      => 'numeric|min:0|max:100',
-        'is_rent'           => 'numeric|min:0|max:1',
-        'price'             => 'numeric',
-        'available_date'    => 'date'
-    ];
+        private function getValidators() {
+            return  [
+                'name'              => 'required|min:5|max:255',
+                'description'       => 'nullable|max:2000',
+                'ingredients'       => 'nullable|max:2000',
+                'allergies'         => 'required|max:255|nullable',
+                'price'             => 'required|max:15',
+                'available'         => 'required|between:0,1',
+            ];
+        }
     
     /**
      * Display a listing of the resource.
@@ -60,11 +59,17 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->getValidators());
+
         $newDishData = $request->all();
 
-        Dish::create($newDishData);
+        $formData = [
+            'user_id'       => Auth::user()->id,
+        ] + $newDishData;
 
-        return redirect()->route('user.dishes.show', $newDishData['id']);
+        $dish = Dish::create($formData);
+
+        return redirect()->route('user.dishes.show', $dish->id);
     }
 
     /**
@@ -75,11 +80,11 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
-        $user = User::where('id', Auth::user()->id)->first();
+        // $user = User::where('id', Auth::user()->id)->first();
 
-        $dishes = Dish::where('user_id', $user->id)->get();
+        // $dishes = Dish::where('user_id', $user->id)->get();
 
-        return view('user.dishes.show', compact('dishes'));
+        return view('user.dishes.show', compact('dish'));
     }
 
     /**
@@ -88,8 +93,20 @@ class DishController extends Controller
      * @param  \App\Dish  $dish
      * @return \Illuminate\Http\Response
      */
+    
     public function edit(Dish $dish)
     {
+        // $categories = Category::all();
+        // $user = User::where('id', Auth::user()->id)->first();
+
+        // $data = [
+        //     'dish'          => $dish,
+        //     'categories'    => $categories,
+        //     'user'          => $user,
+        // ];
+
+        //Luca No
+        
         return view('user.dishes.edit', compact('dish'));
     }
 
@@ -102,9 +119,11 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
-        $request->validate($this->validationRules($dish));
+        $request->validate($this->getValidators());
         $formData = $request->all();
         $dish->update($formData);
+
+        return redirect()->route('user.dishes.show', $dish->id);
     }
 
     /**

@@ -113,4 +113,10 @@ class UserController extends Controller
     {
         //
     }
+
+    public function slugger(Request $request) {
+        return response()->json([
+            'slug' => User::generateSlug($request->all()['originalStr'])
+        ]);
+    }
 }
