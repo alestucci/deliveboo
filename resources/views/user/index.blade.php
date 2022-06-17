@@ -3,41 +3,41 @@
 @section('title', 'DeliveBoo INDEX')
 
 @section('content')
-{{-- @dd($orders) --}}
-    <h1>
-        {{ $user->name }}
-    </h1>
-    <ul>
-        @foreach ($dishes as $dish)
-            <li>
-                {{$dish->name}}
-                <ul>
-                    @foreach ($dish->orders as $order)
-                        <li>
-                            {{$order->order_number}} - {{$order->customer_surname}} <a href="route">modify</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </li>
-        @endforeach   
-    </ul>
+    <div class="container">
+    {{-- @dd($orders) --}}
+        <h1>
+            {{ $user->name }}
+        </h1>
+        <ul>
+            @foreach ($dishes as $dish)
+                <li>
+                    {{$dish->name}}
+                    <ul>
+                        @foreach ($dish->orders as $order)
+                            <li>
+                                {{$order->order_number}} - {{$order->customer_surname}} <a href="route">modify</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach   
+        </ul>
 
-    <ul>
-        @foreach ($orders as $order)
-            <li>
-                {{$order->order_number}} - {{$order->customer_surname}} {{$order->customer_name}} - {{ number_format($order->final_price / 100, 2, ',', '')}} €
-                <ul>
-                    @foreach ($order->dishes as $dish)
-                        <li>
-                            {{$dish->pivot->quantity}} - {{$dish->name}} - {{ number_format($dish->price / 100, 2, ',', '') }} €
-                        </li>
-                    @endforeach
-                </ul>
-            </li>
-        @endforeach
-    </ul>
-  
-
+        <ul>
+            @foreach ($orders as $order)
+                <li>
+                    {{$order->order_number}} - {{$order->customer_surname}} {{$order->customer_name}} - {{ number_format($order->final_price / 100, 2, ',', '')}} €
+                    <ul>
+                        @foreach ($order->dishes as $dish)
+                            <li>
+                                {{$dish->pivot->quantity}} - {{$dish->name}} - {{ number_format($dish->price / 100, 2, ',', '') }} €
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
+        </ul>
+    </div>
 
 
 

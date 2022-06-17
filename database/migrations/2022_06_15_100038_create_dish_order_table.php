@@ -15,7 +15,6 @@ class CreateDishOrderTable extends Migration
     {
         Schema::create('dish_order', function (Blueprint $table) {
             
-            $table->unsignedBigInteger('index')->autoIncrement();
             //FK Chain with dish_order
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
@@ -23,7 +22,7 @@ class CreateDishOrderTable extends Migration
             $table->unsignedBigInteger('dish_id');
             $table->foreign('dish_id')->references('id')->on('dishes');
             
-            $table->unique(['dish_id', 'order_id']);
+            $table->primary(['dish_id', 'order_id']);
             
             $table->unsignedTinyInteger('quantity');
 

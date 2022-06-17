@@ -17,27 +17,18 @@ class DishOrderSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+
         $orders = Order::all();
         //$dishes = Dish::all();
 
         foreach ($orders as $order) {
-            $orderDish = Dish::where('user_id', rand(1, 100))->inRandomOrder()->limit(rand(3, 7))->get();
-            $order->dishes()->attach($orderDish->pluck('id')->all(), [
-                'quantity' => 0,
-                'notes'    => ''
+            $orderDishes = Dish::inRandomOrder()->limit(rand(3, 7))->get();
+
+            $order->dishes()->attach($orderDishes->pluck('id'), [
+                'quantity' => rand(1, 10),
+                'notes' => $faker->paragraph(),
             ]);
-        };
-
-            $count = DB::table('dish_order')->where('order_id', '>', 0)->count(); 
-
-            for($y=1; $y <= $count; $y++) {
-
-                DB::table('dish_order')->where('index', $y)->update([
-                    'quantity' => rand(1, 10),
-                    'notes'    => $faker->paragraph()
-                ]);
-                
-            };
+        }
         
         // update final_price
         for ($i=1; $i <= 1000 ; $i++) {

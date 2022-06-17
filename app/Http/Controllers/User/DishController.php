@@ -11,11 +11,11 @@ use App\User;
 class DishController extends Controller
 {
     protected $validationRules = [
-        'name'             => 'required|unique:houses|min:5|max:100',
-        'description'             => 'nullable|url|max:250',
-        'ingredients'          => 'max:250',
-        'allergies'              => 'required|max:50',
-        'price'           => 'max:150',
+        'name'              => 'required|unique:houses|min:5|max:100',
+        'description'       => 'nullable|url|max:250',
+        'ingredients'       => 'max:250',
+        'allergies'         => 'required|max:50',
+        'price'             => 'max:150',
         'area'              => 'numeric|min:50|max:5000',
         'number_rooms'      => 'numeric|min:0|max:100',
         'is_rent'           => 'numeric|min:0|max:1',
@@ -102,7 +102,9 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
-        //
+        $request->validate($this->validationRules($dish));
+        $formData = $request->all();
+        $dish->update($formData);
     }
 
     /**
