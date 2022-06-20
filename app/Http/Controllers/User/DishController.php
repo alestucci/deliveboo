@@ -63,9 +63,9 @@ class DishController extends Controller
 
         $newDishData = $request->all();
 
-        $formData = [
+        $formData = $newDishData + [
             'user_id'       => Auth::user()->id,
-        ] + $newDishData;
+        ];
 
         $dish = Dish::create($formData);
 

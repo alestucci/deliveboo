@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.home');
+        return view('guests.home');
     }
 
     public function slugger(Request $request) {

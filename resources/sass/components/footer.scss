@@ -1,4 +1,6 @@
 footer {
+    position: fixed;
+    bottom: 0;
     height: 100px;
     background-color: #f49e4c;
     color: #ab3428;
@@ -7,8 +9,8 @@ footer {
     }
     p {
         span {
-            font-size: 22px;;
-            font-family: 'Permanent Marker', cursive;
+            font-size: 22px;
+            font-family: "Permanent Marker", cursive;
         }
     }
 }

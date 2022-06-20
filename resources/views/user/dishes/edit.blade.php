@@ -3,6 +3,7 @@
 @section('title', $dish->name)
 
 @section('content')
+<main>
 <div class="container">
         <div class="row">
             <div class="col">
@@ -81,4 +82,5 @@
             </div>
         </div>
     </div>
+</main>
 @endsection

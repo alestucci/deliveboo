@@ -14,18 +14,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('homepage');
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('guests');
 
 //Route::post('/slugger', 'UserController@slugger')->name('slugger');
 
 Route::middleware('auth')
-    ->namespace('User')
+->namespace('User')
     ->name('user.')
     ->prefix('user')
     ->group(function () {
@@ -33,8 +30,12 @@ Route::middleware('auth')
         // Route::post('/slugger', 'UserController@slugger')->name('slugger');
         Route::resource('/', 'UserController');
         Route::resource('/dishes', 'DishController');
-});
+        Route::resource('/order', 'OrderController');
+    });
 
+Route::get('/', function () {
+    return view('guests.home');
+})->name('homepage');
 
 Route::get("{any?}", function() {
     return view("guests.home");

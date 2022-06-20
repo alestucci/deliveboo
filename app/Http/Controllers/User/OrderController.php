@@ -5,6 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\Dish;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -15,7 +18,29 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::where('id', Auth::user()->id)->first();
+
+        $dishes = Dish::where('user_id', $user->id)->get();
+
+        $orderList = [];
+
+        foreach ($dishes as $dish) {            
+            foreach ($dish->orders as $order) {
+                $order = Order::where('id', $order->id)->first();
+                if (!in_array($order, $orderList)) {
+                    $orderList[] = $order;
+                }
+            }
+        }
+
+        $data = [
+            'user'      => $user,
+            'dishes'    => $dishes,
+            'orders'    => $orderList,
+        ];
+
+
+        return view('user.orders.index', $data);
     }
 
     /**
