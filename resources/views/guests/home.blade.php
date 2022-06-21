@@ -1,6 +1,9 @@
-@extends('layouts.page')
+@extends('layouts.guest')
+{{-- @extends('layouts.page') --}}
 
-@section('content')
+@section('title', 'DeliveBoo')
+
+{{-- @section('content')
 <main class="bg-food position-relative">
     <div class="position-absolute top-50 start-50 translate-middle w-50">
 
@@ -17,4 +20,4 @@
 
     </div>
 </main>
-@endsection
+@endsection --}}

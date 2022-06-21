@@ -1,6 +1,5 @@
 <header>
     <div class="container d-flex align-items-center justify-content-between">
-        <!-- <a class="navbar-brand" href="#">DeliveBoo</a> -->
         <div class="align-self-start logo">
             <a href="@if(Auth::check()) {{ route('user.index') }} @else {{ route('homepage') }} @endif">
                 <h1 class="text-white">DeliveBoo</h1>
@@ -47,6 +46,9 @@
                     <ul class="navbar-nav text-end">
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     </ul>
                     @endif

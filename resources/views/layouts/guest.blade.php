@@ -14,13 +14,13 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
         
-        <script src="{{ asset('js/user.js') }}" defer></script>
+        <script src="{{ asset('js/guest.js') }}" defer></script>
         <title>@yield('title')</title>
     </head>
 
     <body>
         @include('components.header')
-            @yield('content')
+        <div id="app"></div>
         @include('components.footer')
     </body>
 

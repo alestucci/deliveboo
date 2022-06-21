@@ -13,7 +13,7 @@
                 <div class="card h-100 r-15">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div>
-                            <h5 class="card-title text-center">
+                            <h5 class="card-title d-flex justify-content-between">
                                 <a href="{{ route('user.dishes.show', $dish->id) }}" class="text-decoration-none text-uppercase">{{$dish->name}}</a>
                                 @if ($dish->available == 1)
                                 <i class="fas fa-check"></i>
@@ -52,3 +52,4 @@
         </div>
     </div>
 </main>
+@endsection
