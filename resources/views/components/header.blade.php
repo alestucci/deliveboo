@@ -40,7 +40,7 @@
                             </form>
                         </li>
                         <li class="nav-item">
-                            <span class="nav-link text-white text-decoration-underline">{{ Auth::user()->name }}</span>
+                            <span class="nav-link text-white text-decoration-underline text-uppercase">{{ Auth::user()->name }}</span>
                         </li>
                     </ul>
                     @else

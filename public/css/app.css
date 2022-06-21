@@ -127,10 +127,11 @@ main #alert-window .h2 {
   font-weight: 900;
 }
 
-main .bg-food {
+main.bg-food {
   height: 100%;
   width: 100%;
-  background-image: url(http://loremflickr.com/3000/2000/food);
+  background-image: url("https://loremflickr.com/3000/2000/food") !important;
+  background-size: cover;
 }
 
 .dashboard .square {

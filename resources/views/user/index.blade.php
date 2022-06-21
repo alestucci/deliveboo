@@ -40,9 +40,9 @@
             </li>
             @endforeach
         </ul> --}}
-        <div class="row row-cols-1 row-cols-sm-2 py-3 align-items-stretch">
+        <div class="row row-cols-1 row-cols-md-2 py-3 align-items-stretch">
             <div class="col mb-4">
-                <div class="square p-4 bg-tealblue position-relative h-100">
+                <div class="square pt-4 pb-5 px-3 bg-tealblue position-relative h-100">
                     <h2 class="pb-2 text-center text-uppercase">I tuoi ultimi ordini</h2>
                     <table class="w-100">
                         <thead>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col mb-4">
-                <div class="square p-4 bg-bluemunsell position-relative h-100">
+                <div class="square pt-4 pb-5 px-3 bg-bluemunsell position-relative h-100">
                     <h2 class="pb-2 text-center text-uppercase">I tuoi ultimi piatti</h2>
                     <table class="w-100">
                         <thead>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="col mb-4">
-                <div class="square p-4 bg-sandybrown position-relative h-100">
+                <div class="square pt-4 pb-5 px-3 bg-sandybrown position-relative h-100">
                     <h2 class="text-center text-uppercase">Statistiche ordini</h2>
                     <div class="bg-white corner rounded-pill">
                         <a href="#!" class="p-3">Vai alle statistiche &#x2192;</a>
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <div class="col mb-4">
-                <div class="square p-4 bg-sweetbrown position-relative h-100">
+                <div class="square pt-4 pb-5 px-3 bg-sweetbrown position-relative h-100">
                     <h2 class="text-center text-uppercase">Statistiche piatti</h2>
                     <div class="bg-white corner rounded-pill">
                         <a href="#!" class="p-3">Vai alle statistiche &#x2192;</a>
