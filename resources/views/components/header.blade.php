@@ -9,17 +9,15 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid justify-content-end">
-                <button class=" navbar-toggler custom-toggler text-white" type="button" data-bs-toggle="collapse"
+                @if(Auth::check())
+                <button class="navbar-toggler custom-toggler text-white my-2" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class=" custom-toggler navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav text-end">
-                        @if(Auth::check())
-                        <li class="nav-item">
-                            <span class="nav-link text-white">{{ Auth::user()->name }}</span>
-                        </li>
+                        {{-- @if(Auth::check()) --}}
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('user.index') }}">Dashboard</a>
                         </li>
@@ -27,24 +25,31 @@
                             <a class="nav-link active text-white" aria-current="page" href="#">Ordini</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('user.dishes.create') }}">Crea un nuovo piatto</a>
+                            <a class="nav-link text-white" href="{{ route('user.dishes.index') }}">Piatti</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('user.dishes.create') }}">Nuovo piatto</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                                <strong>{{ __('LOGOUT') }}</strong>
+                                <strong>{{ __('Logout') }}</strong>
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </li>
-                        
-                        @else
+                        <li class="nav-item">
+                            <span class="nav-link text-white text-decoration-underline">{{ Auth::user()->name }}</span>
+                        </li>
+                    </ul>
+                    @else
+                    <ul class="navbar-nav text-end">
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
-                        @endif
                     </ul>
+                    @endif
                 </div>
             </div>
         </nav>

@@ -53648,6 +53648,48 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+var alertWindow = document.getElementById("alert-window");
+var alertScreen = document.getElementById("alert-screen");
+var deleteButton = document.getElementById("delete-button");
+var confirmationForm = document.getElementById("confirmation-form");
+var cancelButton = document.getElementById("cancel-button");
+var deleteButtonList = document.querySelectorAll(".delete-button");
+
+if (deleteButton) {
+  deleteButton.addEventListener("click", switchAlert);
+  cancelButton.addEventListener("click", switchAlert);
+}
+
+if (deleteButtonList) {
+  deleteButtonList.forEach(function (button) {
+    return button.addEventListener("click", switchAlertAndSetFormAction);
+  });
+}
+
+function switchAlertAndSetFormAction() {
+  switchAlert();
+  confirmationForm.action = confirmationForm.dataset.base + "/" + this.dataset.id;
+  cancelButton.addEventListener("click", switchAlert);
+}
+
+function switchAlert() {
+  alertWindow.classList.toggle("d-none");
+  alertScreen.classList.toggle("d-none");
+}
+
+var sluggerBtn = document.getElementById("slugger-btn");
+
+if (sluggerBtn) {
+  sluggerBtn.addEventListener("click", function () {
+    var slugInput = document.querySelector("#slug");
+    var title = document.querySelector("#title").value;
+    Axios.post('/admin/slugger', {
+      originalStr: title
+    }).then(function (response) {
+      slugInput.value = response.data.slug;
+    });
+  });
+}
 
 /***/ }),
 

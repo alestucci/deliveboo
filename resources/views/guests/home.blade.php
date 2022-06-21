@@ -1,8 +1,8 @@
 @extends('layouts.page')
 
 @section('content')
-<main>
-    <div class="container">
+<main  class="bg-food">
+    <div>
         
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -21,6 +21,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </main>
 @endsection

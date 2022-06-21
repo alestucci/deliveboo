@@ -7,7 +7,7 @@
     <div class="container">
 
         {{-- <a href="{{ route('user.dishes.index', $user->id) }}">Modifica piatti</a> --}}
-        <h1 class="text-center py-5">
+        <h1 class="name text-center py-3">
             {{ $user->name }}
         </h1>
         {{-- <ul>
@@ -46,16 +46,16 @@
                     <h2 class="pb-2 text-center text-uppercase">I tuoi ultimi ordini</h2>
                     <table class="w-100">
                         <thead>
-                            <th>Numero Ordine</th>
-                            <th>Cliente</th>
-                            <th>Importo</th>
+                            <th class="text-center">Numero Ordine</th>
+                            <th class="text-center">Cliente</th>
+                            <th class="text-center">Importo</th>
                         </thead>
                         <tbody>
                             @foreach (array_slice($orders, -3) as $order)
                             <tr>
                                 <td>{{$order->order_number}}</td>
                                 <td>{{$order->customer_surname}} {{$order->customer_name}}</td>
-                                <td>{{
+                                <td class="text-end">{{
                                     number_format($order->final_price / 100, 2, ',', '')}} €</td>
                             </tr>
                             @endforeach
@@ -71,16 +71,16 @@
                     <h2 class="pb-2 text-center text-uppercase">I tuoi ultimi piatti</h2>
                     <table class="w-100">
                         <thead>
-                            <th>Piatto</th>
-                            <th>Ingredienti</th>
-                            <th>Prezzo</th>
+                            <th class="text-center">Piatto</th>
+                            <th class="text-center">Ingredienti</th>
+                            <th class="text-center">Prezzo</th>
                         </thead>
                         <tbody>
                             @foreach (array_slice($dishes->toArray(), -3) as $dish)
                             <tr>
-                                <td>{{$dish['name']}}</td>
+                                <td><a href="{{ route('user.dishes.show', $dish['id']) }}" class="text-reset text-decoration-none">{{$dish['name']}}</a></td>
                                 <td>{{$dish['ingredients']}}</td>
-                                <td>{{
+                                <td class="text-end">{{
                                     number_format($dish['price'] / 100, 2, ',', '')}} €</td>
                             </tr>
                             @endforeach
