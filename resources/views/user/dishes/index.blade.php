@@ -12,7 +12,13 @@
             <div class="col">
                 <div class="card h-100 r-15">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="{{ route('user.dishes.show', $dish->id) }}">{{$dish->name}}</a>
+                        <h5 class="card-title d-flex justify-content-between">
+                            <a href="{{ route('user.dishes.show', $dish->id) }}">{{$dish->name}}</a>
+                            @if ($dish->available == 1)
+                            <i class="fas fa-check"></i>
+                            @else
+                            <i class="fas fa-times"></i>
+                            @endif
                         </h5>
                         <p class="card-text">{{$dish->ingredients}}</p>
                         <div class="d-flex justify-content-center">

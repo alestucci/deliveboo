@@ -24,6 +24,19 @@ body ul li ul li {
   margin: 0;
 }
 
+.fas {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.fa-check {
+  color: green;
+}
+
+.fa-times {
+  color: red;
+}
+
 header {
   padding: 1.5rem 0;
   background-color: #ab3428;
