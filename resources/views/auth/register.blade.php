@@ -11,7 +11,19 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-
+                            
+                            @if ($errors->any())
+                            {{-- @dd($errors) --}}
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            @if ($error  == 'categories')
+                                            <li>{{ $error }}</li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                             {{-- name --}}
 
@@ -152,17 +164,15 @@
                             {{-- categories --}}
 
                             <div class="form-group row">
-                                <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category')
-                                    }}</label>
+                                <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Categories') }}</label>
 
                                 <div class="col-md-6">
                                     @foreach ($categories as $category)
-                                    <input type="checkbox" name="categories[]" id="category-{{ $category->id }}"
-                                        value="{{ $category->id }}">
-                                    <label for="category-{{ $category->id }}">{{ $category->name }}</label>
+                                        <input type="checkbox" name="categories[]" id="{{ $category->id }}" value="{{ $category->id }}">
+                                        <label for="category-{{ $category->id }}">{{ $category->name }}</label>
                                     @endforeach
 
-                                    @error('category')
+                                    @error('categories')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -204,8 +214,7 @@
                             {{-- password --}}
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password')
-                                    }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -231,6 +240,7 @@
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" required autocomplete="new-password">
+                                    
                                 </div>
                             </div>
 

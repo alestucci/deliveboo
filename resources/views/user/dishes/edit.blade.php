@@ -14,7 +14,7 @@
                     <!--   name -->
                     <div class="mb-3">
                         <label for="name" class="form-label">{{ __('Name') }}</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $dish->name ) }}">
+                        <input required type="text" class="form-control" id="name" name="name" value="{{ old('name', $dish->name ) }}">
                     </div>
                     @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -24,7 +24,7 @@
                     <!-- description -->
                     <div class="mb-3">
                         <label for="description" class="form-label">{{ __('Description') }}</label>
-                        <textarea type="text" class="form-control" id="description" rows="10" name="description">{{ old('description', $dish->description) }}</textarea>
+                        <textarea required type="text" class="form-control" id="description" rows="10" name="description">{{ old('description', $dish->description) }}</textarea>
                     </div>
                     @error('description')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -34,7 +34,7 @@
                     <!-- ingredients -->
                     <div class="mb-3">
                         <label for="ingredients" class="form-label">{{ __('Ingredients') }}</label>
-                        <textarea type="text" class="form-control" id="ingredients" rows="10" name="ingredients">{{ old('ingredients', $dish->ingredients) }}</textarea>
+                        <textarea required type="text" class="form-control" id="ingredients" rows="10" name="ingredients">{{ old('ingredients', $dish->ingredients) }}</textarea>
                     </div>
                     @error('ingredients')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -44,7 +44,7 @@
                     <!-- allergies -->
                     <div class="mb-3">
                         <label for="allergies" class="form-label">{{ __('Allergies') }}</label>
-                        <textarea type="text" class="form-control" id="allergies" rows="10" name="allergies">{{ old('allergies', $dish->allergies) }}</textarea>
+                        <textarea required type="text" class="form-control" id="allergies" rows="10" name="allergies">{{ old('allergies', $dish->allergies) }}</textarea>
                     </div>
                     @error('allergies')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -55,7 +55,7 @@
                     <!-- price -->
                     <div class="mb-3">
                         <label for="price" class="form-label">{{ __('Price') }}</label>
-                        <input class="form-control" id="price" rows="10" name="price" value="{{ old('price', $dish->price) }}">
+                        <input required class="form-control" id="price" rows="10" name="price" value="{{ old('price', $dish->price) }}">
 
                     </div>
                     @error('street')
@@ -66,9 +66,9 @@
 
                     <!-- available -->                    
                     <div class="mb-3">
-                        <input type="radio" class="form-control" id="available" name="available" @if ($dish->available === 1) checked @endif value=1>
+                        <input required type="radio" class="form-control" id="available" name="available" @if ($dish->available === 1) checked @endif value=1>
                         <label for="available">Disponibile</label>
-                        <input type="radio" class="form-control" id="not-available" name="available" @if ($dish->available === 0) checked @endif value=0>
+                        <input required type="radio" class="form-control" id="not-available" name="available" @if ($dish->available === 0) checked @endif value=0>
                         <label for="not-available">Non disponibile</label>
                     </div>
                     @error('available')

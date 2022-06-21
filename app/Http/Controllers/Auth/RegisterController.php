@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Category;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -58,17 +59,43 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        // $categories = Category::all();
+
+        // $categories_ids = [];
+        
+        // foreach ($categories as $category) {
+        //     $categories_ids[] = $category->id;
+        // };
+
+        $validators = Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'street' => ['required', 'string', 'max:255'],
-            'cap' => ['required'],
+            'cap' => ['required', 'numeric', 'digits:5'],
             'city' => ['required', 'string', 'max:100'],
             'phone_number' => ['required', 'string', 'max:50', 'unique:users'],
             'p_iva' => ['required', 'string', 'max:16', 'unique:users'],
+            'categories' => ['required', 'in:([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])'],
             'day_off' => ['required'],
         ]);
+
+        dd($validators->errors()->messages()['categories']);
+
+        return $validators;
+
+        // return Validator::make($data, [
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:8', 'confirmed'],
+        //     'street' => ['required', 'string', 'max:255'],
+        //     'cap' => ['required', 'numeric', 'digits:5'],
+        //     'city' => ['required', 'string', 'max:100'],
+        //     'phone_number' => ['required', 'string', 'max:50', 'unique:users'],
+        //     'p_iva' => ['required', 'string', 'max:16', 'unique:users'],
+        //     'categories' => ['required', 'in:([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])'],
+        //     'day_off' => ['required'],
+        // ]);
     }
 
     /**
@@ -94,8 +121,8 @@ class RegisterController extends Controller
 
         foreach ($data['categories'] as $categoryId) {
             DB::table('category_user')->insert([
-                    'category_id'   => $categoryId,
-                    'user_id'       => $newUser->id,
+                'category_id'   => $categoryId,
+                'user_id'       => $newUser->id,
             ]);
         }
 

@@ -80,6 +80,7 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
+        if (Auth::user()->id !== $dish->user_id) abort(403);
         // $user = User::where('id', Auth::user()->id)->first();
 
         // $dishes = Dish::where('user_id', $user->id)->get();
@@ -96,18 +97,9 @@ class DishController extends Controller
     
     public function edit(Dish $dish)
     {
-        // $categories = Category::all();
-        // $user = User::where('id', Auth::user()->id)->first();
-
-        // $data = [
-        //     'dish'          => $dish,
-        //     'categories'    => $categories,
-        //     'user'          => $user,
-        // ];
-
-        //Luca No
+        if (Auth::user()->id !== $dish->user_id) abort(403);
         
-        return view('user.dishes.edit', compact('dish'));
+        return view('user.dishes.edit', compact('dish'));       
     }
 
     /**

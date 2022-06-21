@@ -12,7 +12,7 @@
             @csrf
             <!-- name -->
             <div class="form-input">
-                <input type="text" class="form-element-input" id="name" name="name" value="{{ old('name') }}">
+                <input required type="text" class="form-element-input" id="name" name="name" value="{{ old('name') }}">
                 <div class="form-element-bar"></div>
                 <label class="form-element-label" for="name">Nome</label>
                 <small class="form-element-hint">Inserire il nome del piatto.</small>
@@ -23,7 +23,7 @@
 
             <!-- description -->
             <div class="form-input">
-                <textarea type="text" class="form-element-input" id="description" rows="10"
+                <textarea required type="text" class="form-element-input" id="description" rows="10"
                 name="description">{{ old('description') }}</textarea>
                 <div class="form-element-bar"></div>
                 <label for="description" class="form-element-label">{{ __('Description') }}</label>
@@ -35,7 +35,7 @@
             
             <!-- ingredients -->
             <div class="form-input">
-                <textarea type="text" class="form-element-input" id="ingredients" rows="10"
+                <textarea required type="text" class="form-element-input" id="ingredients" rows="10"
                 name="ingredients">{{ old('ingredients') }}</textarea>
                 <div class="form-element-bar"></div>
                 <label for="ingredients" class="form-element-label">{{ __('Ingredients') }}</label>
@@ -48,7 +48,7 @@
             
             <!-- allergies -->
             <div class="form-input">
-                <textarea type="text" class="form-element-input" id="allergies" rows="10"
+                <textarea required type="text" class="form-element-input" id="allergies" rows="10"
                 name="allergies">{{ old('allergies') }}</textarea>
                 <div class="form-element-bar"></div>
                 <label for="allergies" class="form-element-label">{{ __('Allergies') }}</label>
@@ -62,7 +62,7 @@
             
             <!-- price -->
             <div class="form-input">
-                <input class="form-element-input" id="price" rows="10" name="price" value="{{ old('price') }}">
+                <input required class="form-element-input" id="price" rows="10" name="price" value="{{ old('price') }}">
                 <div class="form-element-bar"></div>
                 <label for="price" class="form-element-label">{{ __('Price') }}</label>
                 <small class="form-element-hint">Esempio: 10,90</small>
@@ -84,13 +84,13 @@
             </div> --}}
                 <div class="form-input">
                     <label class="rad-label">
-                        <input type="radio" class="rad-input" name="available" value=1 required>
+                        <input required type="radio" class="rad-input" name="available" value=1 required>
                         <div class="rad-design"></div>
                         <div class="rad-text">Disponibile</div>
                     </label>
                     
                     <label class="rad-label">
-                        <input type="radio" class="rad-input" name="available" value=0 required>
+                        <input required type="radio" class="rad-input" name="available" value=0 required>
                         <div class="rad-design"></div>
                         <div class="rad-text">Non Disponibile</div>
                     </label>
