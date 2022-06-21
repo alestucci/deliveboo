@@ -130,8 +130,10 @@ main #alert-window .h2 {
 main.bg-food {
   height: 100%;
   width: 100%;
-  background-image: url("https://loremflickr.com/3000/2000/food") !important;
-  background-size: cover;
+  background-image: url("https://loremflickr.com/6000/4000/food") !important;
+  background-size: 3000px 2000px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .dashboard .square {
