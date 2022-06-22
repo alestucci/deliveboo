@@ -13,7 +13,7 @@
                             @csrf
 
                             <div class="form-group row my-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address')
+                                <label for="email" class="col-md-4 col-form-label text-start text-md-end">{{ __('E-Mail Address')
                                     }}</label>
 
                                 <div class="col-md-6">
@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="form-group row my-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password')
+                                <label for="password" class="col-md-4 col-form-label text-start text-md-end">{{ __('Password')
                                     }}</label>
 
                                 <div class="col-md-6">

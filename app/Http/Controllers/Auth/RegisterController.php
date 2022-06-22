@@ -80,7 +80,7 @@ class RegisterController extends Controller
             'day_off' => ['required'],
         ]);
 
-        dd($validators->errors()->messages()['categories']);
+        //dd($validators->errors()->messages()['categories']);
 
         return $validators;
 

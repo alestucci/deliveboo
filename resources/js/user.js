@@ -9,10 +9,10 @@ const confirmationForm = document.getElementById("confirmation-form");
 const cancelButton = document.getElementById("cancel-button");
 const deleteButtonList = document.querySelectorAll(".delete-button");
 
-if (deleteButton) {
-    deleteButton.addEventListener("click", switchAlert);
-    cancelButton.addEventListener("click", switchAlert);
-}
+// if (deleteButton) {
+//     deleteButton.addEventListener("click", switchAlert);
+//     cancelButton.addEventListener("click", switchAlert);
+// }
 
 if (deleteButtonList) {
     deleteButtonList.forEach((button) =>
@@ -31,11 +31,3 @@ function switchAlert() {
     alertWindow.classList.toggle("d-none");
     alertScreen.classList.toggle("d-none");
 }
-
-$('.form-element-input').change(function() {
-  if($(this).val()) {
-    $(this).addClass('hasValue');
-  } else {
-    $(this).removeClass('hasValue');
-  }
-});

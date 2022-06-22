@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+@charset "UTF-8";
 
 html {
   font-family: "Roboto", sans-serif;
@@ -212,253 +213,6 @@ main.bg-food {
 
 .bg-sec {
   background-color: #f49e4c !important;
-}
-
-main.form {
-  font-family: "Lato", sans-serif;
-  min-height: calc(100vh - 200px);
-  height: 100%;
-  background-color: #FFF;
-}
-
-main.form .wrapper {
-  padding: 0px 50px;
-  padding-top: 100px;
-  background: #FFF;
-  overflow: hidden;
-}
-
-main.form .form-input {
-  width: 800px;
-  height: auto;
-  background: white;
-  margin: auto;
-  position: relative;
-  margin-bottom: 30px;
-}
-
-main.form .form-element-input {
-  outline: none;
-  height: 1.5rem;
-  display: block;
-  background: none;
-  padding: 0.125rem 0.125rem 0.0625rem;
-  font-size: 1rem;
-  border: 0;
-  line-height: 1.5;
-  width: 100%;
-  color: #333;
-  box-shadow: none;
-  opacity: 0.001;
-  transition: opacity 0.28s ease;
-  will-change: opacity;
-}
-
-main.form .form-element-input::-moz-placeholder {
-  color: #a6a6a6;
-  transform: scale(0.9);
-  transform-origin: left top;
-}
-
-main.form .form-element-input:-ms-input-placeholder {
-  color: #a6a6a6;
-  transform: scale(0.9);
-  transform-origin: left top;
-}
-
-main.form .form-element-input::placeholder {
-  color: #a6a6a6;
-  transform: scale(0.9);
-  transform-origin: left top;
-}
-
-main.form .form-element-bar {
-  height: 1px;
-  background: #999;
-  position: relative;
-  display: block;
-}
-
-main.form .form-element-bar:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: #337ab7;
-  height: 2px;
-  display: block;
-  transform: rotateY(90deg);
-  transition: transform 0.28s ease;
-  will-change: transform;
-}
-
-main.form .form-element-label {
-  position: absolute;
-  top: 0.85rem;
-  line-height: 1.5rem;
-  pointer-events: none;
-  padding-left: 0.125rem;
-  z-index: 1;
-  font-size: 1rem;
-  margin: 0;
-  color: #a6a6a6;
-  transform: translateY(-50%);
-  transform-origin: left center;
-  transition: transform 0.28s ease, color 0.28s linear, opacity 0.28s linear;
-  will-change: transform, color, opacity;
-  cursor: text;
-}
-
-main.form .form-element-hint {
-  color: #aaa;
-}
-
-main.form .form-element-input.hasValue ~ .form-element-bar::after,
-main.form .form-element-input:focus ~ .form-element-bar::after {
-  transform: rotateY(0deg);
-}
-
-main.form .form-element-input.hasValue ~ .form-element-label,
-main.form .form-element-input:focus ~ .form-element-label {
-  color: #337ab7;
-}
-
-main.form .form-element-input.hasValue,
-main.form .form-element-input:focus {
-  opacity: 1;
-}
-
-main.form .form-element-input.hasValue ~ .form-element-label,
-main.form .form-element-input:focus ~ .form-element-label {
-  transform: translateY(-100%) translateY(-0.5em) translateY(-2px);
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-main.form .form-is-success .form-element-input,
-main.form .form-is-success .form-element-label,
-main.form .form-is-success .form-element-hint {
-  color: #259337;
-}
-
-main.form .form-has-error .form-element-label.form-element-label,
-main.form .form-has-error .form-element-hint {
-  color: #d9534f;
-}
-
-main.form .form-has-error .form-element-bar:after {
-  background: #d9534f;
-}
-
-main.form .form-has-error .form-element-input.hasValue ~ .form-element-label,
-main.form .form-has-error .form-element-input:focus ~ .form-element-label {
-  transform: translateY(-100%) translateY(-0.5em) translateY(-2px);
-  color: #d9534f;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-main.form .rad-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 100px;
-  padding: 5px 0px;
-  margin: 10px 0;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-main.form .rad-label:hover,
-main.form .rad-label:focus-within {
-  background: hsla(0deg, 0%, 80%, 0.14);
-}
-
-main.form .rad-input {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  z-index: -1;
-}
-
-main.form .rad-design {
-  width: 16px;
-  height: 16px;
-  border-radius: 100px;
-  vertical-align: middle;
-  background: linear-gradient(to right bottom, hsl(154deg, 97%, 62%), hsl(225deg, 97%, 62%));
-  position: relative;
-}
-
-main.form .rad-design::before {
-  content: "";
-  display: inline-block;
-  width: inherit;
-  height: inherit;
-  border-radius: inherit;
-  background: hsl(0deg, 0%, 90%);
-  transform: scale(1.1);
-  transition: 0.3s;
-}
-
-main.form .rad-input:checked + .rad-design::before {
-  transform: scale(0);
-}
-
-main.form .rad-text {
-  color: hsl(0deg, 0%, 60%);
-  margin-left: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: 900;
-  vertical-align: middle;
-  transition: 0.3s;
-}
-
-main.form .rad-input:checked ~ .rad-text {
-  color: hsl(0deg, 0%, 40%);
-}
-
-.submit-button {
-  font-family: "Open Sans";
-  display: flex;
-  justify-content: center;
-}
-
-.submit-button input[type=submit] {
-  font-family: "Open Sans";
-  font-weight: 700;
-  margin-left: 0.5em;
-  height: 2.5em;
-  padding: 0.2em 1em 0.2em 2.25em;
-  font-size: 3em;
-  font-weight: bold;
-  font-family: "Open Sans";
-  text-transform: uppercase;
-  color: #696666;
-  background-size: 54px 204px;
-  border-radius: 2em;
-  border: 0.15em solid #F9C23C;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
-
-.submit-button input[type=submit]:hover {
-  color: #fff;
-  background-color: #EAA502;
-  border-color: #EAA502;
-  background-position: 0.75em bottom;
-  transition: all 0.3s ease;
-}
-
-.submit-button input[type=submit]:focus {
-  background-position: 2em -4em;
-  transition: all 0.3s ease;
 }
 
 /*!
@@ -948,6 +702,10 @@ legend + * {
   padding: 0;
 }
 
+::-webkit-file-upload-button {
+  font: inherit;
+}
+
 ::file-selector-button {
   font: inherit;
 }
@@ -1095,7 +853,7 @@ progress {
 }
 
 .blockquote-footer::before {
-  content: "\2014\A0";
+  content: "— ";
 }
 
 .img-fluid {
@@ -2771,11 +2529,6 @@ progress {
   opacity: 1;
 }
 
-.form-control:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
 .form-control::placeholder {
   color: #6c757d;
   opacity: 1;
@@ -2785,6 +2538,23 @@ progress {
 .form-control[readonly] {
   background-color: #e9ecef;
   opacity: 1;
+}
+
+.form-control::-webkit-file-upload-button {
+  padding: 0.375rem 0.75rem;
+  margin: -0.375rem -0.75rem;
+  -webkit-margin-end: 0.75rem;
+          margin-inline-end: 0.75rem;
+  color: #212529;
+  background-color: #e9ecef;
+  pointer-events: none;
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+  border-inline-end-width: 1px;
+  border-radius: 0;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-control::file-selector-button {
@@ -2804,9 +2574,17 @@ progress {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .form-control::-webkit-file-upload-button {
+    -webkit-transition: none;
+    transition: none;
+  }
   .form-control::file-selector-button {
     transition: none;
   }
+}
+
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+  background-color: #dde0e3;
 }
 
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
@@ -2866,6 +2644,13 @@ progress {
   border-radius: 0.2rem;
 }
 
+.form-control-sm::-webkit-file-upload-button {
+  padding: 0.25rem 0.5rem;
+  margin: -0.25rem -0.5rem;
+  -webkit-margin-end: 0.5rem;
+          margin-inline-end: 0.5rem;
+}
+
 .form-control-sm::file-selector-button {
   padding: 0.25rem 0.5rem;
   margin: -0.25rem -0.5rem;
@@ -2885,6 +2670,13 @@ progress {
   padding: 0.5rem 1rem;
   font-size: 1.125rem;
   border-radius: 0.3rem;
+}
+
+.form-control-lg::-webkit-file-upload-button {
+  padding: 0.5rem 1rem;
+  margin: -0.5rem -1rem;
+  -webkit-margin-end: 1rem;
+          margin-inline-end: 1rem;
 }
 
 .form-control-lg::file-selector-button {
@@ -3262,20 +3054,11 @@ textarea.form-control-lg {
   color: transparent;
 }
 
-.form-floating > .form-control:-ms-input-placeholder {
-  color: transparent;
-}
-
 .form-floating > .form-control::placeholder {
   color: transparent;
 }
 
 .form-floating > .form-control:not(:-moz-placeholder-shown) {
-  padding-top: 1.625rem;
-  padding-bottom: 0.625rem;
-}
-
-.form-floating > .form-control:not(:-ms-input-placeholder) {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
@@ -3297,11 +3080,6 @@ textarea.form-control-lg {
 }
 
 .form-floating > .form-control:not(:-moz-placeholder-shown) ~ label {
-  opacity: 0.65;
-  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
-}
-
-.form-floating > .form-control:not(:-ms-input-placeholder) ~ label {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
@@ -3635,7 +3413,6 @@ textarea.form-control.is-invalid {
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
@@ -6612,7 +6389,6 @@ fieldset:disabled .btn {
   pointer-events: none;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   opacity: 0.25;
 }
@@ -9237,21 +9013,18 @@ fieldset:disabled .btn {
 .user-select-all {
   -webkit-user-select: all !important;
      -moz-user-select: all !important;
-      -ms-user-select: all !important;
           user-select: all !important;
 }
 
 .user-select-auto {
   -webkit-user-select: auto !important;
      -moz-user-select: auto !important;
-      -ms-user-select: auto !important;
           user-select: auto !important;
 }
 
 .user-select-none {
   -webkit-user-select: none !important;
      -moz-user-select: none !important;
-      -ms-user-select: none !important;
           user-select: none !important;
 }
 
@@ -12638,4 +12411,5 @@ fieldset:disabled .btn {
     display: none !important;
   }
 }
+
 

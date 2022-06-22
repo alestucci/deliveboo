@@ -1,194 +1,122 @@
 @extends('layouts.page')
 
-@section('title', 'Inserisci un piatto')
+@section('title', 'Inserisci un nuovo piatto')
 
 @section('content')
-<main class="form">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-        <div class="wrapper">
-        <form action="{{ route('user.dishes.store') }}" method="post">
-            @csrf
-            <!-- name -->
-            <div class="form-input">
-                <input required type="text" class="form-element-input" id="name" name="name" value="{{ old('name') }}">
-                <div class="form-element-bar"></div>
-                <label class="form-element-label" for="name">Nome</label>
-                <small class="form-element-hint">Inserire il nome del piatto.</small>
-            </div>
-            @error('name')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
 
-            <!-- description -->
-            <div class="form-input">
-                <textarea required type="text" class="form-element-input" id="description" rows="10"
-                name="description">{{ old('description') }}</textarea>
-                <div class="form-element-bar"></div>
-                <label for="description" class="form-element-label">{{ __('Description') }}</label>
-            </div>
-            @error('description')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            
-            
-            <!-- ingredients -->
-            <div class="form-input">
-                <textarea required type="text" class="form-element-input" id="ingredients" rows="10"
-                name="ingredients">{{ old('ingredients') }}</textarea>
-                <div class="form-element-bar"></div>
-                <label for="ingredients" class="form-element-label">{{ __('Ingredients') }}</label>
-                <small class="form-element-hint">Esempio: Hamburger,Insalata, etc..</small>
-            </div>
-            @error('ingredients')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            
-            
-            <!-- allergies -->
-            <div class="form-input">
-                <textarea required type="text" class="form-element-input" id="allergies" rows="10"
-                name="allergies">{{ old('allergies') }}</textarea>
-                <div class="form-element-bar"></div>
-                <label for="allergies" class="form-element-label">{{ __('Allergies') }}</label>
-                <small class="form-element-hint">Esempio: Celiaco,Lattosio, etc..</small>
-            </div>
-            @error('allergies')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            
-            
-            
-            <!-- price -->
-            <div class="form-input">
-                <input required class="form-element-input" id="price" rows="10" name="price" value="{{ old('price') }}">
-                <div class="form-element-bar"></div>
-                <label for="price" class="form-element-label">{{ __('Price') }}</label>
-                <small class="form-element-hint">Esempio: 10,90</small>
-                @error('price')
-                <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            
-            
-            
-            <!-- available -->
-            {{-- <div class="form-input">
-                <div>
-                    <input type="radio" class="" id="available" name="available" value=1 required>
-                    <label for="available" class="">Disponibile</label>
-                    <input type="radio" class="" id="not-available" name="available" value=0>
-                    <label  class="" for="not-available">Non disponibile</label>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Inserisci un nuovo piatto</div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <form action="{{ route('user.dishes.store') }}" method="post">
+                                @csrf
+
+                                <!-- name -->
+                                <div class="form-group row my-3 mx-auto">
+                                    <label for="name" class="col-md-2 col-form-label text-start text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control"
+                                            id="name" name="name" value="{{ old('name') }}">
+                                    </div>
+                                </div>
+                                @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
+
+                                <!-- description -->
+                                <div class="form-group row my-3 mx-auto">
+                                    <label for="description" class="col-md-2 col-form-label text-start text-md-end">{{ __('Description') }}</label>
+                                    <div class="col-md-10">
+                                        <textarea type="text" class="form-control"
+                                            id="description" rows="10"
+                                            name="description">{{ old('description') }}</textarea>
+                                    </div>
+                                </div>
+                                @error('description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
+
+                                <!-- ingredients -->
+                                <div class="form-group row my-3 mx-auto">
+                                    <label for="ingredients" class="col-md-2 col-form-label text-start text-md-end">{{
+                                        __('Ingredients') }}</label>
+                                    <div class="col-md-10">
+                                        <textarea type="text" class="form-control" id="ingredients" rows="10"
+                                            name="ingredients">{{ old('ingredients') }}</textarea>
+                                    </div>
+                                </div>
+                                    @error('ingredients')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+
+                                    <!-- allergies -->
+                                    <div class="form-group row my-3 mx-auto">
+                                        <label for="allergies" class="col-md-2 col-form-label text-start text-md-end">{{
+                                            __('Allergies') }}</label>
+                                        <div class="col-md-10">
+                                            <textarea type="text" class="form-control" id="allergies" rows="10"
+                                                name="allergies">{{ old('allergies') }}</textarea>
+                                        </div>
+                                    </div>
+                                    @error('allergies')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+
+
+                                    <!-- price -->
+                                    <div class="form-group row my-3 mx-auto">
+                                        <label for="price" class="col-md-2 col-form-label text-start text-md-end">{{
+                                            __('Price') }}</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control" id="price" rows="10" name="price"
+                                                value="{{ old('price') }}">
+                                        </div>
+
+                                    </div>
+                                    @error('street')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+
+                                    <!-- available -->
+                                    <div class="form-group row my-3 mx-auto">
+                                        <div class="d-flex justify-content-around">
+                                            <div>
+                                                <input type="radio" class="" id="available" name="available" value=1>
+                                                <label for="available">Disponibile</label>
+
+                                            </div>
+                                            <div>
+
+                                                <input type="radio" class="" id="not-available" name="available" value=0>
+                                                <label for="not-available">Non disponibile</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @error('available')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+
+                                    <!-- button -->
+                                    <div class="form-group row my-3 mx-auto">
+                                        <button class="btn btn-primary px-5 text-white">Save</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div> --}}
-                <div class="form-input">
-                    <label class="rad-label">
-                        <input required type="radio" class="rad-input" name="available" value=1 required>
-                        <div class="rad-design"></div>
-                        <div class="rad-text">Disponibile</div>
-                    </label>
-                    
-                    <label class="rad-label">
-                        <input required type="radio" class="rad-input" name="available" value=0 required>
-                        <div class="rad-design"></div>
-                        <div class="rad-text">Non Disponibile</div>
-                    </label>
-            </div>
-
-
-            <!-- button -->
-            <div class="submit-button">
-                <input value="Send" type="submit" />
-            </div>
-            </form>
             </div>
         </div>
     </div>
-    
-    
-    {{-- </div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <form action="{{ route('user.dishes.store') }}" method="post">
-                    @csrf
+</div>
 
-                    <!-- name -->
-                    <div class="mb-3">
-                        <label for="name" class="form-label">{{ __('Name') }}</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-                    </div>
-                    @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-
-                    <!-- description -->
-                    <div class="mb-3">
-                        <label for="description" class="form-label">{{ __('Description') }}</label>
-                        <textarea type="text" class="form-control" id="description" rows="10"
-                            name="description">{{ old('description') }}</textarea>
-                    </div>
-                    @error('description')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-
-                    <!-- ingredients -->
-                    <div class="mb-3">
-                        <label for="ingredients" class="form-label">{{ __('Ingredients') }}</label>
-                        <textarea type="text" class="form-control" id="ingredients" rows="10"
-                            name="ingredients">{{ old('ingredients') }}</textarea>
-                    </div>
-                    @error('ingredients')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-
-                    <!-- allergies -->
-                    <div class="mb-3">
-                        <label for="allergies" class="form-label">{{ __('Allergies') }}</label>
-                        <textarea type="text" class="form-control" id="allergies" rows="10"
-                            name="allergies">{{ old('allergies') }}</textarea>
-                    </div>
-                    @error('allergies')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-
-
-                    <!-- price -->
-                    <div class="mb-3">
-                        <label for="price" class="form-label">{{ __('Price') }}</label>
-                        <input class="form-control" id="price" rows="10" name="price" value="{{ old('price') }}">
-
-                    </div>
-                    @error('street')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-
-
-                    <!-- available -->
-                    <div class="mb-3">
-                        <div>
-                            <input type="radio" class="" id="available" name="available" value=1>
-                            <label for="available">Disponibile</label>
-                            <input type="radio" class="" id="not-available" name="available" value=0>
-                            <label for="not-available">Non disponibile</label>
-                        </div>
-                    </div>
-                    @error('available')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-
-
-                    <!-- button -->
-                    <button class="btn btn-success">Save</button>
-                </form> --}}
-            {{-- </div> --}}
-        {{-- </div> --}}
-    {{-- </div> --}}
-</main>
 @endsection
