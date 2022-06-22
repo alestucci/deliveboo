@@ -20,7 +20,9 @@
 
     <body>
         @include('components.header')
-        <div id="app"></div>
+        <main>
+            <div id="app"></div>
+        </main>
         @include('components.footer')
     </body>
 

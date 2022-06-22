@@ -2,44 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use  App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
+
 use App\User;
+use App\Category;
 
-class UserController extends Controller
+
+class MetadataController extends Controller
 {
-
-    use \App\Traits\searchFilters;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $attributes = $request->all();
-
-        // //dd($attributes);
-        
-        if (array_key_exists('home', $attributes)) {
-            return response()->json([
-                'success'   => true,
-                'response'  => [
-                    'data'      => User::inRandomOrder()->get(),
-                ]
-            ]);
-        }
-
-        // // ->with(['user', 'category'])->paginate(15)
-
-        $users = $this->composeQuery($request);
-        $sql_string = $users->toSql();
-
-        $users = $users->with(['user', 'category'])->paginate(15);
+    public function index(Request $request) {
         return response()->json([
-            'success'   => true,
-            'response'  => $users,
-            'sql'       => $sql_string
+            // 'categories'    => Category::all()->pluck('name'),
+            // 'users'         => User::all()->pluck('name'),
+
+            'categories'    => Category::all(['id', 'name']),
+            'users'         => User::all(['id', 'name']),
         ]);
     }
 

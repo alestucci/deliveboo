@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="my-2 w-75 mx-auto d-flex justify-content-between">
-            <a href="{{ url()->previous() }}" class="btn btn-secondary px-4">{{ __('Back')}}</a>
+            <a href="{{ route('user.dishes.index') }}" class="btn btn-secondary px-4">{{ __('Torna ai piatti')}}</a>
             <a href="{{ route('user.dishes.edit', $dish->id) }}" class="btn btn-primary text-white px-4">{{ __('Edit')
                 }}</a>
             <button class="btn btn-danger delete-button text-white px-4" data-id="{{ $dish->id }}">{{ __('Delete')
