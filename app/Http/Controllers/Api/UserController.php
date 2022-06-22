@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 
+
 class UserController extends Controller
 {
 
@@ -19,8 +20,6 @@ class UserController extends Controller
     {
         $attributes = $request->all();
 
-        // //dd($attributes);
-        
         if (array_key_exists('home', $attributes)) {
             return response()->json([
                 'success'   => true,
@@ -32,14 +31,17 @@ class UserController extends Controller
 
         // // ->with(['user', 'category'])->paginate(15)
 
-        $users = $this->composeQuery($request);
-        $sql_string = $users->toSql();
+        // $users = $this->composeQuery($request);
+        // $sql_string = $users->toSql();
 
-        $users = $users->with(['user', 'category'])->paginate(15);
+        $users = User::whereRaw('1 = 1')->join('category_user', 'users.id', '=', 'category_user.user_id')->get();
+
+        // dd($users);
+
+        // $users = $users->with(['user', 'category'])->paginate(15);
         return response()->json([
             'success'   => true,
-            'response'  => $users,
-            'sql'       => $sql_string
+            'response'  => [ 'data' => $users]
         ]);
     }
 

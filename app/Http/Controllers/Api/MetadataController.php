@@ -6,6 +6,8 @@ use  App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 use App\User;
 use App\Category;
 
@@ -18,12 +20,14 @@ class MetadataController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        // dd(DB::table('category_user')->get());
         return response()->json([
             // 'categories'    => Category::all()->pluck('name'),
             // 'users'         => User::all()->pluck('name'),
 
             'categories'    => Category::all(['id', 'name']),
             'users'         => User::all(['id', 'name']),
+            'category_users' => DB::table('category_user')->get()
         ]);
     }
 

@@ -1,13 +1,14 @@
 <template>
     <div>
 
-        <form @submit.prevent="getData(url + '/users')" class="row g-3 mb-3">
+        <form @submit.prevent="GetData(url + '/users')" class="row g-3 mb-3">
             <div class="col-md-6">
                 <select class="form-select" aria-label="Default select example" name="category" id="category" v-model="filters.category">
                     <option value="" selected>Select a category</option>
                     <option v-for="category in metadata.categories" :key="category.id" :value="category.id">{{ category.name }}</option>
                 </select>
             </div>
+            <button>filter</button>
         </form>
 
         <div class="cards-cont" v-for="user in users" :key="user.id">
@@ -23,6 +24,10 @@
                 <p>
                     Phone: {{  user.phone_number  }}
                 </p>
+
+                <div v-for="category in metadata.categories" :key="category.id">
+                    <span  >{{ category.name }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -43,19 +48,21 @@ export default {
     },
     methods: {
         GetData(url) {
-            Axios.get(url).then(response => {
+            Axios.get(url, {
+                params: this.filters
+            }).then(response => {
                 console.log(response.data.response)
-
                 this.users = response.data.response.data
             })
         }
     },
     created() {
-        this.GetData(this.url + '/users?home');
+        this.GetData(this.url + '/users?home')
         Axios.get(this.url + '/metadata')
             .then(response => {
                 this.metadata = response.data;
-                console.log(response.data)
+
+                console.log(this.metadata.category_users)
 
             });
     }
