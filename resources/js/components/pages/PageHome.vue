@@ -87,7 +87,8 @@ export default {
         Axios.get(this.url + '/metadata')
             .then(response => {
                 this.metadata = response.data;
-                console.log(response.data)
+
+                console.log(this.metadata.category_users)
 
             });
     },
