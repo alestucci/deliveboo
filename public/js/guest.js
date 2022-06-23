@@ -56810,6 +56810,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
     path: '/',
     name: 'PageHome',
     component: _components_pages_PageHome_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  }, {
+    path: '/',
+    name: 'RestaurantMenu',
+    component: RestaurantMenu
   }]
 });
 var app = new Vue({
@@ -56819,6 +56823,27 @@ var app = new Vue({
   },
   router: router
 });
+var addToCartBtnArray = document.querySelectorAll(".add-to-cart");
+var decreaseBtnArray = document.querySelectorAll(".decrease");
+var increaseBtnArray = document.querySelectorAll(".increase");
+var inputQutyFieldArray = document.querySelectorAll(".dish-quantity");
+var cartItem = [];
+var dishQuantity = 0; //Qui va legato al campo quantità del piatto
+
+var localStorageIndex = 0;
+var localStorageKey = 'cart' + localStorageIndex;
+
+function addToCart(dish, quantity) {
+  cartItem = [dish.id, dish.price, quantity];
+  cart.push(cartItem);
+  return cart;
+} //Trasformare l'oggetto nel carrello da array a stringa con separatore di dati |
+//cartItem.join('|')
+//Funzioni per localStorage
+// localStorage.setItem(key, 'string')
+// localStorage.getItem(key, 'string')
+// Svuotare carrello
+// localStorage.clear()
 })();
 
 /******/ })()

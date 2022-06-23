@@ -4,7 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\User;
+use App\Category;
+use App\Dish;
+
+
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -19,28 +26,52 @@ class UserController extends Controller
     {
         $attributes = $request->all();
 
-        // //dd($attributes);
-        
+        $jointable = DB::table('users')->join('category_user','category_user.user_id','=','users.id');
+
+        $users = User::all();
+        $categories = Category::all();
+        $dishes = Dish::all();
+
+        $array = [];
+
+        foreach ($users as $user) {
+            $categoriesArray =[];
+            foreach ($user->categories as $cat) {
+                $catName = $categories->where('id', $cat->id)->first();
+                $categoriesArray[] = $catName->name;
+            }
+            $array[] = [
+                'user_id' => $user->id,
+                'categories' => $categoriesArray
+            ];
+        };
+
+        // dd($array);
+
+
         if (array_key_exists('home', $attributes)) {
             return response()->json([
                 'success'   => true,
                 'response'  => [
-                    'data'      => User::inRandomOrder()->get(),
+                    'data'      => $users,
+                    'array'     => $array,
+                    'dishes'    => $dishes
                 ]
             ]);
         }
 
-        // // ->with(['user', 'category'])->paginate(15)
+        if (array_key_exists('category', $attributes)) {
+            return response()->json([
+                'success'   => true,
+                'response'  => [
+                    'data'      => $jointable->where('category_id', $request->category)->get(),
+                    'array'     => $array,
+                    'dishes'    => $dishes
+                ]
+            ]);
+        }
 
-        $users = $this->composeQuery($request);
-        $sql_string = $users->toSql();
-
-        $users = $users->with(['user', 'category'])->paginate(15);
-        return response()->json([
-            'success'   => true,
-            'response'  => $users,
-            'sql'       => $sql_string
-        ]);
+        //TODO Slegare il RETURN dagli IF
     }
 
     /**
