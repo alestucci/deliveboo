@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\User;
 use App\Category;
+Use App\Dish;
 
 
 class MetadataController extends Controller
@@ -27,7 +28,8 @@ class MetadataController extends Controller
 
             'categories'    => Category::all(['id', 'name']),
             'users'         => User::all(['id', 'name']),
-            'category_users' => DB::table('category_user')->get()
+            'category_users' => DB::table('category_user')->get(),
+            'dishes'        => Dish::all('id', 'name', 'user_id')
         ]);
     }
 

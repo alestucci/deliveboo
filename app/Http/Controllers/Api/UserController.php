@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Category;
+use App\Dish;
 
 
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,7 @@ class UserController extends Controller
 
         $users = User::all();
         $categories = Category::all();
+        $dishes = Dish::all();
 
         $array = [];
 
@@ -52,7 +54,8 @@ class UserController extends Controller
                 'success'   => true,
                 'response'  => [
                     'data'      => $users,
-                    'array'  => $array
+                    'array'     => $array,
+                    'dishes'    => $dishes
                 ]
             ]);
         }
@@ -62,10 +65,13 @@ class UserController extends Controller
                 'success'   => true,
                 'response'  => [
                     'data'      => $jointable->where('category_id', $request->category)->get(),
-                    'array'  => $array
+                    'array'     => $array,
+                    'dishes'    => $dishes
                 ]
             ]);
         }
+
+        //TODO Slegare il RETURN dagli IF
     }
 
     /**

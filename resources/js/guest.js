@@ -20,6 +20,11 @@ const router = new VueRouter({
             name: 'PageHome',
             component: PageHome,
         },
+        {
+            path: '/',
+            name: 'RestaurantMenu',
+            component: RestaurantMenu,
+        },
     ],
 });
 
@@ -29,3 +34,30 @@ const app = new Vue({
     render: h => h(App),
     router
 });
+
+let addToCartBtnArray = document.querySelectorAll(".add-to-cart");
+let decreaseBtnArray = document.querySelectorAll(".decrease");
+let increaseBtnArray = document.querySelectorAll(".increase");
+let inputQutyFieldArray = document.querySelectorAll(".dish-quantity");
+
+
+
+let cartItem = [];
+let dishQuantity = 0; //Qui va legato al campo quantità del piatto
+let localStorageIndex = 0;
+let localStorageKey = 'cart'+localStorageIndex;
+
+function addToCart(dish, quantity) {
+    cartItem = [dish.id, dish.price, quantity]
+    cart.push(cartItem);
+    return cart
+}
+
+//Trasformare l'oggetto nel carrello da array a stringa con separatore di dati |
+//cartItem.join('|')
+
+//Funzioni per localStorage
+// localStorage.setItem(key, 'string')
+// localStorage.getItem(key, 'string')
+// Svuotare carrello
+// localStorage.clear()
