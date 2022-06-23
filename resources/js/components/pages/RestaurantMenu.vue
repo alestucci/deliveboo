@@ -68,6 +68,8 @@ export default {
       defaultValue: false,
 
       // cart: [],
+      // cartItem: ['dish.id', 'Qty', 'dish.price']
+      //
     };
   },
   methods: {
@@ -86,5 +88,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

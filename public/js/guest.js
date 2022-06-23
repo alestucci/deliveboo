@@ -5081,16 +5081,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'PageHome',
+  name: "PageHome",
   data: function data() {
     return {
-      url: 'http://aletucci.dynv6.net:9000/api/v1',
+      url: "http://aletucci.dynv6.net:9000/api/v1",
       // url: 'http://127.0.0.1:8000/api/v1',
       users: [],
       metadata: {},
       filters: {
-        category: ''
+        category: ""
       },
       user_category: [],
       defaultValue: false
@@ -5112,16 +5121,16 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this2 = this;
 
-    this.GetData(this.url + '/users?home');
-    Axios.get(this.url + '/metadata').then(function (response) {
+    this.GetData(this.url + "/users?home");
+    Axios.get(this.url + "/metadata").then(function (response) {
       _this2.metadata = response.data;
       console.log(_this2.metadata.category_users);
     });
   },
   computed: {
     defaultFilter: function defaultFilter() {
-      if (this.filters.category === '') {
-        return this.GetData(this.url + '/users?home');
+      if (this.filters.category === "") {
+        return this.GetData(this.url + "/users?home");
       }
     }
   }
@@ -5207,6 +5216,8 @@ __webpack_require__.r(__webpack_exports__);
       user: [],
       dishes: [],
       defaultValue: false // cart: [],
+      // cartItem: ['dish.id', 'Qty', 'dish.price']
+      //
 
     };
   },
@@ -41962,7 +41973,11 @@ var render = function () {
                 return _c(
                   "option",
                   { key: category.id, domProps: { value: category.id } },
-                  [_vm._v(_vm._s(category.name))]
+                  [
+                    _vm._v(
+                      "\n            " + _vm._s(category.name) + "\n          "
+                    ),
+                  ]
                 )
               }),
             ],
@@ -41993,29 +42008,15 @@ var render = function () {
                 [
                   _c("h1", [
                     _vm._v(
-                      "\n                        " +
-                        _vm._s(user.name) +
-                        "\n                    "
+                      "\n            " + _vm._s(user.name) + "\n          "
                     ),
                   ]),
                   _vm._v(" "),
                   _c("p", [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(user.street) +
-                        " - " +
-                        _vm._s(user.city) +
-                        "\n                    "
-                    ),
+                    _vm._v(_vm._s(user.street) + " - " + _vm._s(user.city)),
                   ]),
                   _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "\n                        Phone: " +
-                        _vm._s(user.phone_number) +
-                        "\n                    "
-                    ),
-                  ]),
+                  _c("p", [_vm._v("Phone: " + _vm._s(user.phone_number))]),
                   _vm._v(" "),
                   _vm._l(_vm.user_category, function (restaurant) {
                     return _c("div", { key: restaurant.id }, [
@@ -42041,7 +42042,11 @@ var render = function () {
                                 _c("span", [_vm._v(_vm._s(category))]),
                                 _vm._v(" "),
                                 index + 1 < restaurant.categories.length
-                                  ? _c("span", [_vm._v(" , ")])
+                                  ? _c("span", [
+                                      _vm._v(
+                                        "\n                  ,\n                "
+                                      ),
+                                    ])
                                   : _vm._e(),
                               ]
                             )
