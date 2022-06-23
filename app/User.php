@@ -12,7 +12,7 @@ class User extends Authenticatable
     use Notifiable;
 
     public function categories() {
-        return $this->belongsToMany('App\Category');
+        return $this->belongsToMany('App\Category')->withPivot('category_id', 'user_id');
     }
 
     public function dishes() {
