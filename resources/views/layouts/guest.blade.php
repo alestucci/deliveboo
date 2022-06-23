@@ -8,13 +8,20 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=Permanent+Marker&display=swap" rel="stylesheet">
-        
+
         {{-- CDN Fontawesome --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
-        
+
         <script src="{{ asset('js/guest.js') }}" defer></script>
+
+        <!-- includes the Braintree JS client SDK -->
+        <script src="https://js.braintreegateway.com/web/dropin/1.33.2/js/dropin.min.js"></script>
+
+        <!-- includes jQuery -->
+        <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
         <title>@yield('title')</title>
     </head>
 
