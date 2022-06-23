@@ -6,6 +6,7 @@ window.Axios = require('axios');
 import App from './components/App.vue';
 
 import PageHome from './components/pages/PageHome.vue';
+import RestaurantMenu from './components/pages/RestaurantMenu.vue';
 
 import VueRouter from 'vue-router';
 
@@ -21,9 +22,10 @@ const router = new VueRouter({
             component: PageHome,
         },
         {
-            path: '/',
+            path: '/restaurantmenu/:slug',
             name: 'RestaurantMenu',
             component: RestaurantMenu,
+            props: true,
         },
     ],
 });

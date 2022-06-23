@@ -101,9 +101,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $user = User::where('slug', $slug)->first(); 
+        $dishes = Dish::where('user_id', $user->id)->get();
+
+        // dd($user);
+        
+       return response()->json([
+            'success'   => true,
+            'response'  => [
+                'user'      => $user,
+                'dishes'    => $dishes
+            ]
+        ]);
     }
 
     /**

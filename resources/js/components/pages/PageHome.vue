@@ -19,7 +19,7 @@
             <div class="cards-cont row p-3">
                 <div v-for="user in users" :key="user.id" class="card col-12 col-sm-6 col-md-4 col-lg-3">
 
-                    <a href="" class="inner-card">
+                    <router-link :to="{name: 'RestaurantMenu', params: {slug: user.slug }}"  class="inner-card">
                         <h1>
                             {{  user.name  }}
                         </h1>
@@ -40,7 +40,10 @@
                                 </span>
                             </p>
                         </div>
-                    </a>
+
+
+                    </router-link>
+
 
                 </div>
             </div>
@@ -58,8 +61,8 @@ export default {
     name: 'PageHome',
     data() {
         return {
-            // url: 'http://aletucci.dynv6.net:9000/api/v1',
-            url: 'http://127.0.0.1:8000/api/v1',
+            url: 'http://aletucci.dynv6.net:9000/api/v1',
+            // url: 'http://127.0.0.1:8000/api/v1',
             users: [],
             metadata: {},
             filters: {
@@ -77,7 +80,7 @@ export default {
 
                 this.users = response.data.response.data;
                 this.user_category = response.data.response.array;
-                console.log(this.user_category)
+                console.log(this.users)
             })
         },
     },
