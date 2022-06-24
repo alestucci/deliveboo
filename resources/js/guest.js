@@ -37,23 +37,23 @@ const app = new Vue({
     router
 });
 
-let addToCartBtnArray = document.querySelectorAll(".add-to-cart");
-let decreaseBtnArray = document.querySelectorAll(".decrease");
-let increaseBtnArray = document.querySelectorAll(".increase");
-let inputQutyFieldArray = document.querySelectorAll(".dish-quantity");
+// let addToCartBtnArray = document.querySelectorAll(".add-to-cart");
+// let decreaseBtnArray = document.querySelectorAll(".decrease");
+// let increaseBtnArray = document.querySelectorAll(".increase");
+// let inputQutyFieldArray = document.querySelectorAll(".dish-quantity");
 
 
 
-let cartItem = [];
-let dishQuantity = 0; //Qui va legato al campo quantità del piatto
-let localStorageIndex = 0;
-let localStorageKey = 'cart'+localStorageIndex;
+// let cartItem = [];
+// let dishQuantity = 0; //Qui va legato al campo quantità del piatto
+// let localStorageIndex = 0;
+// let localStorageKey = 'cart'+localStorageIndex;
 
-function addToCart(dish, quantity) {
-    cartItem = [dish.id, dish.price, quantity]
-    cart.push(cartItem);
-    return cart
-}
+// function addToCart(dish, quantity) {
+//     cartItem = [dish.id, dish.price, quantity]
+//     cart.push(cartItem);
+//     return cart
+// }
 
 //Trasformare l'oggetto nel carrello da array a stringa con separatore di dati |
 //cartItem.join('|')

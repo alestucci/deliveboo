@@ -3,33 +3,46 @@
     <div class="container">
       <h1 class="name text-center pb-4">{{ user.name }}</h1>
       <!-- CARDS DEI PIATTI -->
-      <div class="d-flex flex-wrap">
-        <div v-for="dish in dishes" :key="dish.id" class="card">
-          <div v-show="dish.available === 1" class="card h-100 r-15">
-            <div class="card-body d-flex flex-column justify-content-center">
-              <div></div>
-              <h5 class="card-title d-flex justify-content-between">
+      <div class="row d-flex flex-wrap">
+        <div v-for="dish in dishes" :key="dish.id" class="col">
+          <div class="card h-100 r-15 overflow-hidden">
+            <div class="h-100 d-flex flex-column justify-content-between">
+              <h4 class="card-header text-center">
                 {{ dish.name }}
+              </h4>
+              <div class="card-body">
+                <h5>Descrizione</h5>
+                <p class="card-text py-3">{{ dish.description }}</p>
+                <h5>Ingredienti</h5>
+                <p class="card-text py-3">{{ dish.ingredients }}</p>
+                <h5>Allergies</h5>
+                <p class="card-text py-3">{{ dish.allergies }}</p>
+              </div>
+              <h5 class="text-center">
+                € {{ parseFloat(dish.price / 100).toFixed(2) }}
               </h5>
-              <h5 class="card-title d-flex justify-content-between">
-                {{ dish.price }}
-              </h5>
-              <p class="card-text py-3">{{ dish.description }}</p>
-              <p class="card-text py-3">{{ dish.ingredients }}</p>
+              <!-- AGGIUNGI AL CARRELLO -->
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-primary text-white p-2 decrease">
+                  -
+                </button>
+                <input
+                  type="number"
+                  class="form-control p-2 dish-quantity text-center"
+                  v-model="dish.quantity"
+                />
+                <button class="btn btn-primary text-white p-2 increase">
+                  +
+                </button>
+              </div>
+              <button
+                @click="addToCart(dish.id, dish.quantity, dish.price)"
+                class="btn btn-primary text-white p-2 add-to-cart"
+                :disabled="!dish.available"
+              >
+                <i class="fa-solid fa-cart-shopping text-center"></i>
+              </button>
             </div>
-            <!-- AGGIUNGI AL CARRELLO -->
-            <div class="d-flex justify-content-center">
-              <button class="btn btn-primary text-white p-2 decrease">-</button>
-              <input
-                type="number"
-                class="form-control p-2 dish-quantity"
-                value="0"
-              />
-              <button class="btn btn-primary text-white p-2 increase">+</button>
-            </div>
-            <button class="btn btn-primary text-white p-2 add-to-cart">
-              <i class="fa-solid fa-cart-shopping text-center"></i>
-            </button>
           </div>
         </div>
       </div>
@@ -66,10 +79,10 @@ export default {
       user: [],
       dishes: [],
       defaultValue: false,
-
-      // cart: [],
-      // cartItem: ['dish.id', 'Qty', 'dish.price']
-      //
+      cartItem: [],
+      cart: [],
+      localStorageIndex: 1,
+      key: '',
     };
   },
   methods: {
@@ -77,8 +90,20 @@ export default {
       Axios.get(url).then((response) => {
         this.user = response.data.response.user;
         this.dishes = response.data.response.dishes;
-        console.log(response.data.response);
+        // console.log(response.data.response);
       });
+    },
+    addToCart(dishId, dishQty, dishPrice) {
+      this.cartItem = [dishId, dishQty, dishPrice];
+      this.cart.push(this.cartItem);
+      key = 'cartItem' + this.localStorageIndex
+      localStorage.setItem(this.key, this.cartItem.join('|'));
+      console.log(dishId);
+      console.log(dishQty);
+      console.log(dishPrice);
+      console.log(this.cartItem);
+      console.log(this.cart);
+      this.localStorageIndex++;
     },
   },
   created() {
@@ -88,4 +113,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card {
+  width: 250px;
+}
 </style>
