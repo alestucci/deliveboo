@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Category;
-use App\Dish;
 
 
 use Illuminate\Support\Facades\DB;
@@ -25,28 +24,28 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $attributes = $request->all();
-
         $jointable = DB::table('users')->join('category_user','category_user.user_id','=','users.id');
-
+        $array = [];
         $users = User::all();
         $categories = Category::all();
-        $dishes = Dish::all();
-
-        $array = [];
 
         foreach ($users as $user) {
             $categoriesArray =[];
+            $category_ids = [];
             foreach ($user->categories as $cat) {
                 $catName = $categories->where('id', $cat->id)->first();
                 $categoriesArray[] = $catName->name;
+                $category_ids[] = $catName->id;
             }
             $array[] = [
                 'user_id' => $user->id,
                 'categories' => $categoriesArray
             ];
-        };
 
-        // dd($array);
+            $user['categoriesArray'] = $categoriesArray;
+            $user['category_ids'] = $category_ids;
+
+        };
 
 
         if (array_key_exists('home', $attributes)) {
@@ -54,24 +53,35 @@ class UserController extends Controller
                 'success'   => true,
                 'response'  => [
                     'data'      => $users,
-                    'array'     => $array,
-                    'dishes'    => $dishes
+                    'array'  => $array
                 ]
             ]);
         }
 
-        if (array_key_exists('category', $attributes)) {
+        if (array_key_exists('category_ids', $attributes)) {
             return response()->json([
                 'success'   => true,
                 'response'  => [
-                    'data'      => $jointable->where('category_id', $request->category)->get(),
-                    'array'     => $array,
-                    'dishes'    => $dishes
+                    'data'      => $users->whereIn('category_ids', $request->category_ids),
+                    'array'     => $array
                 ]
             ]);
         }
 
-        //TODO Slegare il RETURN dagli IF
+
+        if (array_key_exists('category_ids', $attributes)) {
+            return response()->json([
+                'success'   => true,
+                'response'  => [
+                    'data'      => $users->where(),
+                    'array'     => $array
+                ]
+            ]);
+        }
+
+
+
+
     }
 
     /**
@@ -101,20 +111,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $user = User::where('slug', $slug)->first(); 
-        $dishes = Dish::where('user_id', $user->id)->get();
-
-        // dd($user);
-        
-       return response()->json([
-            'success'   => true,
-            'response'  => [
-                'user'      => $user,
-                'dishes'    => $dishes
-            ]
-        ]);
+        //
     }
 
     /**
@@ -151,3 +150,8 @@ class UserController extends Controller
         //
     }
 }
+
+
+
+
+
