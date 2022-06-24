@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\User;
 use App\Category;
+use App\User;
+use App\Dish;
 
 
 use Illuminate\Support\Facades\DB;
@@ -25,9 +26,10 @@ class UserController extends Controller
     {
         $attributes = $request->all();
         $jointable = DB::table('users')->join('category_user','category_user.user_id','=','users.id');
-        $array = [];
         $users = User::all();
         $categories = Category::all();
+        $array = [];
+
 
         foreach ($users as $user) {
             $categoriesArray =[];
@@ -44,9 +46,8 @@ class UserController extends Controller
 
             $user['categoriesArray'] = $categoriesArray;
             $user['category_ids'] = $category_ids;
-
         };
-
+        
 
         if (array_key_exists('home', $attributes)) {
             return response()->json([
@@ -58,31 +59,16 @@ class UserController extends Controller
             ]);
         }
 
-        if (array_key_exists('category_ids', $attributes)) {
+        if (array_key_exists('category_ids', $attributes)) { 
             return response()->json([
                 'success'   => true,
                 'response'  => [
-                    'data'      => $users->whereIn('category_ids', $request->category_ids),
+                    'data'      => $jointable->whereIn('category_id', $request->category_ids)->get()->unique('id'),
                     'array'     => $array
                 ]
             ]);
         }
-
-
-        if (array_key_exists('category_ids', $attributes)) {
-            return response()->json([
-                'success'   => true,
-                'response'  => [
-                    'data'      => $users->where(),
-                    'array'     => $array
-                ]
-            ]);
-        }
-
-
-
-
-    }
+    }   
 
     /**
      * Show the form for creating a new resource.
@@ -111,9 +97,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
+        $user = User::where('slug', $slug)->first(); 
+        $dishes = Dish::where('user_id', $user->id)->get();
+
+        // dd($user);
+
+       return response()->json([
+            'success'   => true,
+            'response'  => [
+                'user'      => $user,
+                'dishes'    => $dishes
+            ]
+        ]);
     }
 
     /**

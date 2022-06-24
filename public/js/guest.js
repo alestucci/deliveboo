@@ -5086,20 +5086,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "PageHome",
+  name: 'PageHome',
   data: function data() {
     return {
-      url: "http://aletucci.dynv6.net:9000/api/v1",
-      // url: 'http://127.0.0.1:8000/api/v1',
+      url: 'http://aletucci.dynv6.net:9000/api/v1',
+      //url: 'http://127.0.0.1:8000/api/v1',
       users: [],
       metadata: {},
       filters: {
-        category: ""
+        category_ids: []
       },
       user_category: [],
       defaultValue: false
@@ -5114,25 +5110,43 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this.users = response.data.response.data;
         _this.user_category = response.data.response.array;
-        console.log(_this.users);
+        console.log(response);
       });
+    },
+    removeItemOnce: function removeItemOnce(arr, value) {
+      var index = arr.indexOf(value);
+
+      if (index > -1) {
+        arr.splice(index, 1);
+      }
+
+      return arr;
+    },
+    check: function check(e) {
+      var _this2 = this;
+
+      this.$nextTick(function () {
+        if (!_this2.filters.category_ids.includes(e.target.id)) {
+          _this2.filters.category_ids.push(e.target.id);
+
+          console.log(_this2.filters.category_ids);
+        } else {
+          _this2.removeItemOnce(_this2.filters.category_ids, e.target.id);
+        }
+      });
+    },
+    filterSearch: function filterSearch(e) {
+      this.check(e);
+      this.GetData(this.url + '/users');
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
-    this.GetData(this.url + "/users?home");
-    Axios.get(this.url + "/metadata").then(function (response) {
-      _this2.metadata = response.data;
-      console.log(_this2.metadata.category_users);
+    this.GetData(this.url + '/users?home');
+    Axios.get(this.url + '/metadata').then(function (response) {
+      _this3.metadata = response.data;
     });
-  },
-  computed: {
-    defaultFilter: function defaultFilter() {
-      if (this.filters.category === "") {
-        return this.GetData(this.url + "/users?home");
-      }
-    }
   }
 });
 
@@ -5206,6 +5220,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RestaurantMenu",
   props: ["slug"],
@@ -5215,10 +5234,11 @@ __webpack_require__.r(__webpack_exports__);
       url: "http://aletucci.dynv6.net:9000/api/v1",
       user: [],
       dishes: [],
-      defaultValue: false // cart: [],
-      // cartItem: ['dish.id', 'Qty', 'dish.price']
-      //
-
+      defaultValue: false,
+      cartItem: [],
+      cart: [],
+      localStorageIndex: 1,
+      key: ""
     };
   },
   methods: {
@@ -5227,9 +5247,23 @@ __webpack_require__.r(__webpack_exports__);
 
       Axios.get(url).then(function (response) {
         _this.user = response.data.response.user;
-        _this.dishes = response.data.response.dishes;
-        console.log(response.data.response);
+        _this.dishes = response.data.response.dishes; // console.log(response.data.response);
       });
+    },
+    addToCart: function addToCart(dishId, dishQty, dishPrice) {
+      if (dishQty > 0) {
+        this.cartItem = [dishId, dishQty, dishPrice]; //this.cart.push(this.cartItem);
+
+        this.key = "cartItem" + this.localStorageIndex;
+        localStorage.setItem(this.key, this.cartItem.join("|"));
+      }
+
+      console.log(dishId);
+      console.log(dishQty);
+      console.log(dishPrice);
+      console.log(this.cartItem);
+      console.log(this.cart);
+      this.localStorageIndex++;
     }
   },
   created: function created() {
@@ -10328,6 +10362,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".form-select[data-v-409538a4] {\n  margin-left: 0.6rem;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.card[data-v-409538a4] {\n  background: transparent;\n  padding: 0.5rem;\n  border: none;\n}\n.card .inner-card[data-v-409538a4] {\n  text-decoration: none;\n  background: #ab3328;\n  padding: 0.6rem;\n  height: 100%;\n  border-radius: 25px;\n  color: #fff;\n}\n.card .inner-card h1[data-v-409538a4] {\n  color: #f49e4c;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".card[data-v-ed71855c] {\n  width: 250px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41369,6 +41427,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantMenu_vue_vue_type_style_index_0_id_ed71855c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantMenu_vue_vue_type_style_index_0_id_ed71855c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantMenu_vue_vue_type_style_index_0_id_ed71855c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -41741,15 +41829,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RestaurantMenu_vue_vue_type_template_id_ed71855c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RestaurantMenu.vue?vue&type=template&id=ed71855c&scoped=true& */ "./resources/js/components/pages/RestaurantMenu.vue?vue&type=template&id=ed71855c&scoped=true&");
 /* harmony import */ var _RestaurantMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RestaurantMenu.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/RestaurantMenu.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _RestaurantMenu_vue_vue_type_style_index_0_id_ed71855c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true& */ "./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _RestaurantMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _RestaurantMenu_vue_vue_type_template_id_ed71855c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
   _RestaurantMenu_vue_vue_type_template_id_ed71855c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -41824,6 +41914,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_PageHome_vue_vue_type_style_index_0_id_409538a4_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PageHome.vue?vue&type=style&index=0&id=409538a4&lang=scss&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/PageHome.vue?vue&type=style&index=0&id=409538a4&lang=scss&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true& ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantMenu_vue_vue_type_style_index_0_id_ed71855c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/RestaurantMenu.vue?vue&type=style&index=0&id=ed71855c&lang=scss&scoped=true&");
 
 
 /***/ }),
@@ -41923,67 +42026,40 @@ var render = function () {
   return _c("div", [
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.filters.category,
-                  expression: "filters.category",
+        _c(
+          "div",
+          { staticClass: "col-md-6 d-flex" },
+          _vm._l(_vm.metadata.categories, function (category) {
+            return _c("div", { key: category.id, staticClass: "form-check" }, [
+              _c("input", {
+                staticClass: "form-check-input",
+                attrs: { type: "checkbox", id: category.id },
+                domProps: { value: category.id },
+                on: {
+                  change: function ($event) {
+                    return _vm.filterSearch($event)
+                  },
                 },
-              ],
-              staticClass: "form-select",
-              attrs: {
-                "aria-label": "Default select example",
-                name: "category",
-                id: "category",
-              },
-              on: {
-                change: [
-                  function ($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function (o) {
-                        return o.selected
-                      })
-                      .map(function (o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.filters,
-                      "category",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  },
-                  function ($event) {
-                    return _vm.GetData(_vm.url + "/users")
-                  },
-                ],
-              },
-            },
-            [
-              _c("option", { attrs: { value: "", selected: "" } }, [
-                _vm._v("Select a category"),
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.metadata.categories, function (category) {
-                return _c(
-                  "option",
-                  { key: category.id, domProps: { value: category.id } },
-                  [
-                    _vm._v(
-                      "\n            " + _vm._s(category.name) + "\n          "
-                    ),
-                  ]
-                )
               }),
-            ],
-            2
-          ),
-        ]),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "form-check-label",
+                  attrs: { for: "flexCheckChecked" },
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(category.name) +
+                      "\n                    "
+                  ),
+                ]
+              ),
+            ])
+          }),
+          0
+        ),
       ]),
       _vm._v(" "),
       _c(
@@ -42008,15 +42084,29 @@ var render = function () {
                 [
                   _c("h1", [
                     _vm._v(
-                      "\n            " + _vm._s(user.name) + "\n          "
+                      "\n                        " +
+                        _vm._s(user.name) +
+                        "\n                    "
                     ),
                   ]),
                   _vm._v(" "),
                   _c("p", [
-                    _vm._v(_vm._s(user.street) + " - " + _vm._s(user.city)),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(user.street) +
+                        " - " +
+                        _vm._s(user.city) +
+                        "\n                    "
+                    ),
                   ]),
                   _vm._v(" "),
-                  _c("p", [_vm._v("Phone: " + _vm._s(user.phone_number))]),
+                  _c("p", [
+                    _vm._v(
+                      "\n                        Phone: " +
+                        _vm._s(user.phone_number) +
+                        "\n                    "
+                    ),
+                  ]),
                   _vm._v(" "),
                   _vm._l(_vm.user_category, function (restaurant) {
                     return _c("div", { key: restaurant.id }, [
@@ -42042,11 +42132,7 @@ var render = function () {
                                 _c("span", [_vm._v(_vm._s(category))]),
                                 _vm._v(" "),
                                 index + 1 < restaurant.categories.length
-                                  ? _c("span", [
-                                      _vm._v(
-                                        "\n                  ,\n                "
-                                      ),
-                                    ])
+                                  ? _c("span", [_vm._v(" , ")])
                                   : _vm._e(),
                               ]
                             )
@@ -42099,82 +42185,128 @@ var render = function () {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "d-flex flex-wrap" },
+        { staticClass: "d-flex flex-wrap justify-content-start m-2" },
         _vm._l(_vm.dishes, function (dish) {
-          return _c("div", { key: dish.id, staticClass: "card" }, [
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: dish.available === 1,
-                    expression: "dish.available === 1",
-                  },
-                ],
-                staticClass: "card h-100 r-15",
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "card-body d-flex flex-column justify-content-center",
-                  },
-                  [
-                    _c("div"),
-                    _vm._v(" "),
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title d-flex justify-content-between",
-                      },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(dish.name) +
-                            "\n            "
-                        ),
-                      ]
+          return _c("div", { key: dish.id, staticClass: "m-2" }, [
+            _c("div", { staticClass: "card h-100 r-15 overflow-hidden" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "h-100 d-flex flex-column justify-content-between",
+                },
+                [
+                  _c("h4", { staticClass: "card-header text-center" }, [
+                    _vm._v(
+                      "\n              " + _vm._s(dish.name) + "\n            "
                     ),
-                    _vm._v(" "),
-                    _c(
-                      "h5",
-                      {
-                        staticClass:
-                          "card-title d-flex justify-content-between",
-                      },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(dish.price) +
-                            "\n            "
-                        ),
-                      ]
-                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h5", { staticClass: "text-decoration-underline" }, [
+                      _vm._v("Descrizione"),
+                    ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "card-text py-3" }, [
                       _vm._v(_vm._s(dish.description)),
                     ]),
                     _vm._v(" "),
+                    _c("h5", { staticClass: "text-decoration-underline" }, [
+                      _vm._v("Ingredienti"),
+                    ]),
+                    _vm._v(" "),
                     _c("p", { staticClass: "card-text py-3" }, [
                       _vm._v(_vm._s(dish.ingredients)),
                     ]),
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._m(0, true),
-                _vm._v(" "),
-                _vm._m(1, true),
-              ]
-            ),
+                    _vm._v(" "),
+                    _c("h5", { staticClass: "text-decoration-underline" }, [
+                      _vm._v("Allergies"),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text py-3" }, [
+                      _vm._v(_vm._s(dish.allergies)),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "text-center" }, [
+                    _vm._v(
+                      "\n              € " +
+                        _vm._s(parseFloat(dish.price / 100).toFixed(2)) +
+                        "\n            "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "d-flex justify-content-center" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary text-white p-2 decrease",
+                      },
+                      [_vm._v("\n                -\n              ")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: dish.quantity,
+                          expression: "dish.quantity",
+                        },
+                      ],
+                      staticClass: "form-control p-2 dish-quantity text-center",
+                      attrs: { type: "number" },
+                      domProps: { value: dish.quantity },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(dish, "quantity", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary text-white p-2 increase",
+                      },
+                      [_vm._v("\n                +\n              ")]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary text-white p-2 add-to-cart",
+                      attrs: { disabled: !dish.available },
+                      on: {
+                        click: function ($event) {
+                          return _vm.addToCart(
+                            dish.id,
+                            dish.quantity,
+                            dish.price
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa-solid fa-cart-shopping text-center",
+                      }),
+                    ]
+                  ),
+                ]
+              ),
+            ]),
           ])
         }),
         0
       ),
     ]),
+    _vm._v(" "),
+    _vm._m(0),
   ])
 }
 var staticRenderFns = [
@@ -42182,30 +42314,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex justify-content-center" }, [
-      _c("button", { staticClass: "btn btn-primary text-white p-2 decrease" }, [
-        _vm._v("-"),
+    return _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
+      _c("div", { staticClass: "card-header" }, [_vm._v("Carrello")]),
+      _vm._v(" "),
+      _c("ul", { staticClass: "list-group list-group-flush" }, [
+        _c("li", { staticClass: "list-group-item" }, [_vm._v("An item")]),
+        _vm._v(" "),
+        _c("li", { staticClass: "list-group-item" }, [_vm._v("A second item")]),
+        _vm._v(" "),
+        _c("li", { staticClass: "list-group-item" }, [_vm._v("A third item")]),
       ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control p-2 dish-quantity",
-        attrs: { type: "number", value: "0" },
-      }),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-primary text-white p-2 increase" }, [
-        _vm._v("+"),
-      ]),
+      _c("div", { staticClass: "card-footer" }, [_vm._v("Card footer")]),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "btn btn-primary text-white p-2 add-to-cart" },
-      [_c("i", { staticClass: "fa-solid fa-cart-shopping text-center" })]
-    )
   },
 ]
 render._withStripped = true
@@ -57673,22 +57794,20 @@ var app = new Vue({
     return h(_components_App_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
   },
   router: router
-});
-var addToCartBtnArray = document.querySelectorAll(".add-to-cart");
-var decreaseBtnArray = document.querySelectorAll(".decrease");
-var increaseBtnArray = document.querySelectorAll(".increase");
-var inputQutyFieldArray = document.querySelectorAll(".dish-quantity");
-var cartItem = [];
-var dishQuantity = 0; //Qui va legato al campo quantità del piatto
-
-var localStorageIndex = 0;
-var localStorageKey = 'cart' + localStorageIndex;
-
-function addToCart(dish, quantity) {
-  cartItem = [dish.id, dish.price, quantity];
-  cart.push(cartItem);
-  return cart;
-} //Trasformare l'oggetto nel carrello da array a stringa con separatore di dati |
+}); // let addToCartBtnArray = document.querySelectorAll(".add-to-cart");
+// let decreaseBtnArray = document.querySelectorAll(".decrease");
+// let increaseBtnArray = document.querySelectorAll(".increase");
+// let inputQutyFieldArray = document.querySelectorAll(".dish-quantity");
+// let cartItem = [];
+// let dishQuantity = 0; //Qui va legato al campo quantità del piatto
+// let localStorageIndex = 0;
+// let localStorageKey = 'cart'+localStorageIndex;
+// function addToCart(dish, quantity) {
+//     cartItem = [dish.id, dish.price, quantity]
+//     cart.push(cartItem);
+//     return cart
+// }
+//Trasformare l'oggetto nel carrello da array a stringa con separatore di dati |
 //cartItem.join('|')
 //Funzioni per localStorage
 // localStorage.setItem(key, 'string')

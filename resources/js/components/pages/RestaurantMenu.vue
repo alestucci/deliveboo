@@ -3,19 +3,19 @@
     <div class="container">
       <h1 class="name text-center pb-4">{{ user.name }}</h1>
       <!-- CARDS DEI PIATTI -->
-      <div class="row d-flex flex-wrap">
-        <div v-for="dish in dishes" :key="dish.id" class="col">
+      <div class="d-flex flex-wrap justify-content-start m-2">
+        <div v-for="dish in dishes" :key="dish.id" class="m-2">
           <div class="card h-100 r-15 overflow-hidden">
             <div class="h-100 d-flex flex-column justify-content-between">
               <h4 class="card-header text-center">
                 {{ dish.name }}
               </h4>
               <div class="card-body">
-                <h5>Descrizione</h5>
+                <h5 class="text-decoration-underline">Descrizione</h5>
                 <p class="card-text py-3">{{ dish.description }}</p>
-                <h5>Ingredienti</h5>
+                <h5 class="text-decoration-underline">Ingredienti</h5>
                 <p class="card-text py-3">{{ dish.ingredients }}</p>
-                <h5>Allergies</h5>
+                <h5 class="text-decoration-underline">Allergies</h5>
                 <p class="card-text py-3">{{ dish.allergies }}</p>
               </div>
               <h5 class="text-center">
@@ -47,25 +47,17 @@
         </div>
       </div>
     </div>
+
+    <div class="card" style="width: 18rem">
+      <div class="card-header">Carrello</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+      </ul>
+      <div class="card-footer">Card footer</div>
+    </div>
   </div>
-
-  <!-- <div v-show="cart.lenght" class="cart">
-      <table>
-        <tr>
-          <td>
-            {{ dish.name }}
-          </td>
-          <td>
-            {{ dish.price }}
-          </td>
-          <td>
-            {{ quantity }}
-          </td>
-
-        </tr>
-      </table>
-    </div> -->
-  <!-- </div> -->
 </template>
 
 <script>
@@ -82,7 +74,7 @@ export default {
       cartItem: [],
       cart: [],
       localStorageIndex: 1,
-      key: '',
+      key: "",
     };
   },
   methods: {
@@ -94,10 +86,12 @@ export default {
       });
     },
     addToCart(dishId, dishQty, dishPrice) {
-      this.cartItem = [dishId, dishQty, dishPrice];
-      this.cart.push(this.cartItem);
-      key = 'cartItem' + this.localStorageIndex
-      localStorage.setItem(this.key, this.cartItem.join('|'));
+      if (dishQty > 0) {
+        this.cartItem = [dishId, dishQty, dishPrice];
+        //this.cart.push(this.cartItem);
+        this.key = "cartItem" + this.localStorageIndex;
+        localStorage.setItem(this.key, this.cartItem.join("|"));
+      }
       console.log(dishId);
       console.log(dishQty);
       console.log(dishPrice);
@@ -105,6 +99,7 @@ export default {
       console.log(this.cart);
       this.localStorageIndex++;
     },
+    
   },
   created() {
     this.GetData(this.url + "/user/" + this.slug);
