@@ -1,48 +1,48 @@
-require('./bootstrap');
+require("./bootstrap");
 
-window.Vue = require('vue').default;
-window.Axios = require('axios');
+window.Vue = require("vue").default;
+window.Axios = require("axios");
 
-import App from './components/App.vue';
+import App from "./components/App.vue";
 
-import PageHome from './components/pages/PageHome.vue';
-import RestaurantMenu from './components/pages/RestaurantMenu.vue';
+import PageHome from "./components/pages/PageHome.vue";
+import RestaurantMenu from "./components/pages/RestaurantMenu.vue";
 
-import VueRouter from 'vue-router';
+import VueBrainTree from "vue-braintree";
+
+import VueRouter from "vue-router";
+
+Vue.use(VueBrainTree);
 
 Vue.use(VueRouter);
 
-
 const router = new VueRouter({
-    mode: 'history',
+    mode: "history",
     routes: [
         {
-            path: '/',
-            name: 'PageHome',
+            path: "/",
+            name: "PageHome",
             component: PageHome,
         },
         {
-            path: '/restaurantmenu/:slug',
-            name: 'RestaurantMenu',
+            path: "/restaurantmenu/:slug",
+            name: "RestaurantMenu",
             component: RestaurantMenu,
             props: true,
         },
     ],
 });
 
-
 const app = new Vue({
-    el: '#app',
-    render: h => h(App),
-    router
+    el: "#app",
+    render: (h) => h(App),
+    router,
 });
 
 // let addToCartBtnArray = document.querySelectorAll(".add-to-cart");
 // let decreaseBtnArray = document.querySelectorAll(".decrease");
 // let increaseBtnArray = document.querySelectorAll(".increase");
 // let inputQutyFieldArray = document.querySelectorAll(".dish-quantity");
-
-
 
 // let cartItem = [];
 // let dishQuantity = 0; //Qui va legato al campo quantità del piatto
