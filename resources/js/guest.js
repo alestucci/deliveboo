@@ -31,9 +31,10 @@ const router = new VueRouter({
             props: true,
         },
         {
-            path: "/payment",
+            path: "/payment/:authorization",
             name: "PaymentPage",
             component: PaymentPage,
+            props: true,
         },
     ],
 });

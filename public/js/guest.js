@@ -5023,6 +5023,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _PaymentPage_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentPage.vue */ "./resources/js/components/pages/PaymentPage.vue");
 //
 //
 //
@@ -5032,8 +5033,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "CartComponent"
+  components: {
+    PaymentPage: _PaymentPage_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  name: "CartComponent",
+  data: function data() {
+    return {
+      url: "http://127.0.0.1:8000/api/generate",
+      tokenApi: ""
+    };
+  },
+  methods: {
+    GetData: function GetData(url) {
+      var _this = this;
+
+      Axios.get(url).then(function (response) {
+        _this.tokenApi = response.data.token; // console.log(response);
+      });
+    }
+  },
+  mounted: function mounted() {
+    // const response = await this.$axios.get("api/generate");
+    // this.tokenApi = response;
+    this.GetData(this.url);
+  }
 });
 
 /***/ }),
@@ -5223,24 +5257,128 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PaymentPage",
-  props: {
-    authorization: {
-      type: String,
-      required: true
-    }
-  },
+  props: ["authorization"],
   data: function data() {
-    return {//
+    return {
+      error: "",
+      name: null,
+      surname: null,
+      address: null,
+      email: null
     };
   },
   methods: {
-    onSuccess: function onSuccess(payload) {// let nonce = payload.nonce;
-      // Do something great with the nonce...
+    // checkForm(e) {
+    //     if (this.name && this.surname && this.address && this.email) {
+    //         return true;
+    //     }
+    //     this.errors = [];
+    //     if (!this.name) {
+    //         this.errors.push("Name required.");
+    //     }
+    //     if (!this.surname) {
+    //         this.errors.push("Surname required.");
+    //     }
+    //     if (!this.address) {
+    //         this.errors.push("Address required.");
+    //     }
+    //     if (!this.email) {
+    //         this.errors.push("Email required.");
+    //     }
+    //     e.preventDefault();
+    // },
+    onSuccess: function onSuccess(payload) {
+      var token = payload.nonce;
+      this.$emit("onSuccess", token);
     },
-    onError: function onError(error) {// let message = error.message;
-      // Whoops, an error has occured while trying to get the nonce
+    onError: function onError(error) {
+      var message = error.message;
+
+      if (message === "No payment method is available.") {
+        this.error = "Seleziona un metodo di pagamento";
+      } else {
+        this.error = message;
+      }
+
+      this.$emit("onError", message);
     }
   }
 });
@@ -67037,7 +67175,13 @@ var render = function () {
         "router-link",
         {
           staticClass: "btn btn-primary",
-          attrs: { to: { name: "PaymentPage" } },
+          attrs: {
+            to: {
+              name: "PaymentPage",
+              params: { authorization: _vm.tokenApi },
+            },
+            authorization: _vm.tokenApi,
+          },
         },
         [_vm._v("\n        Paga con Braintree\n    ")]
       ),
@@ -67225,12 +67369,18 @@ var render = function () {
       _vm._v(" "),
       _c("div", [_vm._v("COMPONENTE CARRELLO")]),
       _vm._v(" "),
-      _c("div", [_vm._v("Payment form")]),
-      _vm._v(" "),
       _c("v-braintree", {
-        attrs: { authorization: _vm.authorization },
+        attrs: { authorization: _vm.authorization, locale: "it_IT" },
         on: { success: _vm.onSuccess, error: _vm.onError },
       }),
+      _vm._v(" "),
+      _c("div", [
+        _vm.error
+          ? _c("p", { staticClass: "text-red-500 mb-4" }, [
+              _vm._v("\n            " + _vm._s(_vm.error) + "\n        "),
+            ])
+          : _vm._e(),
+      ]),
     ],
     1
   )
@@ -82915,9 +83065,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
     component: _components_pages_RestaurantMenu_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     props: true
   }, {
-    path: "/payment",
+    path: "/payment/:authorization",
     name: "PaymentPage",
-    component: _components_pages_PaymentPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_pages_PaymentPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    props: true
   }]
 });
 var app = new Vue({
