@@ -17,7 +17,7 @@
         <script src="{{ asset('js/guest.js') }}" defer></script>
 
         {{-- Vue and Braintree CDN --}}
-        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        {{-- <script src="https://unpkg.com/vue/dist/vue.js"></script> --}}
         <script src="https://unpkg.com/vue-braintree/dist/vue-braintree.umd.min.js"></script>
 
         <title>@yield('title')</title>

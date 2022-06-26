@@ -7,8 +7,8 @@ import App from "./components/App.vue";
 
 import PageHome from "./components/pages/PageHome.vue";
 import RestaurantMenu from "./components/pages/RestaurantMenu.vue";
-
 import VueBrainTree from "vue-braintree";
+import PaymentPage from "./components/pages/PaymentPage.vue";
 
 import VueRouter from "vue-router";
 
@@ -29,6 +29,11 @@ const router = new VueRouter({
             name: "RestaurantMenu",
             component: RestaurantMenu,
             props: true,
+        },
+        {
+            path: "/payment",
+            name: "PaymentPage",
+            component: PaymentPage,
         },
     ],
 });
