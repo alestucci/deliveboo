@@ -14,3 +14,7 @@ Route::get('/v1/user/{user}', 'Api\UserController@show');
 Route::get('/v1/metadata', 'Api\MetadataController@index');
 // Route::get('/v1/dishes', 'Api\DishController@index');
 
+Route::get('/generate', 'Api\OrderController@generate');
+Route::post('/make/payment', 'Api\OrderController@makePayment');
+
+
