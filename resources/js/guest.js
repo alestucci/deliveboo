@@ -9,6 +9,7 @@ import PageHome from "./components/pages/PageHome.vue";
 import RestaurantMenu from "./components/pages/RestaurantMenu.vue";
 import VueBrainTree from "vue-braintree";
 import PaymentPage from "./components/pages/PaymentPage.vue";
+import CheckoutSuccess from "./components/pages/CheckoutSuccess.vue";
 
 import VueRouter from "vue-router";
 
@@ -34,6 +35,12 @@ const router = new VueRouter({
             path: "/payment/:authorization",
             name: "PaymentPage",
             component: PaymentPage,
+            props: true,
+        },
+        {
+            path: "/checkout",
+            name: "CheckoutSuccess",
+            component: CheckoutSuccess,
             props: true,
         },
     ],

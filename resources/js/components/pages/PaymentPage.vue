@@ -3,19 +3,19 @@
         <h1>PAYMENT PAGE</h1>
         <div>COMPONENTE CARRELLO</div>
         <!-- {{ authorization }} -->
-        <!-- <form id="payment-form" action="api/token" method="post"> -->
-        <!-- Putting the empty container you plan to pass to
+        <form id="payment-form" @submit.prevent="GetData()" method="post">
+            <!-- Putting the empty container you plan to pass to
             `braintree.dropin.create` inside a form will make layout and flow
             easier to manage -->
 
-        <!-- <p v-if="errors.length">
+            <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
                 <ul>
                     <li :key="error" :v-for="error in errors">{{ error }}</li>
                 </ul>
-            </p> -->
+            </p>
 
-        <!-- <div class="form-group">
+            <div class="form-group">
                 <label for="name">Nome</label>
                 <input
                     type="text"
@@ -70,10 +70,13 @@
                     required
                 />
             </div>
-        </form> -->
+
+            <button>Prosegui</button>
+        </form>
         <!-- <div>Payment form</div> -->
         <!-- {{ authorization }} -->
         <v-braintree
+            v-show="showPayment"
             :authorization="authorization"
             @success="onSuccess"
             locale="it_IT"
@@ -90,52 +93,86 @@
 <script>
 export default {
     name: "PaymentPage",
-    props: ["authorization"],
+    props: ["authorization", "userId"],
     data() {
         return {
+            url: "http://127.0.0.1:8000/api/make/payment",
+            errors: [],
             error: "",
             name: null,
             surname: null,
             address: null,
             email: null,
+            showPayment: false,
+            property: {
+                token: "",
+                amount: 10
+            }
         };
     },
     methods: {
-        // checkForm(e) {
-        //     if (this.name && this.surname && this.address && this.email) {
-        //         return true;
-        //     }
+        checkForm(e) {
+            if (this.name && this.surname && this.address && this.email) {
+                return true;
+            }
 
-        //     this.errors = [];
+            this.errors = [];
 
-        //     if (!this.name) {
-        //         this.errors.push("Name required.");
-        //     }
-        //     if (!this.surname) {
-        //         this.errors.push("Surname required.");
-        //     }
-        //     if (!this.address) {
-        //         this.errors.push("Address required.");
-        //     }
-        //     if (!this.email) {
-        //         this.errors.push("Email required.");
-        //     }
+            if (!this.name) {
+                this.errors.push("Name required.");
+            }
+            if (!this.surname) {
+                this.errors.push("Surname required.");
+            }
+            if (!this.address) {
+                this.errors.push("Address required.");
+            }
+            if (!this.email) {
+                this.errors.push("Email required.");
+            }
 
-        //     e.preventDefault();
-        // },
+            e.preventDefault();
+        },
         onSuccess(payload) {
-            let token = payload.nonce;
-            this.$emit("onSuccess", token);
+            this.property.token = payload.nonce;
+            Axios.post(this.url, {
+                params: this.property
+            }).then(response => {
+                console.log(response)
+            })
+            // this.$router.push({ name: 'CheckoutSuccess' })
         },
         onError(error) {
             let message = error.message;
             if (message === "No payment method is available.") {
                 this.error = "Seleziona un metodo di pagamento";
+                console.log(this.error)
+
             } else {
                 this.error = message;
+                console.log(this.error)
+
             }
+            console.log(this.error)
+
             this.$emit("onError", message);
         },
+        active() {
+            this.showPayment = true
+        },
+        GetData() {
+            this.active()
+            // Axios.post(this.url, {
+            //     params: {
+            //         name: this.name,
+            //         surname: this.surname,
+            //         address: this.address,
+            //         email: this.email
+            //     }
+            // }).then(response => {
+            //     console.log(response)
+            // })
+        }
     },
 };
 </script>
