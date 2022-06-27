@@ -5225,6 +5225,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RestaurantMenu",
   props: ["slug"],
@@ -5236,6 +5274,8 @@ __webpack_require__.r(__webpack_exports__);
       dishes: [],
       defaultValue: false,
       cartItem: [],
+      cartItemLs: "",
+      cartItemsLsArray: [],
       cart: [],
       localStorageIndex: 1,
       key: ""
@@ -5250,25 +5290,57 @@ __webpack_require__.r(__webpack_exports__);
         _this.dishes = response.data.response.dishes; // console.log(response.data.response);
       });
     },
-    addToCart: function addToCart(dishId, dishQty, dishPrice) {
+    addToCart: function addToCart(dishId, dishName, dishQty, dishPrice) {
       if (dishQty > 0) {
-        this.cartItem = [dishId, dishQty, dishPrice]; //this.cart.push(this.cartItem);
+        // let dishIndexInCart = this.cart.forEach(Element);
+        // console.log(dishIndexInCart);
+        // if (dishIndexInCart === -1) {
+        this.cartItem = [dishId, dishName, dishQty, dishPrice]; //this.cart.push(this.cartItem);
 
         this.key = "cartItem" + this.localStorageIndex;
-        localStorage.setItem(this.key, this.cartItem.join("|"));
+        localStorage.setItem(this.key, this.cartItem.join("|")); // } else {
+        //   console.log("e mo?");
+        // }
       }
 
-      console.log(dishId);
-      console.log(dishQty);
-      console.log(dishPrice);
-      console.log(this.cartItem);
-      console.log(this.cart);
       this.localStorageIndex++;
+      this.refreshCart();
+    },
+    increaseQuantity: function increaseQuantity() {
+      this.dish.quantity++;
+    },
+    decreaseQuantity: function decreaseQuantity() {
+      this.dish.quantity--;
+    },
+    refreshCart: function refreshCart() {
+      this.cart = [];
+
+      for (var key in localStorage) {
+        if (key.indexOf("cart") > -1) {
+          this.cartItemLs = localStorage.getItem(key); //console.log(this.cartItemLs);
+
+          this.cartItemsLsArray = this.cartItemLs.split("|");
+          this.cart.push(this.cartItemsLsArray);
+        }
+      } //console.log(this.cart);
+
+    },
+    clearCart: function clearCart() {
+      localStorage.clear();
     }
   },
   created: function created() {
     this.GetData(this.url + "/user/" + this.slug);
-  }
+    this.refreshCart();
+  } // computed: {
+  //     update() {
+  //       if(this.cartItem !== []) {
+  //         console.log('yes')
+  //         return this.refreshCart();
+  //       }
+  //     }
+  // }
+
 });
 
 /***/ }),
@@ -42177,7 +42249,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "position-relative" }, [
     _c("div", { staticClass: "container" }, [
       _c("h1", { staticClass: "name text-center pb-4" }, [
         _vm._v(_vm._s(_vm.user.name)),
@@ -42230,71 +42302,139 @@ var render = function () {
                   _vm._v(" "),
                   _c("h5", { staticClass: "text-center" }, [
                     _vm._v(
-                      "\n              € " +
-                        _vm._s(parseFloat(dish.price / 100).toFixed(2)) +
+                      "\n              €\n              " +
+                        _vm._s(
+                          parseFloat(dish.price / 100)
+                            .toFixed(2)
+                            .toString()
+                            .replace(".", ",")
+                        ) +
                         "\n            "
                     ),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "d-flex justify-content-center" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary text-white p-2 decrease",
-                      },
-                      [_vm._v("\n                -\n              ")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
+                  _c(
+                    "div",
+                    {
                       directives: [
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: dish.quantity,
-                          expression: "dish.quantity",
+                          name: "show",
+                          rawName: "v-show",
+                          value: dish.available,
+                          expression: "dish.available",
                         },
                       ],
-                      staticClass: "form-control p-2 dish-quantity text-center",
-                      attrs: { type: "number" },
-                      domProps: { value: dish.quantity },
-                      on: {
-                        input: function ($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(dish, "quantity", $event.target.value)
-                        },
-                      },
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary text-white p-2 increase",
-                      },
-                      [_vm._v("\n                +\n              ")]
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary text-white p-2 add-to-cart",
-                      attrs: { disabled: !dish.available },
-                      on: {
-                        click: function ($event) {
-                          return _vm.addToCart(
-                            dish.id,
-                            dish.quantity,
-                            dish.price
-                          )
-                        },
-                      },
+                      staticClass: "w-75 mx-auto",
                     },
                     [
-                      _c("i", {
-                        staticClass: "fa-solid fa-cart-shopping text-center",
-                      }),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "d-flex justify-content-center mt-2 mb-3 mx-1",
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-primary text-white py-2 px-3",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.decreaseQuantity()
+                                },
+                              },
+                            },
+                            [_vm._v("\n                  -\n                ")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: dish.quantity,
+                                expression: "dish.quantity",
+                              },
+                            ],
+                            staticClass:
+                              "form-control p-2 dish-quantity text-center",
+                            attrs: { type: "number" },
+                            domProps: { value: dish.quantity },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(dish, "quantity", $event.target.value)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-primary text-white py-2 px-3",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.increaseQuantity()
+                                },
+                              },
+                            },
+                            [_vm._v("\n                  +\n                ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "\n                    btn btn-primary\n                    text-white\n                    py-2\n                    px-3\n                    mx-1\n                  ",
+                              on: {
+                                click: function ($event) {
+                                  return _vm.addToCart(
+                                    dish.id,
+                                    dish.name,
+                                    dish.quantity,
+                                    dish.price
+                                  )
+                                },
+                              },
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "fa-solid fa-cart-shopping text-center",
+                              }),
+                            ]
+                          ),
+                        ]
+                      ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !dish.available,
+                          expression: "!dish.available",
+                        },
+                      ],
+                    },
+                    [
+                      _c(
+                        "h2",
+                        { staticClass: "text-center text-danger py-3" },
+                        [
+                          _vm._v(
+                            "\n                Al momento non disponibile\n              "
+                          ),
+                        ]
+                      ),
                     ]
                   ),
                 ]
@@ -42306,29 +42446,76 @@ var render = function () {
       ),
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _c(
+      "div",
+      {
+        staticClass: "card position-absolute top-0 end-0",
+        staticStyle: { width: "18rem" },
+      },
+      [
+        _c("div", { staticClass: "card-header" }, [_vm._v("Carrello")]),
+        _vm._v(" "),
+        _vm._l(_vm.cart, function (itemInCartLs) {
+          return _c(
+            "ul",
+            {
+              key: itemInCartLs.id,
+              staticClass: "list-group list-group-flush",
+            },
+            [
+              _c("li", { staticClass: "list-group-item" }, [
+                _c("div", [_vm._v(_vm._s(itemInCartLs[1]))]),
+                _vm._v(" "),
+                _c("div", [_vm._v(_vm._s(itemInCartLs[2]))]),
+                _vm._v(" "),
+                _c("div", [
+                  _vm._v(
+                    "\n          " +
+                      _vm._s(
+                        parseFloat(itemInCartLs[3] / 100)
+                          .toFixed(2)
+                          .toString()
+                          .replace(".", ",")
+                      ) +
+                      "\n        "
+                  ),
+                ]),
+              ]),
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function ($event) {
+                return _vm.refreshCart()
+              },
+            },
+          },
+          [_vm._v("\n      Aggiorna Carrello\n    ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "card-footer text-center",
+            on: {
+              click: function ($event) {
+                return _vm.clearCart()
+              },
+            },
+          },
+          [_vm._v("Svuota il carrello")]
+        ),
+      ],
+      2
+    ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card", staticStyle: { width: "18rem" } }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Carrello")]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "list-group list-group-flush" }, [
-        _c("li", { staticClass: "list-group-item" }, [_vm._v("An item")]),
-        _vm._v(" "),
-        _c("li", { staticClass: "list-group-item" }, [_vm._v("A second item")]),
-        _vm._v(" "),
-        _c("li", { staticClass: "list-group-item" }, [_vm._v("A third item")]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-footer" }, [_vm._v("Card footer")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

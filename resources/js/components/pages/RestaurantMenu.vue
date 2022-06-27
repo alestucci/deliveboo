@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="position-relative">
     <div class="container">
       <h1 class="name text-center pb-4">{{ user.name }}</h1>
       <!-- CARDS DEI PIATTI -->
@@ -19,43 +19,81 @@
                 <p class="card-text py-3">{{ dish.allergies }}</p>
               </div>
               <h5 class="text-center">
-                € {{ parseFloat(dish.price / 100).toFixed(2) }}
+                €
+                {{
+                  parseFloat(dish.price / 100)
+                    .toFixed(2)
+                    .toString()
+                    .replace(".", ",")
+                }}
               </h5>
               <!-- AGGIUNGI AL CARRELLO -->
-              <div class="d-flex justify-content-center">
-                <button class="btn btn-primary text-white p-2 decrease">
-                  -
-                </button>
-                <input
-                  type="number"
-                  class="form-control p-2 dish-quantity text-center"
-                  v-model="dish.quantity"
-                />
-                <button class="btn btn-primary text-white p-2 increase">
-                  +
-                </button>
+              <div v-show="dish.available" class="w-75 mx-auto">
+                <div class="d-flex justify-content-center mt-2 mb-3 mx-1">
+                  <button @click="decreaseQuantity()" class="btn btn-primary text-white py-2 px-3">
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    class="form-control p-2 dish-quantity text-center"
+                    v-model="dish.quantity"
+                  />
+                  <button @click="increaseQuantity()" class="btn btn-primary text-white py-2 px-3">
+                    +
+                  </button>
+                <!-- </div> -->
+                <!-- <div class="w-100 d-flex justify-content-center"> -->
+                  <button
+                    @click="
+                      addToCart(dish.id, dish.name, dish.quantity, dish.price)
+                    "
+                    class="
+                      btn btn-primary
+                      text-white
+                      py-2
+                      px-3
+                      mx-1
+                    "
+                  >
+                    <i class="fa-solid fa-cart-shopping text-center"></i>
+                  </button>
+                </div>
               </div>
-              <button
-                @click="addToCart(dish.id, dish.quantity, dish.price)"
-                class="btn btn-primary text-white p-2 add-to-cart"
-                :disabled="!dish.available"
-              >
-                <i class="fa-solid fa-cart-shopping text-center"></i>
-              </button>
+              <div v-show="!dish.available">
+                <h2 class="text-center text-danger py-3">
+                  Al momento non disponibile
+                </h2>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card" style="width: 18rem">
+    <div class="card position-absolute top-0 end-0" style="width: 18rem">
       <div class="card-header">Carrello</div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
+      <ul
+        v-for="itemInCartLs in cart"
+        class="list-group list-group-flush"
+        :key="itemInCartLs.id"
+      >
+        <li class="list-group-item">
+          <div>{{ itemInCartLs[1] }}</div>
+          <div>{{ itemInCartLs[2] }}</div>
+          <div>
+            {{
+              parseFloat(itemInCartLs[3] / 100)
+                .toFixed(2)
+                .toString()
+                .replace(".", ",")
+            }}
+          </div>
+        </li>
       </ul>
-      <div class="card-footer">Card footer</div>
+      <button @click="refreshCart()" class="btn btn-primary">
+        Aggiorna Carrello
+      </button>
+      <div class="card-footer text-center" @click="clearCart()">Svuota il carrello</div>
     </div>
   </div>
 </template>
@@ -72,6 +110,8 @@ export default {
       dishes: [],
       defaultValue: false,
       cartItem: [],
+      cartItemLs: "",
+      cartItemsLsArray: [],
       cart: [],
       localStorageIndex: 1,
       key: "",
@@ -85,25 +125,56 @@ export default {
         // console.log(response.data.response);
       });
     },
-    addToCart(dishId, dishQty, dishPrice) {
+    addToCart(dishId, dishName, dishQty, dishPrice) {
       if (dishQty > 0) {
-        this.cartItem = [dishId, dishQty, dishPrice];
-        //this.cart.push(this.cartItem);
-        this.key = "cartItem" + this.localStorageIndex;
-        localStorage.setItem(this.key, this.cartItem.join("|"));
+        // let dishIndexInCart = this.cart.forEach(Element);
+        // console.log(dishIndexInCart);
+        // if (dishIndexInCart === -1) {
+          this.cartItem = [dishId, dishName, dishQty, dishPrice];
+          //this.cart.push(this.cartItem);
+          this.key = "cartItem" + this.localStorageIndex;
+          localStorage.setItem(this.key, this.cartItem.join("|"));
+        // } else {
+        //   console.log("e mo?");
+        // }
       }
-      console.log(dishId);
-      console.log(dishQty);
-      console.log(dishPrice);
-      console.log(this.cartItem);
-      console.log(this.cart);
       this.localStorageIndex++;
+      this.refreshCart();
     },
-    
+    increaseQuantity() {
+      this.dish.quantity++
+    },
+    decreaseQuantity() {
+      this.dish.quantity--
+    },
+    refreshCart() {
+      this.cart = [];
+      for (var key in localStorage) {
+        if (key.indexOf("cart") > -1) {
+          this.cartItemLs = localStorage.getItem(key);
+          //console.log(this.cartItemLs);
+          this.cartItemsLsArray = this.cartItemLs.split("|");
+          this.cart.push(this.cartItemsLsArray);
+        }
+      }
+      //console.log(this.cart);
+    },
+    clearCart() {
+      localStorage.clear();
+    }
   },
   created() {
     this.GetData(this.url + "/user/" + this.slug);
+    this.refreshCart();
   },
+  // computed: {
+  //     update() {
+  //       if(this.cartItem !== []) {
+  //         console.log('yes')
+  //         return this.refreshCart();
+  //       }
+  //     }
+  // }
 };
 </script>
 
