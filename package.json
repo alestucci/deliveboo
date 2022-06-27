@@ -27,6 +27,7 @@
         "@webpack-cli/init": "^1.1.3",
         "laravel-mix": "^6.0.6",
         "vue": "^2.6.11",
+        "vue-braintree": "^2.1.0",
         "vue-router": "^3.5.4",
         "vue-template-compiler": "^2.6.12",
         "webpack-cli": "^4.10.0"

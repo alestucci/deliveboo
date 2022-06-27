@@ -65,10 +65,7 @@
                 </h2>
               </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
 
     <div class="card position-absolute top-0 end-0" style="width: 18rem">
       <div class="card-header">Carrello</div>
@@ -95,10 +92,11 @@
       </button>
       <div class="card-footer text-center" @click="clearCart()">Svuota il carrello</div>
     </div>
-  </div>
 </template>
 
 <script>
+import CartComponent from "./CartComponent.vue";
+
 export default {
   name: "RestaurantMenu",
   props: ["slug"],
@@ -180,6 +178,6 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  width: 250px;
+    width: 250px;
 }
 </style>
