@@ -93,7 +93,7 @@
                                 __('Phone number') }}*</label>
 
                             <div class="col-md-6">
-                                <input id="phone_number" type="text" maxlength="50" pattern="[()+-\d\s]{1,50}"
+                                <input id="phone_number" type="text" maxlength="50"
                                     class="form-control @error('phone_number') is-invalid @enderror" name="phone_number"
                                     value="{{ old('phone_number') }}" required autocomplete="phone_number">
                             </div>
@@ -123,7 +123,7 @@
                             <div class="col-md-6">
                                 @foreach ($categories as $category)
                                 <div>
-                                    <input type="checkbox" name="categories[]" id="{{ $category->id }}"
+                                    <input type="checkbox" name="categories[]" id="category-{{ $category->id }}"
                                         value="{{ $category->id }}" class="form-check-input @error('categories') is-invalid @enderror">
                                     <label for="category-{{ $category->id }}">{{ $category->name }}</label>
                                 </div>

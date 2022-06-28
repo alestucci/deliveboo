@@ -28,7 +28,7 @@ export default {
     margin: 0 auto;
     .popup {
         padding: 5rem;
-        background-color: gray;
+        background-color: green;
     }
 }
 </style>

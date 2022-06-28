@@ -158,7 +158,7 @@ export default {
       }).then((response) => {
         if (response.data.success) {
           self.successPayment = true;
-          // self.$router.push({ name: 'CheckoutSuccess' });
+          self.$router.push({ name: 'CheckoutSuccess' });
           console.log(response.data.message);
         }
       });
@@ -219,7 +219,7 @@ export default {
           this.cart.push(cartItem);
         }
         
-        //localStorage.clear();
+        localStorage.clear();
       }
 
       // console.log(this.cart)

@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'city' => ['required', 'string', 'max:100'],
             'phone_number' => ['required', 'string', 'max:50', 'unique:users'],
             'p_iva' => ['required', 'string', 'max:16', 'unique:users'],
-            'categories' => ['required', 'in:([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])'],
+            'categories' => ['required'],
             'day_off' => ['required'],
         ]);
 

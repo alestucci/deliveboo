@@ -22,7 +22,7 @@
                             <a class="nav-link text-white" href="{{ route('user.index') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" href="#">Ordini</a>
+                            <a class="nav-link text-white" aria-current="page" href="{{ route('user.orders.index') }}">Ordini</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('user.dishes.index') }}">Piatti</a>

@@ -49,7 +49,7 @@
 
                         <p>{{ user.street }} - {{ user.city }}</p>
 
-                        <p>Phone: {{ user.phone_number }}</p>
+                        <p><strong>Numero: </strong>{{ user.phone_number }}</p>
 
                         <div
                             v-for="restaurant in user_category"
@@ -152,11 +152,11 @@ export default {
     border: none;
     .inner-card {
         text-decoration: none;
-        background: #ab3328;
+        background: white;
         padding: 0.6rem;
         height: 100%;
         border-radius: 25px;
-        color: #fff;
+        color: black;
         h1 {
             color: #f49e4c;
         }
