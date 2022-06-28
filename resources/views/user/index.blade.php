@@ -93,16 +93,18 @@
             </div>
 
             <div class="col mb-4">
-                <div class="square pt-4 pb-5 px-3 bg-sandybrown position-relative h-100">
+                <div class="d-flex flex-column justify-content-between square pt-4 pb-5 px-3 bg-sandybrown position-relative h-100">
                     <h2 class="text-center text-uppercase">Statistiche ordini</h2>
+                    <p class="text-uppercase text-center mb-5" style="color: black">Coming soon...</p>
                     <div class="bg-white corner rounded-pill">
                         <a href="#!" class="p-3">Vai alle statistiche &#x2192;</a>
                     </div>
                 </div>
             </div>
             <div class="col mb-4">
-                <div class="square pt-4 pb-5 px-3 bg-sweetbrown position-relative h-100">
+                <div class="d-flex flex-column justify-content-between square pt-4 pb-5 px-3 bg-sweetbrown position-relative h-100">
                     <h2 class="text-center text-uppercase">Statistiche piatti</h2>
+                    <p class="text-uppercase text-center mb-5" style="color: black">Coming soon...</p>
                     <div class="bg-white corner rounded-pill">
                         <a href="#!" class="p-3">Vai alle statistiche &#x2192;</a>
                     </div>

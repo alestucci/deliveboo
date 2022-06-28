@@ -49,15 +49,15 @@ class UserController extends Controller
         };
         
 
-        if (array_key_exists('home', $attributes)) {
-            return response()->json([
-                'success'   => true,
-                'response'  => [
-                    'data'      => $users,
-                    'array'  => $array
-                ]
-            ]);
-        }
+        // if (array_key_exists('home', $attributes)) {
+        //     return response()->json([
+        //         'success'   => true,
+        //         'response'  => [
+        //             'data'      => $users,
+        //             'array'  => $array
+        //         ]
+        //     ]);
+        // }
 
         if (array_key_exists('category_ids', $attributes)) { 
             return response()->json([
@@ -65,6 +65,14 @@ class UserController extends Controller
                 'response'  => [
                     'data'      => $jointable->whereIn('category_id', $request->category_ids)->get()->unique('id'),
                     'array'     => $array
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success'   => true,
+                'response'  => [
+                    'data'      => $users,
+                    'array'  => $array
                 ]
             ]);
         }

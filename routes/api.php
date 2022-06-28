@@ -19,4 +19,7 @@ Route::get('/v1/metadata', 'Api\MetadataController@index');
 Route::get('/generate', 'Api\OrderController@generate');
 Route::post('/make/payment', 'Api\OrderController@makePayment');
 
+Route::post('/create/order', 'Api\OrderController@createOrder');
+
+
 

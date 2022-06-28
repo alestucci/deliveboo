@@ -1,40 +1,12 @@
 <template>
-    <div>
-        <div class="card w-100">
-            <div class="card-header">Carrello</div>
-            <ul class="list-group list-group-flush">
-                <li
-                    v-for="itemInCartLs in cart"
-                    :key="itemInCartLs.id"
-                    class="list-group-item"
-                >
-                    <div>{{ itemInCartLs[1] }}</div>
-                    <div>{{ itemInCartLs[2] }}</div>
-                    <div>
-                        {{
-                            parseFloat(itemInCartLs[3] / 100)
-                                .toFixed(2)
-                                .toString()
-                                .replace(".", ",")
-                        }}
-                    </div>
-                </li>
-                <li class="text-end">Totale: {{ amount }}</li>
-            </ul>
-            <button @click="refreshCart()" class="btn btn-primary">
-                Aggiorna Carrello
-            </button>
-            <div class="card-footer text-center" @click="clearCart()">
-                Svuota il carrello
-            </div>
-        </div>
-
-        <router-link
-            :to="{
-                name: 'PaymentPage',
-                params: { userId: userId },
-            }"
-            class="btn btn-primary"
+  <div>
+    <div class="card w-100">
+      <div class="card-header">Carrello</div>
+      <ul class="list-group list-group-flush">
+        <li
+          v-for="itemInCartLs in cart"
+          :key="itemInCartLs.id"
+          class="list-group-item"
         >
           <div>{{ itemInCartLs[2] }}</div>
           <div>{{ itemInCartLs[3] }}</div>
@@ -58,34 +30,30 @@
         </li>
       </ul>
 
-      <h3 v-show="differentUser === 1" class="m-2 text-center alert alert-danger">
+      <h3 v-if="differentUser === 1" class="m-2 text-center alert alert-danger">
         Prima di procedere con l'aggiunta dei piatti al carrello si prega di
         svuotarne il contenuto.
       </h3>
 
       <button
-        v-show="differentUser === 0"
+        v-if="differentUser === 0"
         @click="refreshCart()"
         class="btn btn-primary text-white d-block m-2"
       >
         Aggiorna Carrello
       </button>
-      <button
-        class="btn btn-primary text-white d-block m-2"
-        @click="clearCart()"
-      >
+      <button class="btn btn-danger text-white d-block m-2" @click="clearCart()">
         Svuota il carrello
       </button>
       <router-link
-        v-show="differentUser === 0"
+        v-if="differentUser === 0"
         :to="{
           name: 'PaymentPage',
-          params: { authorization: tokenApi },
+          params: { amount: amount }
         }"
-        :authorization="tokenApi"
         class="btn btn-primary text-white d-block m-2"
       >
-        Paga con Braintree
+        Paga
       </router-link>
     </div>
     <!-- {{ tokenApi }} -->
@@ -118,67 +86,47 @@ export default {
         // console.log(response);
       });
     },
-    methods: {
-      GetData(url) {
-        Axios.get(url).then((response) => {
-          this.tokenApi = response.data.token;
-          // console.log(response);
-        });
-      },
-      refreshCart() {
-        this.cart = [];
-        for (let key in localStorage) {
-          if (key.indexOf("user" + this.userId) > -1) {
-            this.cartItemLs = localStorage.getItem(key);
-            this.cartItemsLsArray = this.cartItemLs.split("|");
-            this.cart.push(this.cartItemsLsArray);
-          }
+    refreshCart() {
+      this.cart = [];
+      for (let key in localStorage) {
+        if (key.indexOf("user" + this.userId) > -1) {
+          this.cartItemLs = localStorage.getItem(key);
+          this.cartItemsLsArray = this.cartItemLs.split("|");
+          this.cart.push(this.cartItemsLsArray);
         }
-        // console.log(
-        //   "Quantity: " + parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/))
-        // );
-        // console.log("Price: " + parseInt(this.cart[0].match(/(?<=[|])\d+$/)));
-        // console.log(
-        //   parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/)) *
-        //     parseInt(this.cart[0].match(/(?<=[|])\d+$/))
-        // );
-        // let singleAmountArray = this.cart.map(
-        //   (el) =>
-        //     parseInt(el.match(/(?<=[|])\d+(?=[|])/)) *
-        //     parseInt(el.match(/(?<=[|])\d+$/))
-        // );
-        // console.log(singleAmountArray);
-        // for (let index = 0; index < singleAmountArray.length; index++) {
-        //   this.amount += singleAmountArray[index];
-        // }
-        // console.log("Totale: " + this.amount);
-        // this.getKeyLS();
-      },
-      beforeUpdate() {
-        this.refreshCart();
-      },
-      mounted() {
-        // const response = await this.$axios.get("api/generate");
-        // this.tokenApi = response;
-        this.GetData(this.url);
-      },
-      getKeyLS() {
-        for (let key in localStorage) {
-          if (key.indexOf("user" + this.userId) > -1) {
-            // console.log(key);
-          }
-        }
-      },
+      }
+      // console.log(
+      //   "Quantity: " + parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/))
+      // );
+      // console.log("Price: " + parseInt(this.cart[0].match(/(?<=[|])\d+$/)));
+      // console.log(
+      //   parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/)) *
+      //     parseInt(this.cart[0].match(/(?<=[|])\d+$/))
+      // );
+      // let singleAmountArray = this.cart.map(
+      //   (el) =>
+      //     parseInt(el.match(/(?<=[|])\d+(?=[|])/)) *
+      //     parseInt(el.match(/(?<=[|])\d+$/))
+      // );
+      // console.log(singleAmountArray);
+      // for (let index = 0; index < singleAmountArray.length; index++) {
+      //   this.amount += singleAmountArray[index];
+      // }
+      // console.log("Totale: " + this.amount);
+      // this.getKeyLS();
     },
     clearCart() {
       localStorage.clear();
       this.amount = 0;
       this.refreshCart();
+      this.checkUser();
     },
-    mounted() {
-      // const response = await this.$axios.get("api/generate");
-      // this.tokenApi = response;
-      this.GetData(this.url);
+    getKeyLS() {
+      for (let key in localStorage) {
+        if (key.indexOf("user" + this.userId) > -1) {
+          // console.log(key);
+        }
+      }
     },
     checkUser() {
       let keysArray;
@@ -189,8 +137,6 @@ export default {
         } else {
           this.differentUser = 1;
         }
-      } else {
-        this.differentUser = 0;
       }
     },
   },

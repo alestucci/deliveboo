@@ -4,6 +4,7 @@
             <a href="@if(Auth::check()) {{ route('user.index') }} @else {{ route('homepage') }} @endif">
                 <h1 class="text-white">DeliveBoo</h1>
                 <h4 class="text-white">Ordina, Mangia, Ama!</h4>
+                <!-- <img src="{{ asset('/images/logo.svg') }}" style="height: 70px;" alt="logo"> -->
             </a>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light">

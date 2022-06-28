@@ -3,12 +3,71 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Faker\Generator as Faker;
+use App\Order;
 // use App\Http\Requests\Api\OrderRequest;
 use Braintree\Gateway;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function createOrder(Request $request, Faker $faker)
+    {
+
+        $newOrder = new Order;
+        $newOrder->order_number = rand(1, 99999999);
+        $newOrder->customer_name = $request->name;
+        $newOrder->customer_surname = $request->surname;
+        $newOrder->phone_number = $request->number;
+        $newOrder->street = $request->street;
+        $newOrder->cap = $request->cap;
+        $newOrder->city = $request->city;
+        $newOrder->status = true;
+        $newOrder->final_price = $request->amount;
+
+        $newOrder->save();
+
+        $newOrder->dishes()->attach(1, [
+            'quantity' => 1,
+            'notes' => 'lorem ipsum'
+        ]);
+        $newOrder->dishes()->attach(2, [
+            'quantity' => 1,
+            'notes' => 'lorem ipsum'
+        ]);
+        $newOrder->dishes()->attach(6, [
+            'quantity' => 1,
+            'notes' => 'lorem ipsum'
+        ]);
+        
+
+        // for ($i=0; $i < count($cart); $i++) { 
+        //$cartItem = $cart[$i];
+        // foreach($request->cart as $cartItem) {
+
+        //     //$dish_id = intval($cartItem->id);
+
+        //     $quantity = intval($cartItem->qty);
+
+        // $newOrder->dishes()->attach(
+        //     $cart->pluck('id'),
+        //     [
+        //         'quantity' => 1,
+        //         'notes' => 'lorem ipsum'
+        //     ]
+        // );
+        // }
+        // };
+
+        $data = [
+            'message' => 'done',
+            'newOrder' => $newOrder,
+        ];
+        return response()->json($data, 200);
+    }
+
+
     public function generate(Request $request, Gateway $gateway)
     {
         $token = $gateway->clientToken()->generate();
@@ -23,16 +82,9 @@ class OrderController extends Controller
 
     public function makePayment(Request $request, Gateway $gateway)
     {
-        // $request->validate([
-        //     'name' => 'required | max:100',
-        //     'surname' => 'required | max:100',
-        //     'address' => 'required | max:100',
-        //     'email' => 'required | email | max:100',
-        // ]);
-
         $result = $gateway->transaction()->sale([
             'amount' => $request->amount,
-            'paymentMethodNonce' => $request->nonce,
+            'paymentMethodNonce' => $request->token,
             'options' => [
                 'submitForSettlement' => true,
             ],
@@ -46,7 +98,6 @@ class OrderController extends Controller
             ];
 
             return response()->json($data, 200);
-
         } else {
 
             $data = [
@@ -56,90 +107,5 @@ class OrderController extends Controller
 
             return response()->json($data, 401);
         }
-
-
-
-        // dd($request->nonce);
-    //     $to = $request->email;
-
-    //     $dishes = json_decode(request('cart'));
-
-    //     $total = 0;
-    //     foreach ($dishes as $dish) {
-    //         $total += $dish->totalPrice;
-    //     }
-    //     json_decode(request('cart'));
-    //     $nonceFromTheClient = $request->payment_method_nonce;
-    //     $braintree = config('braintree');
-    //     $result = $braintree->transaction()->sale([
-    //         'amount' => $total,
-    //         'paymentMethodNonce' => $nonceFromTheClient,
-    //     ]);
-    //     if ($result->success) {
-
-    //         $filters= [];
-    //         foreach ($dishes as $dish) {
-    //           if (!in_array(array($dish->restaurant_id), $filters)) {
-    //             array_push($filters,array($dish->restaurant_id));
-    //           }
-    //         }
-
-    //         foreach ($dishes as $dish) {
-    //           foreach ($filters as $key => $filter) {
-    //             if ($dish->restaurant_id == $filter[0]) {
-    //               // code...
-    //               array_push($filters[$key],$dish);
-    //             }
-    //           }
-    //         }
-    //         foreach ($filters as $key => $filter) {
-    //           $restaurantTotal=0;
-    //           for ($i=1; $i < count($filter) ; $i++) {
-    //             $restaurantTotal +=  $filter[$i]->totalPrice;
-    //           }
-    //           array_push($filters[$key],$restaurantTotal);
-    //         }
-
-
-    //         foreach ($filters as $filter) {
-    //           // code...
-    //           $newOrder = new Order;
-    //           $newOrder->restaurant_id = $filter[0];
-    //           $newOrder->amount = $filter[count($filter)-1];
-    //           $newOrder->name = $request->name;
-    //           $newOrder->surname = $request->surname;
-    //           $newOrder->address = $request->address;
-    //           $newOrder->email = $request->email;
-    //           $order = [];
-    //           for ($i=1; $i < count($filter)-1 ; $i++) {
-    //             array_push($order,$filter[$i]);
-    //           }
-    //           $newOrder->order = json_encode($order);
-    //           $newOrder->order_date = Carbon::now();
-
-    //           $newOrder->save();
-
-    //         }
-
-    //         $datiUtente = [
-    //             'name' => $request->name,
-    //             'surname' => $request->surname,
-    //             'address' => $request->address,
-    //             'email' => $request->email,
-    //             'amount' => $total,
-    //         ];
-
-    //         Mail::to($to)->send(new SendNewMail($datiUtente));
-
-    //         //dd($result, $datiUtente, 'successo');
-
-    //         return redirect()->route('checkout');
-    //     } else {
-
-    //         //dd($result, 'fallimento');
-    //         return redirect()->route('checkoutf');
-
-    //     }
     }
 }
-
