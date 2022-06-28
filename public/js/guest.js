@@ -5016,198 +5016,9 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/pages/CartComponent.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _PaymentPage_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentPage.vue */ "./resources/js/components/pages/PaymentPage.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  components: {
-    PaymentPage: _PaymentPage_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  name: "CartComponent",
-  props: ["userId", "amount"],
-  data: function data() {
-    var _ref;
-
-    return _ref = {
-      url: "http://127.0.0.1:8000/api/generate",
-      // url: "http://aletucci.dynv6.net:9000/api/generate",
-      tokenApi: "",
-      cartItemLs: "",
-      cart: [],
-      cartItemsLsArray: []
-    }, _defineProperty(_ref, "cartItemLs", ""), _defineProperty(_ref, "differentUser", 1), _ref;
-  },
-  methods: {
-    GetData: function GetData(url) {
-      var _this = this;
-
-      Axios.get(url).then(function (response) {
-        _this.tokenApi = response.data.token; // console.log(response);
-      });
-    },
-    methods: {
-      GetData: function GetData(url) {
-        var _this2 = this;
-
-        Axios.get(url).then(function (response) {
-          _this2.tokenApi = response.data.token; // console.log(response);
-        });
-      },
-      refreshCart: function refreshCart() {
-        this.cart = [];
-
-        for (var key in localStorage) {
-          if (key.indexOf("user" + this.userId) > -1) {
-            this.cartItemLs = localStorage.getItem(key);
-            this.cartItemsLsArray = this.cartItemLs.split("|");
-            this.cart.push(this.cartItemsLsArray);
-          }
-        } // console.log(
-        //   "Quantity: " + parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/))
-        // );
-        // console.log("Price: " + parseInt(this.cart[0].match(/(?<=[|])\d+$/)));
-        // console.log(
-        //   parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/)) *
-        //     parseInt(this.cart[0].match(/(?<=[|])\d+$/))
-        // );
-        // let singleAmountArray = this.cart.map(
-        //   (el) =>
-        //     parseInt(el.match(/(?<=[|])\d+(?=[|])/)) *
-        //     parseInt(el.match(/(?<=[|])\d+$/))
-        // );
-        // console.log(singleAmountArray);
-        // for (let index = 0; index < singleAmountArray.length; index++) {
-        //   this.amount += singleAmountArray[index];
-        // }
-        // console.log("Totale: " + this.amount);
-        // this.getKeyLS();
-
-      },
-      beforeUpdate: function beforeUpdate() {
-        this.refreshCart();
-      },
-      mounted: function mounted() {
-        // const response = await this.$axios.get("api/generate");
-        // this.tokenApi = response;
-        this.GetData(this.url);
-      },
-      getKeyLS: function getKeyLS() {
-        for (var key in localStorage) {
-          if (key.indexOf("user" + this.userId) > -1) {// console.log(key);
-          }
-        }
-      }
-    },
-    clearCart: function clearCart() {
-      localStorage.clear();
-      this.amount = 0;
-      this.refreshCart();
-    },
-    mounted: function mounted() {
-      // const response = await this.$axios.get("api/generate");
-      // this.tokenApi = response;
-      this.GetData(this.url);
-    },
-    checkUser: function checkUser() {
-      var keysArray;
-      keysArray = Object.keys(localStorage);
-
-      if (keysArray.length > 0) {
-        if (keysArray[0].startsWith("user" + this.userId + "cartItem")) {
-          this.differentUser = 0;
-        } else {
-          this.differentUser = 1;
-        }
-      } else {
-        this.differentUser = 0;
-      }
-    }
-  },
-  beforeUpdate: function beforeUpdate() {
-    this.refreshCart();
-    this.checkUser();
-  },
-  mounted: function mounted() {
-    // const response = await this.$axios.get("api/generate");
-    // this.tokenApi = response;
-    this.GetData(this.url);
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/alessandrotucci/Desktop/github/php/deliveboo/resources/js/components/pages/CartComponent.vue: Unexpected token (110:0)\n\n\u001b[0m \u001b[90m 108 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[33mPaymentPage\u001b[39m \u001b[36mfrom\u001b[39m \u001b[32m\"./PaymentPage.vue\"\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 109 |\u001b[39m \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 110 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 111 |\u001b[39m   components\u001b[33m:\u001b[39m { \u001b[33mPaymentPage\u001b[39m }\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 112 |\u001b[39m   name\u001b[33m:\u001b[39m \u001b[32m\"CartComponent\"\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 113 |\u001b[39m   props\u001b[33m:\u001b[39m [\u001b[32m\"userId\"\u001b[39m\u001b[33m,\u001b[39m \u001b[32m\"amount\"\u001b[39m]\u001b[33m,\u001b[39m\u001b[0m\n    at instantiate (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:358:12)\n    at Parser.raise (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:3341:19)\n    at Parser.unexpected (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:3379:16)\n    at Parser.parsePropertyName (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:13852:24)\n    at Parser.parsePropertyDefinition (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:13683:22)\n    at Parser.parseObjectLike (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:13603:21)\n    at Parser.parseExprAtom (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12993:23)\n    at Parser.parseExprSubscripts (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12643:23)\n    at Parser.parseUpdate (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12622:21)\n    at Parser.parseMaybeUnary (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12593:23)\n    at Parser.parseMaybeUnaryOrPrivate (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12387:61)\n    at Parser.parseExprOps (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12394:23)\n    at Parser.parseMaybeConditional (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12364:23)\n    at Parser.parseMaybeAssign (/Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12316:21)\n    at /Users/alessandrotucci/Desktop/github/php/deliveboo/node_modules/@babel/parser/lib/index.js:12274:39");
 
 /***/ }),
 
@@ -5558,11 +5369,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PaymentPage",
-  props: ["authorization", "userId"],
+  props: ["userId"],
   data: function data() {
     return {
       url: "http://127.0.0.1:8000/api/make/payment",
@@ -5573,10 +5382,12 @@ __webpack_require__.r(__webpack_exports__);
       address: null,
       email: null,
       showPayment: false,
-      property: {
-        token: "",
-        amount: 10
-      }
+      // property: {
+      //     token: "",
+      //     amount: 10
+      // },
+      amount: 10,
+      authorization: "sandbox_bnksx356_d5p5v68sp25kr37b"
     };
   },
   methods: {
@@ -5606,27 +5417,51 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
     },
     onSuccess: function onSuccess(payload) {
-      this.property.token = payload.nonce;
+      var nonce = payload.nonce; // Do something great with the nonce...
+
+      console.log(nonce);
       Axios.post(this.url, {
-        params: this.property
+        params: {
+          nonce: nonce,
+          amount: this.amount
+        }
       }).then(function (response) {
-        console.log(response);
-      }); // this.$router.push({ name: 'CheckoutSuccess' })
+        console.log(response.data.message);
+      });
     },
     onError: function onError(error) {
-      var message = error.message;
+      var message = error.message; // Whoops, an error has occured while trying to get the nonce
 
-      if (message === "No payment method is available.") {
-        this.error = "Seleziona un metodo di pagamento";
-        console.log(this.error);
-      } else {
-        this.error = message;
-        console.log(this.error);
-      }
-
-      console.log(this.error);
-      this.$emit("onError", message);
+      console.log(message); // if (message === "No payment method is available.") {
+      //     this.error = "Seleziona un metodo di pagamento";
+      //     console.log(this.error)
+      // } else {
+      //     this.error = message;
+      //     console.log(this.error)
+      // }
+      // console.log(this.error)
     },
+    // onSuccess(payload) {
+    //     this.property.token = payload.nonce;
+    //     Axios.post(this.url, {
+    //         params: this.property
+    //     }).then(response => {
+    //         console.log(response)
+    //     })
+    //     // this.$router.push({ name: 'CheckoutSuccess' })
+    // },
+    // onError(error) {
+    //     let message = error.message;
+    //     if (message === "No payment method is available.") {
+    //         this.error = "Seleziona un metodo di pagamento";
+    //         console.log(this.error)
+    //     } else {
+    //         this.error = message;
+    //         console.log(this.error)
+    //     }
+    //     console.log(this.error)
+    //     this.$emit("onError", message);
+    // },
     active: function active() {
       this.showPayment = true;
     },
@@ -67690,145 +67525,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "card w-100" },
-      [
-        _c("div", { staticClass: "card-header" }, [_vm._v("Carrello")]),
-        _vm._v(" "),
-        _c(
-          "ul",
-          { staticClass: "list-group list-group-flush" },
-          [
-            _vm._l(_vm.cart, function (itemInCartLs) {
-              return _c(
-                "li",
-                { key: itemInCartLs.id, staticClass: "list-group-item" },
-                [
-                  _c("div", [_vm._v(_vm._s(itemInCartLs[2]))]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v(_vm._s(itemInCartLs[3]))]),
-                  _vm._v(" "),
-                  _c("div", [
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(
-                          parseFloat(itemInCartLs[4] / 100)
-                            .toFixed(2)
-                            .toString()
-                            .replace(".", ",")
-                        ) +
-                        "\n        "
-                    ),
-                  ]),
-                ]
-              )
-            }),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item text-end" }, [
-              _vm._v(
-                "\n        Totale: €\n        " +
-                  _vm._s(
-                    parseFloat(_vm.amount / 100)
-                      .toFixed(2)
-                      .toString()
-                      .replace(".", ",")
-                  ) +
-                  "\n      "
-              ),
-            ]),
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c(
-          "h3",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.differentUser === 1,
-                expression: "differentUser === 1",
-              },
-            ],
-            staticClass: "m-2 text-center alert alert-danger",
-          },
-          [
-            _vm._v(
-              "\n      Prima di procedere con l'aggiunta dei piatti al carrello si prega di\n      svuotarne il contenuto.\n    "
-            ),
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.differentUser === 0,
-                expression: "differentUser === 0",
-              },
-            ],
-            staticClass: "btn btn-primary text-white d-block m-2",
-            on: {
-              click: function ($event) {
-                return _vm.refreshCart()
-              },
-            },
-          },
-          [_vm._v("\n      Aggiorna Carrello\n    ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary text-white d-block m-2",
-            on: {
-              click: function ($event) {
-                return _vm.clearCart()
-              },
-            },
-          },
-          [_vm._v("\n      Svuota il carrello\n    ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.differentUser === 0,
-                expression: "differentUser === 0",
-              },
-            ],
-            staticClass: "btn btn-primary text-white d-block m-2",
-            attrs: {
-              to: {
-                name: "PaymentPage",
-                params: { authorization: _vm.tokenApi },
-              },
-              authorization: _vm.tokenApi,
-            },
-          },
-          [_vm._v("\n      Paga con Braintree\n    ")]
-        ),
-      ],
-      1
-    ),
-  ])
-}
+var render = function () {}
 var staticRenderFns = []
-render._withStripped = true
 
 
 
@@ -68109,7 +67807,7 @@ var render = function () {
       _c(
         "form",
         {
-          attrs: { id: "payment-form", method: "post" },
+          attrs: { id: "payment-form", method: "POST" },
           on: {
             submit: function ($event) {
               $event.preventDefault()
@@ -68283,14 +67981,6 @@ var render = function () {
         attrs: { authorization: _vm.authorization, locale: "it_IT" },
         on: { success: _vm.onSuccess, error: _vm.onError },
       }),
-      _vm._v(" "),
-      _c("div", [
-        _vm.error
-          ? _c("p", { staticClass: "text-red-500 mb-4" }, [
-              _vm._v("\n            " + _vm._s(_vm.error) + "\n        "),
-            ])
-          : _vm._e(),
-      ]),
     ],
     1
   )
@@ -83971,7 +83661,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
     component: _components_pages_RestaurantMenu_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     props: true
   }, {
-    path: "/payment/:authorization",
+    path: "/payment",
     name: "PaymentPage",
     component: _components_pages_PaymentPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     props: true

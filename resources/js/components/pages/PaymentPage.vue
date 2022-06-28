@@ -3,10 +3,8 @@
         <h1>PAYMENT PAGE</h1>
         <div>COMPONENTE CARRELLO</div>
         <!-- {{ authorization }} -->
-        <form id="payment-form" @submit.prevent="GetData()" method="post">
-            <!-- Putting the empty container you plan to pass to
-            `braintree.dropin.create` inside a form will make layout and flow
-            easier to manage -->
+        <form id="payment-form" @submit.prevent="GetData()" method="POST">
+
 
             <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -82,18 +80,18 @@
             locale="it_IT"
             @error="onError"
         ></v-braintree>
-        <div>
+        <!-- <div>
             <p v-if="error" class="text-red-500 mb-4">
                 {{ error }}
             </p>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 export default {
     name: "PaymentPage",
-    props: ["authorization", "userId"],
+    props: ["userId"],
     data() {
         return {
             url: "http://127.0.0.1:8000/api/make/payment",
@@ -104,10 +102,12 @@ export default {
             address: null,
             email: null,
             showPayment: false,
-            property: {
-                token: "",
-                amount: 10
-            }
+            // property: {
+            //     token: "",
+            //     amount: 10
+            // },
+            amount: 10,
+            authorization: "sandbox_bnksx356_d5p5v68sp25kr37b",
         };
     },
     methods: {
@@ -133,30 +133,58 @@ export default {
 
             e.preventDefault();
         },
-        onSuccess(payload) {
-            this.property.token = payload.nonce;
+        onSuccess (payload) {
+            let nonce = payload.nonce;
+            // Do something great with the nonce...
+            console.log(nonce);
             Axios.post(this.url, {
-                params: this.property
+                params: {
+                    nonce: nonce,
+                    amount: this.amount,
+                }
             }).then(response => {
-                console.log(response)
+                console.log(response.data.message)
             })
-            // this.$router.push({ name: 'CheckoutSuccess' })
         },
-        onError(error) {
+        onError (error) {
             let message = error.message;
-            if (message === "No payment method is available.") {
-                this.error = "Seleziona un metodo di pagamento";
-                console.log(this.error)
+            // Whoops, an error has occured while trying to get the nonce
+            console.log(message);
+            // if (message === "No payment method is available.") {
+            //     this.error = "Seleziona un metodo di pagamento";
+            //     console.log(this.error)
 
-            } else {
-                this.error = message;
-                console.log(this.error)
+            // } else {
+            //     this.error = message;
+            //     console.log(this.error)
 
-            }
-            console.log(this.error)
-
-            this.$emit("onError", message);
+            // }
+            // console.log(this.error)
         },
+        // onSuccess(payload) {
+        //     this.property.token = payload.nonce;
+        //     Axios.post(this.url, {
+        //         params: this.property
+        //     }).then(response => {
+        //         console.log(response)
+        //     })
+        //     // this.$router.push({ name: 'CheckoutSuccess' })
+        // },
+        // onError(error) {
+        //     let message = error.message;
+        //     if (message === "No payment method is available.") {
+        //         this.error = "Seleziona un metodo di pagamento";
+        //         console.log(this.error)
+
+        //     } else {
+        //         this.error = message;
+        //         console.log(this.error)
+
+        //     }
+        //     console.log(this.error)
+
+        //     this.$emit("onError", message);
+        // },
         active() {
             this.showPayment = true
         },

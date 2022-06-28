@@ -1,12 +1,40 @@
 <template>
-  <div>
-    <div class="card w-100">
-      <div class="card-header">Carrello</div>
-      <ul class="list-group list-group-flush">
-        <li
-          v-for="itemInCartLs in cart"
-          :key="itemInCartLs.id"
-          class="list-group-item"
+    <div>
+        <div class="card w-100">
+            <div class="card-header">Carrello</div>
+            <ul class="list-group list-group-flush">
+                <li
+                    v-for="itemInCartLs in cart"
+                    :key="itemInCartLs.id"
+                    class="list-group-item"
+                >
+                    <div>{{ itemInCartLs[1] }}</div>
+                    <div>{{ itemInCartLs[2] }}</div>
+                    <div>
+                        {{
+                            parseFloat(itemInCartLs[3] / 100)
+                                .toFixed(2)
+                                .toString()
+                                .replace(".", ",")
+                        }}
+                    </div>
+                </li>
+                <li class="text-end">Totale: {{ amount }}</li>
+            </ul>
+            <button @click="refreshCart()" class="btn btn-primary">
+                Aggiorna Carrello
+            </button>
+            <div class="card-footer text-center" @click="clearCart()">
+                Svuota il carrello
+            </div>
+        </div>
+
+        <router-link
+            :to="{
+                name: 'PaymentPage',
+                params: { userId: userId },
+            }"
+            class="btn btn-primary"
         >
           <div>{{ itemInCartLs[2] }}</div>
           <div>{{ itemInCartLs[3] }}</div>
