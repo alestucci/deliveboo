@@ -30,7 +30,7 @@ Route::middleware('auth')
         // Route::post('/slugger', 'UserController@slugger')->name('slugger');
         Route::resource('/', 'UserController');
         Route::resource('/dishes', 'DishController');
-        Route::resource('/order', 'OrderController');
+        Route::resource('/orders', 'OrderController');
     });
 
 Route::get('/', function () {

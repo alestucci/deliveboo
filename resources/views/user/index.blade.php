@@ -62,7 +62,7 @@
                         </tbody>
                     </table>
                     <div class="bg-white corner rounded-pill">
-                        <a href="#!" class="p-3">Vedi tutti gli ordini &#x2192;</a>
+                        <a href="{{ route('user.orders.index') }}" class="p-3">Vedi tutti gli ordini &#x2192;</a>v
                     </div>
                 </div>
             </div>
