@@ -30,13 +30,13 @@
         </li>
       </ul>
 
-      <h3 v-if="differentUser === 1" class="m-2 text-center alert alert-danger">
+      <h3 v-show="differentUser === 1" class="m-2 text-center alert alert-danger">
         Prima di procedere con l'aggiunta dei piatti al carrello si prega di
         svuotarne il contenuto.
       </h3>
 
       <button
-        v-if="differentUser === 0"
+        v-show="differentUser === 0"
         @click="refreshCart()"
         class="btn btn-primary text-white d-block m-2"
       >
@@ -49,7 +49,7 @@
         Svuota il carrello
       </button>
       <router-link
-        v-if="differentUser === 0"
+        v-show="differentUser === 0"
         :to="{
           name: 'PaymentPage',
           params: { authorization: tokenApi },
@@ -161,6 +161,8 @@ export default {
         } else {
           this.differentUser = 1;
         }
+      } else {
+        this.differentUser = 0;
       }
     },
   },
