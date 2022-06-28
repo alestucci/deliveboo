@@ -3,7 +3,7 @@
         <h1>PAYMENT PAGE</h1>
         <div>COMPONENTE CARRELLO</div>
         <!-- {{ authorization }} -->
-        <form id="payment-form" @submit.prevent="GetData()" method="POST">
+        <form id="payment-form" @submit.prevent="active()" method="POST">
 
 
             <p v-if="errors.length">
@@ -72,7 +72,7 @@
             <button>Prosegui</button>
         </form>
         <!-- <div>Payment form</div> -->
-        <!-- {{ authorization }} -->
+        {{ authorization }}
         <v-braintree
             v-show="showPayment"
             :authorization="authorization"
@@ -107,7 +107,7 @@ export default {
             //     amount: 10
             // },
             amount: 10,
-            authorization: "sandbox_bnksx356_d5p5v68sp25kr37b",
+            authorization: "",
         };
     },
     methods: {
@@ -136,14 +136,14 @@ export default {
         onSuccess (payload) {
             let nonce = payload.nonce;
             // Do something great with the nonce...
-            console.log(nonce);
+            // console.log(nonce);
             Axios.post(this.url, {
                 params: {
-                    nonce: nonce,
+                    token: nonce,
                     amount: this.amount,
                 }
             }).then(response => {
-                console.log(response.data.message)
+                // console.log(response)
             })
         },
         onError (error) {
@@ -161,48 +161,55 @@ export default {
             // }
             // console.log(this.error)
         },
-        // onSuccess(payload) {
-        //     this.property.token = payload.nonce;
-        //     Axios.post(this.url, {
-        //         params: this.property
-        //     }).then(response => {
-        //         console.log(response)
-        //     })
-        //     // this.$router.push({ name: 'CheckoutSuccess' })
-        // },
-        // onError(error) {
-        //     let message = error.message;
-        //     if (message === "No payment method is available.") {
-        //         this.error = "Seleziona un metodo di pagamento";
-        //         console.log(this.error)
-
-        //     } else {
-        //         this.error = message;
-        //         console.log(this.error)
-
-        //     }
-        //     console.log(this.error)
-
-        //     this.$emit("onError", message);
-        // },
         active() {
             this.showPayment = true
         },
-        GetData() {
-            this.active()
-            // Axios.post(this.url, {
-            //     params: {
-            //         name: this.name,
-            //         surname: this.surname,
-            //         address: this.address,
-            //         email: this.email
-            //     }
-            // }).then(response => {
-            //     console.log(response)
-            // })
-        }
+    },
+    mounted() {
+        Axios.get('http://127.0.0.1:8000/api/generate')
+        .then(response => {
+            console.log(response.data.token);
+            this.authorization = response.data.token;
+        })
     },
 };
+    // GetData() {
+    //     this.active()
+    //     // Axios.post(this.url, {
+    //     //     params: {
+    //     //         name: this.name,
+    //     //         surname: this.surname,
+    //     //         address: this.address,
+    //     //         email: this.email
+    //     //     }
+    //     // }).then(response => {
+    //     //     console.log(response)
+    //     // })
+    // }
+// onSuccess(payload) {
+//     this.property.token = payload.nonce;
+//     Axios.post(this.url, {
+//         params: this.property
+//     }).then(response => {
+//         console.log(response)
+//     })
+//     // this.$router.push({ name: 'CheckoutSuccess' })
+// },
+// onError(error) {
+//     let message = error.message;
+//     if (message === "No payment method is available.") {
+//         this.error = "Seleziona un metodo di pagamento";
+//         console.log(this.error)
+
+//     } else {
+//         this.error = message;
+//         console.log(this.error)
+
+//     }
+//     console.log(this.error)
+
+//     this.$emit("onError", message);
+// },
 </script>
 
 <style></style>
