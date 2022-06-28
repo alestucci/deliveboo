@@ -8,18 +8,26 @@
                     :key="itemInCartLs.id"
                     class="list-group-item"
                 >
-                    <div>{{ itemInCartLs[1] }}</div>
                     <div>{{ itemInCartLs[2] }}</div>
+                    <div>{{ itemInCartLs[3] }}</div>
                     <div>
                         {{
-                            parseFloat(itemInCartLs[3] / 100)
+                            parseFloat(itemInCartLs[4] / 100)
                                 .toFixed(2)
                                 .toString()
                                 .replace(".", ",")
                         }}
                     </div>
                 </li>
-                <li class="text-end">Totale: {{ amount }}</li>
+                <li class="list-group-item text-end">
+                    Totale: €
+                    {{
+                        parseFloat(amount / 100)
+                            .toFixed(2)
+                            .toString()
+                            .replace(".", ",")
+                    }}
+                </li>
             </ul>
             <button @click="refreshCart()" class="btn btn-primary">
                 Aggiorna Carrello
@@ -49,7 +57,7 @@ import PaymentPage from "./PaymentPage.vue";
 export default {
     components: { PaymentPage },
     name: "CartComponent",
-    props: ["userId"],
+    props: ["userId", "amount"],
     data() {
         return {
             url: "http://127.0.0.1:8000/api/generate",
@@ -57,7 +65,6 @@ export default {
             tokenApi: "",
             cartItemLs: "",
             cart: [],
-            amount: 250,
             cartItemsLsArray: [],
             cartItemLs: "",
         };
@@ -70,27 +77,46 @@ export default {
             });
         },
         refreshCart() {
-            console.log(this.userId);
             this.cart = [];
             for (let key in localStorage) {
                 if (key.indexOf("user" + this.userId) > -1) {
                     this.cartItemLs = localStorage.getItem(key);
-                    //console.log(this.cartItemLs);
                     this.cartItemsLsArray = this.cartItemLs.split("|");
                     this.cart.push(this.cartItemsLsArray);
                 }
             }
-            //console.log(localStorage);
-            this.getKeyLS();
+            // console.log(
+            //   "Quantity: " + parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/))
+            // );
+            // console.log("Price: " + parseInt(this.cart[0].match(/(?<=[|])\d+$/)));
+            // console.log(
+            //   parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/)) *
+            //     parseInt(this.cart[0].match(/(?<=[|])\d+$/))
+            // );
+            // let singleAmountArray = this.cart.map(
+            //   (el) =>
+            //     parseInt(el.match(/(?<=[|])\d+(?=[|])/)) *
+            //     parseInt(el.match(/(?<=[|])\d+$/))
+            // );
+            // console.log(singleAmountArray);
+            // for (let index = 0; index < singleAmountArray.length; index++) {
+            //   this.amount += singleAmountArray[index];
+            // }
+            // console.log("Totale: " + this.amount);
+            // this.getKeyLS();
         },
-        clearCart() {
-            localStorage.clear();
+        beforeUpdate() {
             this.refreshCart();
+        },
+        mounted() {
+            // const response = await this.$axios.get("api/generate");
+            // this.tokenApi = response;
+            this.GetData(this.url);
         },
         getKeyLS() {
             for (let key in localStorage) {
                 if (key.indexOf("user" + this.userId) > -1) {
-                    console.log(key);
+                    // console.log(key);
                 }
             }
         },
