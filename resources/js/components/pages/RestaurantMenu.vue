@@ -8,7 +8,9 @@
       </div>
       <!-- CARDS DEI PIATTI -->
       <div class="d-flex flex-row">
-        <div class="col-9 d-flex flex-wrap justify-content-start m-2 overflow-auto">
+        <div
+          class="col-9 d-flex flex-wrap justify-content-start m-2 overflow-auto"
+        >
           <div v-for="dish in dishes" :key="dish.id" class="m-2">
             <div class="card h-100 r-15 overflow-hidden">
               <div class="h-100 d-flex flex-column justify-content-between">
@@ -62,7 +64,7 @@
           </div>
         </div>
 
-        <cart-component class="col-3" :user-id="user.id"/>
+        <cart-component class="col-3" :user-id="user.id" :amount="amount" ref="cartComponent"/>
       </div>
     </div>
   </div>
@@ -82,7 +84,8 @@ export default {
   // props: ['restaurantId', 'restaurantName'],
   data() {
     return {
-      url: "http://aletucci.dynv6.net:9000/api/v1",
+      // url: "http://aletucci.dynv6.net:9000/api/v1",
+      url: "http://127.0.0.1:8000/api/v1",
       user: [],
       dishes: [],
       defaultValue: false,
@@ -93,6 +96,7 @@ export default {
       localStorageIndex: 1,
       key: "",
       quantity: 0,
+      amount: 0,
     };
   },
   methods: {
@@ -105,50 +109,115 @@ export default {
     },
     addToCart(userId, dishId, dishName, dishQty, dishPrice) {
       if (dishQty > 0) {
-        // let dishIndexInCart = this.cart.forEach(Element);
-        // console.log(dishIndexInCart);
-        // if (dishIndexInCart === -1) {
-        this.cartItem = [dishId, dishName, dishQty, dishPrice];
-        // console.log(this.cartItem);
-        //this.cart.push(this.cartItem);
+        // Ci sono già piatti di quel ristorante nel carrello
+        let keysArray;
+        keysArray = Object.keys(localStorage);
+        console.log(keysArray);
+
+        let valuesArray;
+        valuesArray = Object.values(localStorage);
+        console.log(valuesArray);
+
+        if (
+          keysArray.find((element) =>
+            element.includes("user" + this.user.id + "cartItem")
+          )
+        ) {
+          let dishIndex = valuesArray.findIndex((element) =>
+            element.includes("D"+ dishId + "|")
+          );
+          if (dishIndex > -1) {
+            //console.log("dishIndex: " + dishIndex);
+            let quantityTaken;
+            quantityTaken = parseInt(
+              valuesArray[dishIndex].match(/(?<=[|])\d+(?=[|])/)
+            );
+            //console.log("quantityTaken: " + quantityTaken);
+            if (quantityTaken > 0) {
+              dishQty += quantityTaken;
+              localStorage.removeItem(keysArray[dishIndex]);
+            }
+          }
+
+          let userKeys;
+          userKeys = keysArray.filter((key) =>
+            key.startsWith("user" + this.user.id)
+          );
+          console.log(userKeys);
+
+          let cartItemsIndexesArray;
+          cartItemsIndexesArray = userKeys.map((key) =>
+            key.substring(key.indexOf("cartItem") + 8)
+          );
+          console.log(cartItemsIndexesArray);
+
+          this.localStorageIndex = Math.max(...cartItemsIndexesArray) + 1;
+          console.log(this.localStorageIndex);
+
+        }
+
+        this.cartItem = [userId, "D"+dishId, dishName, dishQty, dishPrice];
         this.key = "user" + userId + "cartItem" + this.localStorageIndex;
         localStorage.setItem(this.key, this.cartItem.join("|"));
-        // } else {
-        //   console.log("e mo?");
+        // console.log('ultima stringa: ' + this.key.substring(this.key.indexOf('cartItem') + 8));
         // }
+        this.localStorageIndex++;
+        this.refreshCart();
+        this.$refs.cartComponent.refreshCart();
       }
-      this.localStorageIndex++;
-      this.refreshCart();
     },
     refreshCart() {
       this.cart = [];
       for (let key in localStorage) {
-        if (key.indexOf('user'+this.user.id) > -1) {
-          console.log(this.user.id);
+        if (key.indexOf("user" + this.user.id) > -1) {
+          // console.log(this.user.id);
           this.cartItemLs = localStorage.getItem(key);
           //console.log(this.cartItemLs);
           this.cartItemsLsArray = this.cartItemLs.split("|");
           this.cart.push(this.cartItemsLsArray);
         }
       }
-      console.log(localStorage);
+
+      let valuesArray;
+        valuesArray = Object.values(localStorage);
+        console.log(valuesArray);
+      
+      let filteredValuesArray = valuesArray.filter((el) => el.startsWith(this.user.id + "|"));
+      console.log('array filtrato')
+      console.log(filteredValuesArray);
+      let singleAmountArray = filteredValuesArray.map(
+        (el) =>
+          parseInt(el.match(/(?<=[|])\d+(?=[|])/)) *
+          parseInt(el.match(/(?<=[|])\d+$/))
+      );
+      this.amount = 0
+      console.log(singleAmountArray);
+      if (singleAmountArray) {
+        for (let index = 0; index < singleAmountArray.length; index++) {
+          this.amount += singleAmountArray[index];
+        }
+          console.log("Totale: " + this.amount / 100);
+      }
     },
-    // clearCart() {
-    //   localStorage.clear();
-    //   this.refreshCart();
-    // },
+    clearCart() {
+      localStorage.clear();
+      this.refreshCart();
+    },
     updateCount(count) {
       this.quantity = count;
-      console.log(count);
+      // console.log(count);
     },
   },
   created() {
     this.GetData(this.url + "/user/" + this.slug);
+    //this.refreshCart();
+  },
+  beforeUpdate() {
+    this.refreshCart();
   },
   updated() {
     //this.refreshCart();
-
-  }
+  },
   // computed: {
   //     update() {
   //       if(this.cartItem !== []) {

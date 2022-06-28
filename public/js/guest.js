@@ -5072,21 +5072,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     PaymentPage: _PaymentPage_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: "CartComponent",
-  props: ["userId"],
+  props: ["userId", "amount"],
   data: function data() {
     return _defineProperty({
-      // url: "http://127.0.0.1:8000/api/generate",
-      url: "http://aletucci.dynv6.net:9000/api/generate",
+      url: "http://127.0.0.1:8000/api/generate",
+      // url: "http://aletucci.dynv6.net:9000/api/generate",
       tokenApi: "",
       cartItemLs: "",
       cart: [],
-      amount: 250,
       cartItemsLsArray: []
     }, "cartItemLs", "");
   },
@@ -5099,20 +5101,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     refreshCart: function refreshCart() {
-      console.log(this.userId);
       this.cart = [];
 
       for (var key in localStorage) {
-        if (key.indexOf('user' + this.userId) > -1) {
-          this.cartItemLs = localStorage.getItem(key); //console.log(this.cartItemLs);
-
+        if (key.indexOf("user" + this.userId) > -1) {
+          this.cartItemLs = localStorage.getItem(key);
           this.cartItemsLsArray = this.cartItemLs.split("|");
           this.cart.push(this.cartItemsLsArray);
         }
-      } //console.log(localStorage);
+      } // console.log(
+      //   "Quantity: " + parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/))
+      // );
+      // console.log("Price: " + parseInt(this.cart[0].match(/(?<=[|])\d+$/)));
+      // console.log(
+      //   parseInt(this.cart[0].match(/(?<=[|])\d+(?=[|])/)) *
+      //     parseInt(this.cart[0].match(/(?<=[|])\d+$/))
+      // );
+      // let singleAmountArray = this.cart.map(
+      //   (el) =>
+      //     parseInt(el.match(/(?<=[|])\d+(?=[|])/)) *
+      //     parseInt(el.match(/(?<=[|])\d+$/))
+      // );
+      // console.log(singleAmountArray);
+      // for (let index = 0; index < singleAmountArray.length; index++) {
+      //   this.amount += singleAmountArray[index];
+      // }
+      // console.log("Totale: " + this.amount);
+      // this.getKeyLS();
 
-
-      this.getKeyLS();
     },
     clearCart: function clearCart() {
       localStorage.clear();
@@ -5120,8 +5136,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     getKeyLS: function getKeyLS() {
       for (var key in localStorage) {
-        if (key.indexOf('user' + this.userId) > -1) {
-          console.log(key);
+        if (key.indexOf("user" + this.userId) > -1) {// console.log(key);
         }
       }
     }
@@ -5301,8 +5316,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "PageHome",
   data: function data() {
     return {
-      url: "http://aletucci.dynv6.net:9000/api/v1",
-      //url: "http://127.0.0.1:8000/api/v1",
+      // url: "http://aletucci.dynv6.net:9000/api/v1",
+      url: "http://127.0.0.1:8000/api/v1",
       users: [],
       metadata: {},
       filters: {
@@ -5528,6 +5543,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CartComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CartComponent.vue */ "./resources/js/components/pages/CartComponent.vue");
 /* harmony import */ var _CounterComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CounterComponent.vue */ "./resources/js/components/pages/CounterComponent.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
 //
 //
 //
@@ -5610,7 +5639,8 @@ __webpack_require__.r(__webpack_exports__);
   // props: ['restaurantId', 'restaurantName'],
   data: function data() {
     return {
-      url: "http://aletucci.dynv6.net:9000/api/v1",
+      // url: "http://aletucci.dynv6.net:9000/api/v1",
+      url: "http://127.0.0.1:8000/api/v1",
       user: [],
       dishes: [],
       defaultValue: false,
@@ -5620,7 +5650,8 @@ __webpack_require__.r(__webpack_exports__);
       cart: [],
       localStorageIndex: 1,
       key: "",
-      quantity: 0
+      quantity: 0,
+      amount: 0
     };
   },
   methods: {
@@ -5633,28 +5664,67 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addToCart: function addToCart(userId, dishId, dishName, dishQty, dishPrice) {
+      var _this2 = this;
+
       if (dishQty > 0) {
-        // let dishIndexInCart = this.cart.forEach(Element);
-        // console.log(dishIndexInCart);
-        // if (dishIndexInCart === -1) {
-        this.cartItem = [dishId, dishName, dishQty, dishPrice]; // console.log(this.cartItem);
-        //this.cart.push(this.cartItem);
+        // Ci sono già piatti di quel ristorante nel carrello
+        var keysArray;
+        keysArray = Object.keys(localStorage);
+        console.log(keysArray);
+        var valuesArray;
+        valuesArray = Object.values(localStorage);
+        console.log(valuesArray);
 
+        if (keysArray.find(function (element) {
+          return element.includes("user" + _this2.user.id + "cartItem");
+        })) {
+          var dishIndex = valuesArray.findIndex(function (element) {
+            return element.includes("D" + dishId + "|");
+          });
+
+          if (dishIndex > -1) {
+            //console.log("dishIndex: " + dishIndex);
+            var quantityTaken;
+            quantityTaken = parseInt(valuesArray[dishIndex].match(/(?<=[|])\d+(?=[|])/)); //console.log("quantityTaken: " + quantityTaken);
+
+            if (quantityTaken > 0) {
+              dishQty += quantityTaken;
+              localStorage.removeItem(keysArray[dishIndex]);
+            }
+          }
+
+          var userKeys;
+          userKeys = keysArray.filter(function (key) {
+            return key.startsWith("user" + _this2.user.id);
+          });
+          console.log(userKeys);
+          var cartItemsIndexesArray;
+          cartItemsIndexesArray = userKeys.map(function (key) {
+            return key.substring(key.indexOf("cartItem") + 8);
+          });
+          console.log(cartItemsIndexesArray);
+          this.localStorageIndex = Math.max.apply(Math, _toConsumableArray(cartItemsIndexesArray)) + 1;
+          console.log(this.localStorageIndex);
+        }
+
+        this.cartItem = [userId, "D" + dishId, dishName, dishQty, dishPrice];
         this.key = "user" + userId + "cartItem" + this.localStorageIndex;
-        localStorage.setItem(this.key, this.cartItem.join("|")); // } else {
-        //   console.log("e mo?");
+        localStorage.setItem(this.key, this.cartItem.join("|")); // console.log('ultima stringa: ' + this.key.substring(this.key.indexOf('cartItem') + 8));
         // }
-      }
 
-      this.localStorageIndex++;
-      this.refreshCart();
+        this.localStorageIndex++;
+        this.refreshCart();
+        this.$refs.cartComponent.refreshCart();
+      }
     },
     refreshCart: function refreshCart() {
+      var _this3 = this;
+
       this.cart = [];
 
       for (var key in localStorage) {
-        if (key.indexOf('user' + this.user.id) > -1) {
-          console.log(this.user.id);
+        if (key.indexOf("user" + this.user.id) > -1) {
+          // console.log(this.user.id);
           this.cartItemLs = localStorage.getItem(key); //console.log(this.cartItemLs);
 
           this.cartItemsLsArray = this.cartItemLs.split("|");
@@ -5662,19 +5732,41 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      console.log(localStorage);
+      var valuesArray;
+      valuesArray = Object.values(localStorage);
+      console.log(valuesArray);
+      var filteredValuesArray = valuesArray.filter(function (el) {
+        return el.startsWith(_this3.user.id + "|");
+      });
+      console.log('array filtrato');
+      console.log(filteredValuesArray);
+      var singleAmountArray = filteredValuesArray.map(function (el) {
+        return parseInt(el.match(/(?<=[|])\d+(?=[|])/)) * parseInt(el.match(/(?<=[|])\d+$/));
+      });
+      this.amount = 0;
+      console.log(singleAmountArray);
+
+      if (singleAmountArray) {
+        for (var index = 0; index < singleAmountArray.length; index++) {
+          this.amount += singleAmountArray[index];
+        }
+
+        console.log("Totale: " + this.amount / 100);
+      }
     },
-    // clearCart() {
-    //   localStorage.clear();
-    //   this.refreshCart();
-    // },
+    clearCart: function clearCart() {
+      localStorage.clear();
+      this.refreshCart();
+    },
     updateCount: function updateCount(count) {
-      this.quantity = count;
-      console.log(count);
+      this.quantity = count; // console.log(count);
     }
   },
   created: function created() {
-    this.GetData(this.url + "/user/" + this.slug);
+    this.GetData(this.url + "/user/" + this.slug); //this.refreshCart();
+  },
+  beforeUpdate: function beforeUpdate() {
+    this.refreshCart();
   },
   updated: function updated() {//this.refreshCart();
   } // computed: {
@@ -67404,15 +67496,15 @@ var render = function () {
                 "li",
                 { key: itemInCartLs.id, staticClass: "list-group-item" },
                 [
-                  _c("div", [_vm._v(_vm._s(itemInCartLs[1]))]),
-                  _vm._v(" "),
                   _c("div", [_vm._v(_vm._s(itemInCartLs[2]))]),
+                  _vm._v(" "),
+                  _c("div", [_vm._v(_vm._s(itemInCartLs[3]))]),
                   _vm._v(" "),
                   _c("div", [
                     _vm._v(
                       "\n          " +
                         _vm._s(
-                          parseFloat(itemInCartLs[3] / 100)
+                          parseFloat(itemInCartLs[4] / 100)
                             .toFixed(2)
                             .toString()
                             .replace(".", ",")
@@ -67424,8 +67516,16 @@ var render = function () {
               )
             }),
             _vm._v(" "),
-            _c("li", { staticClass: "text-end" }, [
-              _vm._v("Totale: " + _vm._s(_vm.amount)),
+            _c("li", { staticClass: "list-group-item text-end" }, [
+              _vm._v(
+                "Totale: € " +
+                  _vm._s(
+                    parseFloat(_vm.amount / 100)
+                      .toFixed(2)
+                      .toString()
+                      .replace(".", ",")
+                  )
+              ),
             ]),
           ],
           2
@@ -67934,8 +68034,9 @@ var render = function () {
           ),
           _vm._v(" "),
           _c("cart-component", {
+            ref: "cartComponent",
             staticClass: "col-3",
-            attrs: { "user-id": _vm.user.id },
+            attrs: { "user-id": _vm.user.id, amount: _vm.amount },
           }),
         ],
         1
