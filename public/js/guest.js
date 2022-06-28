@@ -5071,7 +5071,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5083,7 +5082,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _defineProperty({
       url: "http://127.0.0.1:8000/api/generate",
       // url: "http://aletucci.dynv6.net:9000/api/generate",
-      tokenApi: "",
+      // tokenApi: "",
       cartItemLs: "",
       cart: [],
       amount: 250,
@@ -5091,13 +5090,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, "cartItemLs", "");
   },
   methods: {
-    GetData: function GetData(url) {
-      var _this = this;
-
-      Axios.get(url).then(function (response) {
-        _this.tokenApi = response.data.token; // console.log(response);
-      });
-    },
+    // GetData(url) {
+    //     Axios.get(url).then((response) => {
+    //         this.tokenApi = response.data.token;
+    //         // console.log(response);
+    //     });
+    // },
     refreshCart: function refreshCart() {
       console.log(this.userId);
       this.cart = [];
@@ -5128,12 +5126,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   beforeUpdate: function beforeUpdate() {
     this.refreshCart();
-  },
-  mounted: function mounted() {
-    // const response = await this.$axios.get("api/generate");
-    // this.tokenApi = response;
-    this.GetData(this.url);
-  }
+  } // mounted() {
+  //     const response = await this.$axios.get("api/generate");
+  //     this.tokenApi = response;
+  //     this.GetData(this.url);
+  // },
+
 });
 
 /***/ }),
@@ -5485,11 +5483,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PaymentPage",
-  props: ["authorization", "userId"],
+  props: ["userId"],
   data: function data() {
     return {
       url: "http://127.0.0.1:8000/api/make/payment",
@@ -5500,10 +5496,12 @@ __webpack_require__.r(__webpack_exports__);
       address: null,
       email: null,
       showPayment: false,
-      property: {
-        token: "",
-        amount: 10
-      }
+      // property: {
+      //     token: "",
+      //     amount: 10
+      // },
+      amount: 10,
+      authorization: "sandbox_bnksx356_d5p5v68sp25kr37b"
     };
   },
   methods: {
@@ -5533,27 +5531,51 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
     },
     onSuccess: function onSuccess(payload) {
-      this.property.token = payload.nonce;
+      var nonce = payload.nonce; // Do something great with the nonce...
+
+      console.log(nonce);
       Axios.post(this.url, {
-        params: this.property
+        params: {
+          nonce: nonce,
+          amount: this.amount
+        }
       }).then(function (response) {
-        console.log(response);
-      }); // this.$router.push({ name: 'CheckoutSuccess' })
+        console.log(response.data.message);
+      });
     },
     onError: function onError(error) {
-      var message = error.message;
+      var message = error.message; // Whoops, an error has occured while trying to get the nonce
 
-      if (message === "No payment method is available.") {
-        this.error = "Seleziona un metodo di pagamento";
-        console.log(this.error);
-      } else {
-        this.error = message;
-        console.log(this.error);
-      }
-
-      console.log(this.error);
-      this.$emit("onError", message);
+      console.log(message); // if (message === "No payment method is available.") {
+      //     this.error = "Seleziona un metodo di pagamento";
+      //     console.log(this.error)
+      // } else {
+      //     this.error = message;
+      //     console.log(this.error)
+      // }
+      // console.log(this.error)
     },
+    // onSuccess(payload) {
+    //     this.property.token = payload.nonce;
+    //     Axios.post(this.url, {
+    //         params: this.property
+    //     }).then(response => {
+    //         console.log(response)
+    //     })
+    //     // this.$router.push({ name: 'CheckoutSuccess' })
+    // },
+    // onError(error) {
+    //     let message = error.message;
+    //     if (message === "No payment method is available.") {
+    //         this.error = "Seleziona un metodo di pagamento";
+    //         console.log(this.error)
+    //     } else {
+    //         this.error = message;
+    //         console.log(this.error)
+    //     }
+    //     console.log(this.error)
+    //     this.$emit("onError", message);
+    // },
     active: function active() {
       this.showPayment = true;
     },
@@ -67622,9 +67644,8 @@ var render = function () {
           attrs: {
             to: {
               name: "PaymentPage",
-              params: { authorization: _vm.tokenApi, userId: _vm.userId },
+              params: { userId: _vm.userId },
             },
-            authorization: _vm.tokenApi,
           },
         },
         [_vm._v("\n        Paga con Braintree\n    ")]
@@ -67915,7 +67936,7 @@ var render = function () {
       _c(
         "form",
         {
-          attrs: { id: "payment-form", method: "post" },
+          attrs: { id: "payment-form", method: "POST" },
           on: {
             submit: function ($event) {
               $event.preventDefault()
@@ -68089,14 +68110,6 @@ var render = function () {
         attrs: { authorization: _vm.authorization, locale: "it_IT" },
         on: { success: _vm.onSuccess, error: _vm.onError },
       }),
-      _vm._v(" "),
-      _c("div", [
-        _vm.error
-          ? _c("p", { staticClass: "text-red-500 mb-4" }, [
-              _vm._v("\n            " + _vm._s(_vm.error) + "\n        "),
-            ])
-          : _vm._e(),
-      ]),
     ],
     1
   )
@@ -83782,7 +83795,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
     component: _components_pages_RestaurantMenu_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     props: true
   }, {
-    path: "/payment/:authorization",
+    path: "/payment",
     name: "PaymentPage",
     component: _components_pages_PaymentPage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     props: true

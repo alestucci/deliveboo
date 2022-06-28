@@ -32,9 +32,8 @@
         <router-link
             :to="{
                 name: 'PaymentPage',
-                params: { authorization: tokenApi, userId: userId },
+                params: { userId: userId },
             }"
-            :authorization="tokenApi"
             class="btn btn-primary"
         >
             Paga con Braintree
@@ -54,7 +53,7 @@ export default {
         return {
             url: "http://127.0.0.1:8000/api/generate",
             // url: "http://aletucci.dynv6.net:9000/api/generate",
-            tokenApi: "",
+            // tokenApi: "",
             cartItemLs: "",
             cart: [],
             amount: 250,
@@ -63,12 +62,12 @@ export default {
         };
     },
     methods: {
-        GetData(url) {
-            Axios.get(url).then((response) => {
-                this.tokenApi = response.data.token;
-                // console.log(response);
-            });
-        },
+        // GetData(url) {
+        //     Axios.get(url).then((response) => {
+        //         this.tokenApi = response.data.token;
+        //         // console.log(response);
+        //     });
+        // },
         refreshCart() {
             console.log(this.userId);
             this.cart = [];
@@ -98,11 +97,11 @@ export default {
     beforeUpdate() {
         this.refreshCart();
     },
-    mounted() {
-        // const response = await this.$axios.get("api/generate");
-        // this.tokenApi = response;
-        this.GetData(this.url);
-    },
+    // mounted() {
+    //     const response = await this.$axios.get("api/generate");
+    //     this.tokenApi = response;
+    //     this.GetData(this.url);
+    // },
 };
 </script>
 
