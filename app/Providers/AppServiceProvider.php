@@ -35,6 +35,14 @@ class AppServiceProvider extends ServiceProvider
             );
         });
     }
+    // $environment = 'sandbox';
+    // $braintree = new Gateway([
+    //     'environment' => $environment,
+    //     'merchantId' => 'd5p5v68sp25kr37b',
+    //     'publicKey' => 'dwqhtjyrtywsnhvw',
+    //     'privateKey' => 'd2251f7b217e2680e54ef4beb6ab4512'
+    // ]);
+    // config(['braintree' => $braintree]);
 
     // $gateway = new Braintree\Gateway([
     //     'environment' => 'sandbox',

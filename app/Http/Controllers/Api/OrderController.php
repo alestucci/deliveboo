@@ -13,12 +13,12 @@ class OrderController extends Controller
     {
         $token = $gateway->clientToken()->generate();
 
-        $data = [
-            'success' => true,
-            'token' => $token,
-        ];
-        // dd(response()->json($data, 200));
-        return response()->json($data, 200);
+        // $data = [
+        //     'success' => true,
+        //     'token' => $token,
+        // ];
+
+        return $token;
     }
 
     public function makePayment(Request $request, Gateway $gateway)

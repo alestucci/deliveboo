@@ -3,7 +3,7 @@
         <h1>PAYMENT PAGE</h1>
         <div>COMPONENTE CARRELLO</div>
         <!-- {{ authorization }} -->
-        <form id="payment-form" @submit.prevent="active()" method="POST">
+        <form id="payment-form" @submit.prevent="active()">
 
 
             <p v-if="errors.length">
@@ -68,11 +68,9 @@
                     required
                 />
             </div>
-
             <button>Prosegui</button>
         </form>
-        <!-- <div>Payment form</div> -->
-        {{ authorization }}
+
         <v-braintree
             v-show="showPayment"
             :authorization="authorization"
@@ -80,6 +78,11 @@
             locale="it_IT"
             @error="onError"
         ></v-braintree>
+
+        <!-- <input type="hidden" id="nonce" name="payment_method_nonce"/> -->
+        <!-- <div>Payment form</div> -->
+        <!-- {{ authorization }} -->
+        <!-- <input type="hidden" id="cart" name="cart"/> -->
         <!-- <div>
             <p v-if="error" class="text-red-500 mb-4">
                 {{ error }}
@@ -92,6 +95,14 @@
 export default {
     name: "PaymentPage",
     props: ["userId"],
+    // async asyncData ({ app }) {
+    //     let authorization = null
+    //     const response = await app.$axios.$get('http://127.0.0.1:8000/api/generate')
+    //     authorization = response.data
+    //     return {
+    //         authorization,
+    //     }
+    // },
     data() {
         return {
             url: "http://127.0.0.1:8000/api/make/payment",
@@ -143,7 +154,7 @@ export default {
                     amount: this.amount,
                 }
             }).then(response => {
-                // console.log(response)
+                console.log(response)
             })
         },
         onError (error) {
@@ -166,50 +177,17 @@ export default {
         },
     },
     mounted() {
-        Axios.get('http://127.0.0.1:8000/api/generate')
+        console.log('Component payment mounted.');
+
+        axios.get('http://127.0.0.1:8000/api/generate')
         .then(response => {
-            console.log(response.data.token);
-            this.authorization = response.data.token;
+            console.log(response.data);
+            this.authorization = response.data;
+            // console.log(response.data.token);
+
         })
     },
 };
-    // GetData() {
-    //     this.active()
-    //     // Axios.post(this.url, {
-    //     //     params: {
-    //     //         name: this.name,
-    //     //         surname: this.surname,
-    //     //         address: this.address,
-    //     //         email: this.email
-    //     //     }
-    //     // }).then(response => {
-    //     //     console.log(response)
-    //     // })
-    // }
-// onSuccess(payload) {
-//     this.property.token = payload.nonce;
-//     Axios.post(this.url, {
-//         params: this.property
-//     }).then(response => {
-//         console.log(response)
-//     })
-//     // this.$router.push({ name: 'CheckoutSuccess' })
-// },
-// onError(error) {
-//     let message = error.message;
-//     if (message === "No payment method is available.") {
-//         this.error = "Seleziona un metodo di pagamento";
-//         console.log(this.error)
-
-//     } else {
-//         this.error = message;
-//         console.log(this.error)
-
-//     }
-//     console.log(this.error)
-
-//     this.$emit("onError", message);
-// },
 </script>
 
 <style></style>

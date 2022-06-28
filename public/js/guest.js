@@ -5483,9 +5483,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PaymentPage",
   props: ["userId"],
+  // async asyncData ({ app }) {
+  //     let authorization = null
+  //     const response = await app.$axios.$get('http://127.0.0.1:8000/api/generate')
+  //     authorization = response.data
+  //     return {
+  //         authorization,
+  //     }
+  // },
   data: function data() {
     return {
       url: "http://127.0.0.1:8000/api/make/payment",
@@ -5539,7 +5550,8 @@ __webpack_require__.r(__webpack_exports__);
           token: nonce,
           amount: this.amount
         }
-      }).then(function (response) {// console.log(response)
+      }).then(function (response) {
+        console.log(response);
       });
     },
     onError: function onError(error) {
@@ -5561,45 +5573,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    Axios.get('http://127.0.0.1:8000/api/generate').then(function (response) {
-      // console.log(response.data.token);
-      _this.authorization = response.data.token;
+    console.log('Component payment mounted.');
+    axios.get('http://127.0.0.1:8000/api/generate').then(function (response) {
+      console.log(response.data);
+      _this.authorization = response.data; // console.log(response.data.token);
     });
   }
-}); // GetData() {
-//     this.active()
-//     // Axios.post(this.url, {
-//     //     params: {
-//     //         name: this.name,
-//     //         surname: this.surname,
-//     //         address: this.address,
-//     //         email: this.email
-//     //     }
-//     // }).then(response => {
-//     //     console.log(response)
-//     // })
-// }
-// onSuccess(payload) {
-//     this.property.token = payload.nonce;
-//     Axios.post(this.url, {
-//         params: this.property
-//     }).then(response => {
-//         console.log(response)
-//     })
-//     // this.$router.push({ name: 'CheckoutSuccess' })
-// },
-// onError(error) {
-//     let message = error.message;
-//     if (message === "No payment method is available.") {
-//         this.error = "Seleziona un metodo di pagamento";
-//         console.log(this.error)
-//     } else {
-//         this.error = message;
-//         console.log(this.error)
-//     }
-//     console.log(this.error)
-//     this.$emit("onError", message);
-// },
+});
 
 /***/ }),
 
@@ -67943,7 +67923,7 @@ var render = function () {
       _c(
         "form",
         {
-          attrs: { id: "payment-form", method: "POST" },
+          attrs: { id: "payment-form" },
           on: {
             submit: function ($event) {
               $event.preventDefault()
@@ -68105,7 +68085,6 @@ var render = function () {
         ]
       ),
       _vm._v(" "),
-      _vm._v("\n    " + _vm._s(_vm.authorization) + "\n    "),
       _c("v-braintree", {
         directives: [
           {
