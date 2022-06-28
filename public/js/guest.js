@@ -46349,7 +46349,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".form-select[data-v-409538a4] {\n  margin-left: 0.6rem;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.card[data-v-409538a4] {\n  background: transparent;\n  padding: 0.5rem;\n  border: none;\n}\n.card .inner-card[data-v-409538a4] {\n  text-decoration: none;\n  background: #ab3328;\n  padding: 0.6rem;\n  height: 100%;\n  border-radius: 25px;\n  color: #fff;\n}\n.card .inner-card h1[data-v-409538a4] {\n  color: #f49e4c;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".form-select[data-v-409538a4] {\n  margin-left: 0.6rem;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n.form-select .form-check-input[data-v-409538a4] {\n  border-radius: 100% !important;\n}\n.form-select .form-check-label[data-v-409538a4] {\n  margin-right: 1rem;\n}\n.card[data-v-409538a4] {\n  background: transparent;\n  padding: 0.5rem;\n  border: none;\n}\n.card .inner-card[data-v-409538a4] {\n  text-decoration: none;\n  background: #ab3328;\n  padding: 0.6rem;\n  height: 100%;\n  border-radius: 25px;\n  color: #fff;\n}\n.card .inner-card h1[data-v-409538a4] {\n  color: #f49e4c;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

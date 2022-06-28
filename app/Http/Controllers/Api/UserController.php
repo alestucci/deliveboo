@@ -47,9 +47,18 @@ class UserController extends Controller
             $user['categoriesArray'] = $categoriesArray;
             $user['category_ids'] = $category_ids;
         };
-        
 
-        if (array_key_exists('home', $attributes)) {
+
+        if (array_key_exists('category_ids', $attributes)) {
+            return response()->json([
+                'success'   => true,
+                'response'  => [
+                    'data'      => $jointable->whereIn('category_id', $request->category_ids)->get()->unique('id'),
+                    'array'     => $array
+                ]
+            ]);
+
+        } else {
             return response()->json([
                 'success'   => true,
                 'response'  => [
@@ -58,17 +67,7 @@ class UserController extends Controller
                 ]
             ]);
         }
-
-        if (array_key_exists('category_ids', $attributes)) { 
-            return response()->json([
-                'success'   => true,
-                'response'  => [
-                    'data'      => $jointable->whereIn('category_id', $request->category_ids)->get()->unique('id'),
-                    'array'     => $array
-                ]
-            ]);
-        }
-    }   
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -100,7 +99,7 @@ class UserController extends Controller
     public function show($slug)
     {
         //
-        $user = User::where('slug', $slug)->first(); 
+        $user = User::where('slug', $slug)->first();
         $dishes = Dish::where('user_id', $user->id)->get();
 
         // dd($user);

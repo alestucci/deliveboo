@@ -144,6 +144,12 @@ export default {
 .form-select {
     margin-left: 0.6rem;
     width: fit-content;
+    .form-check-input {
+        border-radius: 100% !important;
+    }
+    .form-check-label {
+        margin-right: 1rem;
+    }
 }
 
 .card {
