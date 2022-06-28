@@ -19,29 +19,44 @@
             }}
           </div>
         </li>
-        <li class="list-group-item text-end">Totale: € {{ parseFloat(amount / 100)
-                .toFixed(2)
-                .toString()
-                .replace(".", ",") }}</li>
+        <li class="list-group-item text-end">
+          Totale: €
+          {{
+            parseFloat(amount / 100)
+              .toFixed(2)
+              .toString()
+              .replace(".", ",")
+          }}
+        </li>
       </ul>
-      <button @click="refreshCart()" class="btn btn-primary">
+
+      <h3 v-if="differentUser === 1" class="m-2 text-center alert alert-danger">
+        Prima di procedere con l'aggiunta dei piatti al carrello si prega di
+        svuotarne il contenuto.
+      </h3>
+
+      <button
+        v-if="differentUser === 0"
+        @click="refreshCart()"
+        class="btn btn-primary text-white d-block m-2"
+      >
         Aggiorna Carrello
       </button>
-      <div class="card-footer text-center" @click="clearCart()">
+      <button class="btn btn-primary text-white d-block m-2" @click="clearCart()">
         Svuota il carrello
-      </div>
+      </button>
+      <router-link
+        v-if="differentUser === 0"
+        :to="{
+          name: 'PaymentPage',
+          params: { authorization: tokenApi },
+        }"
+        :authorization="tokenApi"
+        class="btn btn-primary text-white d-block m-2"
+      >
+        Paga con Braintree
+      </router-link>
     </div>
-
-    <router-link
-      :to="{
-        name: 'PaymentPage',
-        params: { authorization: tokenApi },
-      }"
-      :authorization="tokenApi"
-      class="btn btn-primary"
-    >
-      Paga con Braintree
-    </router-link>
     <!-- {{ tokenApi }} -->
     <!-- <payment-page :authorization="tokenApi"></payment-page> -->
   </div>
@@ -62,6 +77,7 @@ export default {
       cart: [],
       cartItemsLsArray: [],
       cartItemLs: "",
+      differentUser: 1,
     };
   },
   methods: {
@@ -102,6 +118,7 @@ export default {
     },
     clearCart() {
       localStorage.clear();
+      this.amount = 0;
       this.refreshCart();
     },
     getKeyLS() {
@@ -111,9 +128,21 @@ export default {
         }
       }
     },
+    checkUser() {
+      let keysArray;
+      keysArray = Object.keys(localStorage);
+      if (keysArray.length > 0) {
+        if (keysArray[0].startsWith("user" + this.userId + "cartItem")) {
+          this.differentUser = 0;
+        } else {
+          this.differentUser = 1;
+        }
+      }
+    },
   },
   beforeUpdate() {
     this.refreshCart();
+    this.checkUser();
   },
   mounted() {
     // const response = await this.$axios.get("api/generate");

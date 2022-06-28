@@ -5075,6 +5075,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5083,14 +5098,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "CartComponent",
   props: ["userId", "amount"],
   data: function data() {
-    return _defineProperty({
+    var _ref;
+
+    return _ref = {
       url: "http://127.0.0.1:8000/api/generate",
       // url: "http://aletucci.dynv6.net:9000/api/generate",
       tokenApi: "",
       cartItemLs: "",
       cart: [],
       cartItemsLsArray: []
-    }, "cartItemLs", "");
+    }, _defineProperty(_ref, "cartItemLs", ""), _defineProperty(_ref, "differentUser", 1), _ref;
   },
   methods: {
     GetData: function GetData(url) {
@@ -5132,6 +5149,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     clearCart: function clearCart() {
       localStorage.clear();
+      this.amount = 0;
       this.refreshCart();
     },
     getKeyLS: function getKeyLS() {
@@ -5139,10 +5157,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (key.indexOf("user" + this.userId) > -1) {// console.log(key);
         }
       }
+    },
+    checkUser: function checkUser() {
+      var keysArray;
+      keysArray = Object.keys(localStorage);
+
+      if (keysArray.length > 0) {
+        if (keysArray[0].startsWith("user" + this.userId + "cartItem")) {
+          this.differentUser = 0;
+        } else {
+          this.differentUser = 1;
+        }
+      }
     }
   },
   beforeUpdate: function beforeUpdate() {
     this.refreshCart();
+    this.checkUser();
   },
   mounted: function mounted() {
     // const response = await this.$axios.get("api/generate");
@@ -5660,7 +5691,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       Axios.get(url).then(function (response) {
         _this.user = response.data.response.user;
-        _this.dishes = response.data.response.dishes; // console.log(response.data.response);
+        _this.dishes = response.data.response.dishes;
       });
     },
     addToCart: function addToCart(userId, dishId, dishName, dishQty, dishPrice) {
@@ -67481,10 +67512,11 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "card w-100" }, [
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "card w-100" },
+      [
         _c("div", { staticClass: "card-header" }, [_vm._v("Carrello")]),
         _vm._v(" "),
         _c(
@@ -67518,36 +67550,47 @@ var render = function () {
             _vm._v(" "),
             _c("li", { staticClass: "list-group-item text-end" }, [
               _vm._v(
-                "Totale: € " +
+                "\n        Totale: €\n        " +
                   _vm._s(
                     parseFloat(_vm.amount / 100)
                       .toFixed(2)
                       .toString()
                       .replace(".", ",")
-                  )
+                  ) +
+                  "\n      "
               ),
             ]),
           ],
           2
         ),
         _vm._v(" "),
+        _vm.differentUser === 1
+          ? _c("h3", { staticClass: "m-2 text-center alert alert-danger" }, [
+              _vm._v(
+                "\n      Prima di procedere con l'aggiunta dei piatti al carrello si prega di\n      svuotarne il contenuto.\n    "
+              ),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.differentUser === 0
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-primary text-white d-block m-2",
+                on: {
+                  click: function ($event) {
+                    return _vm.refreshCart()
+                  },
+                },
+              },
+              [_vm._v("\n      Aggiorna Carrello\n    ")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "button",
           {
-            staticClass: "btn btn-primary",
-            on: {
-              click: function ($event) {
-                return _vm.refreshCart()
-              },
-            },
-          },
-          [_vm._v("\n      Aggiorna Carrello\n    ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "card-footer text-center",
+            staticClass: "btn btn-primary text-white d-block m-2",
             on: {
               click: function ($event) {
                 return _vm.clearCart()
@@ -67556,25 +67599,27 @@ var render = function () {
           },
           [_vm._v("\n      Svuota il carrello\n    ")]
         ),
-      ]),
-      _vm._v(" "),
-      _c(
-        "router-link",
-        {
-          staticClass: "btn btn-primary",
-          attrs: {
-            to: {
-              name: "PaymentPage",
-              params: { authorization: _vm.tokenApi },
-            },
-            authorization: _vm.tokenApi,
-          },
-        },
-        [_vm._v("\n    Paga con Braintree\n  ")]
-      ),
-    ],
-    1
-  )
+        _vm._v(" "),
+        _vm.differentUser === 0
+          ? _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary text-white d-block m-2",
+                attrs: {
+                  to: {
+                    name: "PaymentPage",
+                    params: { authorization: _vm.tokenApi },
+                  },
+                  authorization: _vm.tokenApi,
+                },
+              },
+              [_vm._v("\n      Paga con Braintree\n    ")]
+            )
+          : _vm._e(),
+      ],
+      1
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

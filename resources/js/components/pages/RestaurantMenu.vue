@@ -104,7 +104,6 @@ export default {
       Axios.get(url).then((response) => {
         this.user = response.data.response.user;
         this.dishes = response.data.response.dishes;
-        // console.log(response.data.response);
       });
     },
     addToCart(userId, dishId, dishName, dishQty, dishPrice) {
